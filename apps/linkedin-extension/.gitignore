@@ -1,0 +1,8 @@
+# PRIVATE signing key — never commit. Back it up in a secret manager.
+key.pem
+
+# Build artifact (the store zip)
+*.zip
+
+# Local npm noise (extension has no runtime deps)
+node_modules/

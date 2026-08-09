@@ -1,0 +1,46 @@
+```mermaid
+%%{init: {'flowchart': {'nodeSpacing': 30, 'rankSpacing': 42, 'padding': 8, 'curve': 'linear', 'wrappingWidth': 160, 'useMaxWidth': true, 'htmlLabels': true}, 'themeVariables': {'fontFamily': 'Inter, Helvetica, Arial, sans-serif', 'fontSize': '14px'}}}%%
+%% LinkedIn Engine — Scheduling & Dispatch
+flowchart TB
+  subgraph g_in["Triggers & Lead State"]
+    direction TB
+    enroll["Enroll<br/><small>/enroll or email auto-enroll (combined/standard/hybrid)</small>"]
+    eventbridge["EventBridge<br/><small>~5 min → /scheduler/tick</small>"]
+    leadstate[("lead_state<br/><small>step · branch · next_action_at (due-key)</small>")]
+  end
+  subgraph g_disp["Dispatch & Safety Gate"]
+    direction TB
+    dispatch["dispatch_due<br/><small>due + healthy · working hours · build content</small>"]
+    safety["Safety Gate<br/><small>warm-up ramp · daily caps · auto-pause · cooldown</small>"]
+    events[("events<br/><small>read: outreach age for ramp</small>")]
+  end
+  subgraph g_out["Job & Queue"]
+    direction TB
+    jobs[("jobs<br/><small>durable · retries / DLQ</small>")]
+    sqs[/"SQS FIFO<br/><small>MessageGroupId = account_id</small>"/]
+  end
+  enroll -->|"create state"| leadstate
+  eventbridge -->|"tick"| dispatch
+  dispatch -->|"claim due"| leadstate
+  dispatch -->|"cap ok?"| safety
+  safety -->|"outreach age"| events
+  dispatch -->|"create job"| jobs
+  dispatch --> sqs
+  linkStyle 0 stroke:#059669,stroke-width:1.6px;
+  linkStyle 1 stroke:#DC2626,stroke-width:1.6px;
+  linkStyle 2 stroke:#059669,stroke-width:1.6px;
+  linkStyle 3 stroke:#0891B2,stroke-width:1.6px;
+  linkStyle 4 stroke:#059669,stroke-width:1.6px;
+  linkStyle 5 stroke:#059669,stroke-width:1.6px;
+  linkStyle 6 stroke:#7C3AED,stroke-width:1.6px;
+  classDef backend fill:#FFFFFF,stroke:#10B981,stroke-width:2px,color:#065F46;
+  class enroll,dispatch backend;
+  classDef cloud fill:#FFFFFF,stroke:#D97706,stroke-width:2px,color:#78350F;
+  class eventbridge cloud;
+  classDef database fill:#FFFFFF,stroke:#F97316,stroke-width:2px,color:#7C2D12;
+  class leadstate,events,jobs database;
+  classDef auth fill:#FFFFFF,stroke:#06B6D4,stroke-width:2px,color:#155E75;
+  class safety auth;
+  classDef queue fill:#FFFFFF,stroke:#EF4444,stroke-width:2px,color:#7F1D1D;
+  class sqs queue;
+```

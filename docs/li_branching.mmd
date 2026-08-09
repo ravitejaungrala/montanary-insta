@@ -1,0 +1,85 @@
+```mermaid
+%%{init: {'flowchart': {'nodeSpacing': 30, 'rankSpacing': 42, 'padding': 8, 'curve': 'linear', 'wrappingWidth': 160, 'useMaxWidth': true, 'htmlLabels': true}, 'themeVariables': {'fontFamily': 'Inter, Helvetica, Arial, sans-serif', 'fontSize': '14px'}}}%%
+%% LinkedIn Sequence Engine — Branching State Machine
+flowchart TB
+  subgraph g_first["First Touch"]
+    direction TB
+    new["NEW<br/><small>lead enrolled</small>"]
+    connreq["Connection Request<br/><small>send_connection_request / connect_and_inmail</small>"]
+    sent["PENDING<br/><small>invite sent</small>"]
+  end
+  subgraph g_gate["Acceptance Check (+2d)"]
+    direction TB
+    checkacc{"Accepted?<br/><small>detect_acceptance (DOM)</small>"}
+    declined["NOT ACCEPTED<br/><small>pending after N / declined</small>"]
+    accepted["ACCEPTED"]
+  end
+  subgraph g_inmail["Not Accepted → InMail Branch"]
+    direction TB
+    inm1["inmail_1<br/><small>skipped if no InMail credit</small>"]
+    inm2["inmail_followup"]
+    inm3["inmail_followup_2"]
+    closei["close_inmail"]
+  end
+  subgraph g_msg["Accepted → Message Branch"]
+    direction TB
+    msg1["message_1"]
+    chkr1["check_reply_1<br/><small>reply → STOP</small>"]
+    msg2["message_2"]
+    chkr2["check_reply_2<br/><small>reply → STOP</small>"]
+    closem["close_message"]
+  end
+  subgraph g_end["Terminal States"]
+    direction TB
+    completed["COMPLETED"]
+    stopped["STOPPED<br/><small>reply / demo / unsubscribe</small>"]
+  end
+  new --> connreq
+  connreq --> sent
+  sent -->|"+2d"| checkacc
+  checkacc -->|"no"| declined
+  checkacc -->|"yes"| accepted
+  accepted --> msg1
+  msg1 --> chkr1
+  chkr1 --> msg2
+  msg2 --> chkr2
+  chkr2 --> closem
+  closem --> completed
+  declined --> inm1
+  inm1 --> inm2
+  inm2 --> inm3
+  inm3 --> closei
+  closei --> completed
+  chkr1 -->|"reply"| stopped
+  chkr2 --> stopped
+  inm1 -.->|"late accept"| accepted
+  linkStyle 0 stroke:#2563EB,stroke-width:1.6px;
+  linkStyle 1 stroke:#2563EB,stroke-width:1.6px;
+  linkStyle 2 stroke:#2563EB,stroke-width:1.6px;
+  linkStyle 3 stroke:#DC2626,stroke-width:1.6px;
+  linkStyle 4 stroke:#DC2626,stroke-width:1.6px;
+  linkStyle 5 stroke:#2563EB,stroke-width:1.6px;
+  linkStyle 6 stroke:#2563EB,stroke-width:1.6px;
+  linkStyle 7 stroke:#2563EB,stroke-width:1.6px;
+  linkStyle 8 stroke:#2563EB,stroke-width:1.6px;
+  linkStyle 9 stroke:#2563EB,stroke-width:1.6px;
+  linkStyle 10 stroke:#2563EB,stroke-width:1.6px;
+  linkStyle 11 stroke:#7C3AED,stroke-width:1.6px;
+  linkStyle 12 stroke:#7C3AED,stroke-width:1.6px;
+  linkStyle 13 stroke:#7C3AED,stroke-width:1.6px;
+  linkStyle 14 stroke:#7C3AED,stroke-width:1.6px;
+  linkStyle 15 stroke:#7C3AED,stroke-width:1.6px;
+  linkStyle 16 stroke:#DC2626,stroke-width:1.6px;
+  linkStyle 17 stroke:#DC2626,stroke-width:1.6px;
+  linkStyle 18 stroke:#DC2626,stroke-width:1.6px;
+  classDef process fill:#FFFFFF,stroke:#475569,stroke-width:2px,color:#1F2937;
+  class new,sent,checkacc,accepted,declined,chkr1,chkr2 process;
+  classDef backend fill:#FFFFFF,stroke:#10B981,stroke-width:2px,color:#065F46;
+  class connreq backend;
+  classDef ai fill:#FFFFFF,stroke:#8B5CF6,stroke-width:2px,color:#4C1D95;
+  class msg1,msg2,closem ai;
+  classDef queue fill:#FFFFFF,stroke:#EF4444,stroke-width:2px,color:#7F1D1D;
+  class inm1,inm2,inm3,closei queue;
+  classDef external fill:#FFFFFF,stroke:#6B7280,stroke-width:2px,color:#374151;
+  class completed,stopped external;
+```

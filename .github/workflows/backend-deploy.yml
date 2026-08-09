@@ -1,0 +1,156 @@
+name: Deploy Backend to Lambda
+
+on:
+  push:
+    branches:
+      - main
+      - staging
+    paths:
+      - "apps/backend/**"
+      - ".github/workflows/backend-deploy.yml"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4.1.7
+
+      - name: Configure AWS Credentials
+        # Pinned point release — floating @v4 was 404ing on codeload.
+        uses: aws-actions/configure-aws-credentials@v4.0.2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Verify AWS Identity
+        # Fails fast with a clear message if the GitHub Actions AWS secrets
+        # (AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY) are stale or mistyped —
+        # surfaces credential issues here instead of mid-deploy.
+        run: aws sts get-caller-identity
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2.0.1
+
+      - name: Set Environment Variables
+        id: envs
+        run: |
+          if [[ "${{ github.ref_name }}" == "main" ]]; then
+            echo "ECR_REPOSITORY=pipelyt-backend" >> $GITHUB_ENV
+            echo "LAMBDA_FUNCTION=pipelyt-backend" >> $GITHUB_ENV
+            echo "deploy_heartbeat=true" >> $GITHUB_OUTPUT
+          else
+            echo "ECR_REPOSITORY=staging-pipelyt-backend" >> $GITHUB_ENV
+            echo "LAMBDA_FUNCTION=pipelyt-stagging-backend" >> $GITHUB_ENV
+            echo "deploy_heartbeat=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build, Tag, and Push Image to ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          echo "Building Docker image for Lambda in apps/backend ($ECR_REPOSITORY)..."
+          cd apps/backend
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          echo "Pushing image to ECR..."
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+
+      - name: Update Backend Lambda
+        run: |
+          echo "Updating backend function: $LAMBDA_FUNCTION..."
+          aws lambda update-function-code \
+            --function-name $LAMBDA_FUNCTION \
+            --image-uri ${{ steps.login-ecr.outputs.registry }}/$ECR_REPOSITORY:${{ github.sha }}
+
+      # ── GTM LinkedIn WORKER (Playwright image) ──────────────────────────────
+      # Built from apps/backend/Dockerfile.worker — a SEPARATE image (Chromium +
+      # Playwright) from the app. Self-bootstraps the ECR repo; the worker Lambda
+      # itself must be created ONCE from the pushed image (console), after which
+      # these steps keep it in sync with every backend push.
+      - name: Build, Tag, and Push Worker Image to ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          cd apps/backend
+          WORKER_REPO=$([[ "${{ github.ref_name }}" == "main" ]] && echo gtm-linkedin-worker || echo staging-gtm-linkedin-worker)
+          aws ecr describe-repositories --repository-names "$WORKER_REPO" >/dev/null 2>&1 \
+            || aws ecr create-repository --repository-name "$WORKER_REPO"
+          echo "Building WORKER image ($WORKER_REPO)..."
+          docker build -f Dockerfile.worker -t $ECR_REGISTRY/$WORKER_REPO:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$WORKER_REPO:$IMAGE_TAG
+          echo "WORKER_REPO=$WORKER_REPO" >> $GITHUB_ENV
+
+      - name: Update Worker Lambda
+        run: |
+          WORKER_FN=$([[ "${{ github.ref_name }}" == "main" ]] && echo gtm-linkedin-worker || echo gtm-linkedin-worker-staging)
+          if aws lambda get-function --function-name "$WORKER_FN" >/dev/null 2>&1; then
+            echo "Updating worker function: $WORKER_FN..."
+            aws lambda update-function-code \
+              --function-name "$WORKER_FN" \
+              --image-uri ${{ steps.login-ecr.outputs.registry }}/$WORKER_REPO:${{ github.sha }}
+          else
+            echo "Worker Lambda '$WORKER_FN' not created yet — image pushed to ECR; create the Lambda from it once, then future pushes will update it."
+          fi
+
+      # ── GTM LinkedIn LOGIN browser (Fargate + noVNC image) ──────────────────
+      # Built from apps/backend/deploy/linkedin-login/Dockerfile (Chromium + Xvfb
+      # + noVNC). Self-bootstraps its ECR repo, then pushes :sha and :latest. The
+      # Fargate task definition references :latest, so each push ships to the next
+      # cloud-login task (no service to update — tasks are run per login).
+      - name: Build, Tag, and Push LinkedIn Login Image to ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          cd apps/backend
+          LOGIN_REPO=$([[ "${{ github.ref_name }}" == "main" ]] && echo pipelyt-gtm-linkedin-login || echo staging-pipelyt-gtm-linkedin-login)
+          aws ecr describe-repositories --repository-names "$LOGIN_REPO" >/dev/null 2>&1 \
+            || aws ecr create-repository --repository-name "$LOGIN_REPO"
+          echo "Building LOGIN image ($LOGIN_REPO)..."
+          docker build -f deploy/linkedin-login/Dockerfile \
+            -t $ECR_REGISTRY/$LOGIN_REPO:$IMAGE_TAG \
+            -t $ECR_REGISTRY/$LOGIN_REPO:latest .
+          docker push $ECR_REGISTRY/$LOGIN_REPO:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$LOGIN_REPO:latest
+
+      - name: Update Scheduler Heartbeat (Main Only)
+        if: steps.envs.outputs.deploy_heartbeat == 'true'
+        run: |
+          echo "Updating scheduler heartbeat..."
+          aws lambda update-function-code \
+            --function-name Pipelyt-Scheduler-Heartbeat \
+            --image-uri ${{ steps.login-ecr.outputs.registry }}/$ECR_REPOSITORY:${{ github.sha }}
+
+      - name: Update Scheduler Heartbeat (Staging Only)
+        # Staging has its OWN heartbeat function so it never shares (or risks)
+        # the production heartbeat. It runs the staging image + points at the
+        # staging backend via its own BACKEND_URL / SCHEDULER_SECRET env vars.
+        if: github.ref_name == 'staging'
+        run: |
+          echo "Updating staging scheduler heartbeat..."
+          aws lambda update-function-code \
+            --function-name Pipelyt-Scheduler-Heartbeat-Staging \
+            --image-uri ${{ steps.login-ecr.outputs.registry }}/$ECR_REPOSITORY:${{ github.sha }}
+
+      # ── GTM LinkedIn WORKER Fargate service ─────────────────────────────────
+      # The worker service uses the SAME image as the login container (already pushed
+      # above). Force a new deployment so ECS pulls :latest and restarts the worker.
+      - name: Update LinkedIn Worker Fargate Service
+        run: |
+          WORKER_SVC=$([[ "${{ github.ref_name }}" == "main" ]] && echo gtm-linkedin-worker-svc || echo staging-gtm-linkedin-worker-svc)
+          CLUSTER=pipelyt-gtm-linkedin-cluster
+          if aws ecs describe-services --cluster $CLUSTER --services $WORKER_SVC \
+              --query "services[0].status" --output text 2>/dev/null | grep -q ACTIVE; then
+            echo "Forcing new deployment on $WORKER_SVC..."
+            aws ecs update-service --cluster $CLUSTER --service $WORKER_SVC --force-new-deployment
+          else
+            echo "Worker service '$WORKER_SVC' not created yet — create it in AWS console first."
+          fi
+
+      - name: Finish Deployment
+        run: echo "All Lambda functions updated successfully! 🚀"

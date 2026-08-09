@@ -1,0 +1,40 @@
+# GTM LinkedIn WORKER image — Playwright + Chromium on AWS Lambda.
+#
+# Separate from the app image (./Dockerfile), which has NO browser. This uses
+# Microsoft's Playwright base (Ubuntu — ships Chromium + every system lib it
+# needs) and adds the AWS Lambda Runtime Interface Client (awslambdaric) so the
+# container runs as a Lambda function triggered by SQS.
+#
+# Entry: gtm.linkedin.worker.lambda_handler (one job per SQS record).
+#
+# Build + push (us-east-1 example):
+#   aws ecr create-repository --repository-name gtm-linkedin-worker --region us-east-1
+#   aws ecr get-login-password --region us-east-1 | docker login --username AWS \
+#       --password-stdin <ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com
+#   docker build -f Dockerfile.worker -t gtm-linkedin-worker .
+#   docker tag gtm-linkedin-worker:latest <ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/gtm-linkedin-worker:latest
+#   docker push <ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/gtm-linkedin-worker:latest
+#
+# NOTE: keep the base image tag's Playwright version close to the pip
+# `playwright` version (pin it in requirements.txt to match if you hit a
+# browser/system-lib mismatch). `playwright install chromium` below bakes the
+# matching Chromium into the image so nothing is downloaded on a cold start
+# (Lambda's filesystem is read-only except /tmp).
+FROM mcr.microsoft.com/playwright/python:v1.48.0-jammy
+
+ENV LAMBDA_TASK_ROOT=/var/task
+ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
+WORKDIR ${LAMBDA_TASK_ROOT}
+
+# Python deps + the Lambda Runtime Interface Client.
+COPY requirements.txt ${LAMBDA_TASK_ROOT}/
+RUN pip install --no-cache-dir -r requirements.txt awslambdaric
+
+# Bake Chromium (matching the pip-installed Playwright) into the image.
+RUN python -m playwright install chromium
+
+# App code (gtm/, core/, nexus/ loaders the worker imports, models, …).
+COPY . ${LAMBDA_TASK_ROOT}/
+
+ENTRYPOINT ["python", "-m", "awslambdaric"]
+CMD ["gtm.linkedin.worker.lambda_handler"]

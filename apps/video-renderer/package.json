@@ -1,0 +1,26 @@
+{
+  "name": "video-renderer",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pipelyt motion-graphics video renderer (Remotion + Remotion Lambda).",
+  "scripts": {
+    "preview": "remotion studio",
+    "build": "remotion bundle",
+    "lambda:deploy": "remotion lambda functions deploy",
+    "lambda:site": "remotion lambda sites create video-renderer --site-name=pipelyt-video-renderer",
+    "lambda:render": "remotion lambda render"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.0",
+    "@remotion/lambda": "^4.0.0",
+    "@remotion/bundler": "^4.0.0",
+    "@remotion/google-fonts": "^4.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.0",
+    "typescript": "^5.4.0"
+  }
+}

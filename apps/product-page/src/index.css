@@ -1,0 +1,545 @@
+/* ===========================================================================
+   Typography source — Inter (Google Fonts, open-source / SIL OFL 1.1).
+   MUST stay at the top of the file: CSS spec requires `@import` to precede
+   every other statement except `@charset`. Tailwind's `@tailwind` directives
+   are real CSS statements once they're expanded, so anything `@import`-shaped
+   has to come BEFORE them or the build fails with
+   "[vite:css] @import must precede all other statements".
+
+   HISTORY: this block previously @font-face'd ABC Diatype against Apollo's
+   public CDN (assets.apollo.io/fonts/ABCDiatype-…-<hash>.woff2). Apollo
+   rotates those content-hash filenames on every deploy so the URLs went
+   stale and started 404-ing in DevTools.
+
+   FIX: swap to Inter, served from Google Fonts' stable CDN. Inter is the
+   open-source grotesk that Apollo themselves use as a fallback — same
+   x-height, same warmth, near-indistinguishable at body sizes. We keep
+   the family name "ABC Diatype" so the dozens of inline `fontFamily`
+   strings throughout the product-page codebase resolve to Inter without
+   needing a code sweep.
+   =========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'ABC Diatype';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Inter'), local('Inter-Regular');
+}
+
+@font-face {
+  font-family: 'ABC Diatype';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: local('Inter Medium'), local('Inter-Medium');
+}
+
+@font-face {
+  font-family: 'ABC Diatype';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Inter SemiBold'), local('Inter-SemiBold');
+}
+
+@font-face {
+  font-family: 'ABC Diatype';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Inter Bold'), local('Inter-Bold');
+}
+
+
+/* ===========================================================================
+   GTM / Nexus typography — Amazon Ember family.
+   Per spec the GTM workspace uses Amazon's Ember typeface (matches AWS
+   marketing surfaces). The four families are sourced from Amazon's public
+   m.media-amazon.com CDN; fallback chain → Inter → system-ui keeps the page
+   readable if Amazon's CDN is blocked / slow.
+
+   These rules are SCOPED to `[data-nexus="true"]` (set on NexusLayout root)
+   so only GTM surfaces use Ember — the rest of Pipelyt keeps ABC Diatype.
+   =========================================================================== */
+@font-face {
+  font-family: 'amz-ember-reg';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://m.media-amazon.com/images/G/01/AmazonUI/fonts/ember/AmazonEmber_Rg.woff2') format('woff2'),
+       url('https://m.media-amazon.com/images/G/01/AmazonUI/fonts/ember/AmazonEmber_Rg.woff')  format('woff'),
+       local('Amazon Ember Regular'), local('AmazonEmber-Regular'), local('Inter');
+}
+
+@font-face {
+  font-family: 'amz-ember-bold';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('https://m.media-amazon.com/images/G/01/AmazonUI/fonts/ember/AmazonEmber_Bd.woff2') format('woff2'),
+       url('https://m.media-amazon.com/images/G/01/AmazonUI/fonts/ember/AmazonEmber_Bd.woff')  format('woff'),
+       local('Amazon Ember Bold'), local('AmazonEmber-Bold'), local('Inter Bold');
+}
+
+@font-face {
+  font-family: 'ember-modern-displayreg';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://m.media-amazon.com/images/G/01/AmazonUI/fonts/ember/AmazonEmberModern_Rg.woff2') format('woff2'),
+       url('https://m.media-amazon.com/images/G/01/AmazonUI/fonts/ember/AmazonEmberModern_Rg.woff')  format('woff'),
+       local('Amazon Ember Modern'), local('AmazonEmberModern-Regular'), local('Inter');
+}
+
+@font-face {
+  font-family: 'ember-modern-displaybold';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('https://m.media-amazon.com/images/G/01/AmazonUI/fonts/ember/AmazonEmberModern_Bd.woff2') format('woff2'),
+       url('https://m.media-amazon.com/images/G/01/AmazonUI/fonts/ember/AmazonEmberModern_Bd.woff')  format('woff'),
+       local('Amazon Ember Modern Bold'), local('AmazonEmberModern-Bold'), local('Inter Bold');
+}
+
+/* CSS variables — exposed on the Nexus root so any element under
+   `data-nexus="true"` can reference them via `font-family: var(...)`.
+   Note: the original spec wrote `700px` / `400px` for weights — CSS
+   weights are unitless, so the `px` suffix is dropped. */
+[data-nexus="true"] {
+  --font-family-primary-reg:  'amz-ember-reg', 'Inter', system-ui, sans-serif;
+  --font-family-primary-bold: 'amz-ember-bold', 'Inter', system-ui, sans-serif;
+  --font-family-display-reg:  'ember-modern-displayreg', 'Inter', system-ui, sans-serif;
+  --font-family-display-bold: 'ember-modern-displaybold', 'Inter', system-ui, sans-serif;
+  --font-weight-bold: 700;
+  --font-weight-reg: 400;
+}
+
+/* Apply Ember to every GTM/Nexus element. Per latest spec the *single*
+   font-family stack for ALL text inside the Nexus surface is
+   `amz-ember-bold, Arial, sans-serif` — body and headings alike. The
+   inline `fontFamily: '"ABC Diatype", …'` strings present in dozens of
+   nexus/*.jsx files would otherwise win over normal CSS inheritance,
+   so we override them with `!important`. */
+/* Amazon Ember Bold is the SOLE typeface across the entire product page.
+   Applied via * + !important to override the dozens of inline `fontFamily`
+   strings still living in component files (no per-file sweep needed). */
+*, html, body {
+  font-family: 'amz-ember-bold', Arial, sans-serif !important;
+}
+
+
+/* ===========================================================================
+   Mobile-responsive baseline (mobile-responsive skill). Additive guards only
+   — they stop horizontal scroll, keep media from overflowing, and expose the
+   notch / home-indicator safe-area insets as CSS variables. They do NOT
+   restyle any existing component.
+   =========================================================================== */
+html, body { overflow-x: hidden; max-width: 100%; }
+img, video { max-width: 100%; height: auto; }
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+
+/* ===========================================================================
+   Pipelyt brand text selection — overrides the OS-default blue highlight
+   when the user drags to select any text in the product UI. Uses brand
+   orange (#F55600) at low opacity so dark text stays legible on top.
+   Approved palette: #F55600, #10B981, black, white only.
+   =========================================================================== */
+::selection {
+  background: rgba(245, 86, 0, 0.25); /* #F55600 @ 25% */
+  color: inherit;
+}
+::-moz-selection {
+  background: rgba(245, 86, 0, 0.25);
+  color: inherit;
+}
+
+/* ===========================================================================
+   Brand-orange dropdown highlight — overrides the OS-default blue selected
+   row when a <select> is open. Native <option> styling is browser-limited,
+   but `accent-color` works in Chrome 93+ / Firefox / Edge for the highlight
+   tint, and `option:checked` works in Firefox for the persistent selected
+   state. Combined, these get >85% of users on brand orange.
+   =========================================================================== */
+select {
+  accent-color: #F55600;
+}
+select option:checked,
+select option:hover,
+select option:focus {
+  background: #F55600 linear-gradient(0deg, #F55600, #F55600);
+  color: #ffffff;
+}
+
+/* ===========================================================================
+   Date / time inputs — tint the browser's native picker to brand orange
+   (#F55600) instead of the OS-default blue. `accent-color` recolours the
+   selected day / highlighted cells in the native calendar popup. The popup
+   itself is rendered by the browser and cannot be otherwise restyled.
+   =========================================================================== */
+input[type="date"],
+input[type="datetime-local"],
+input[type="time"],
+input[type="month"],
+input[type="week"],
+.pipelyt-date-input {
+  accent-color: #F55600;
+  color-scheme: light;
+}
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="datetime-local"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+}
+
+/* Premium Animations */
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(0.98); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-shimmer {
+  background: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 3s infinite ease-in-out;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.5s ease-out forwards;
+}
+
+:root {
+  --primary-orange: #F55600;
+  /* Locked to pure #fff — the entire product page background must be
+     #fff and no other color. Per-component cards, buttons, charts and
+     status pills keep their own background colors; only the page
+     surfaces below this rule are forced white. */
+  --bg-light: #fff;
+  --sidebar-white: #fff;
+
+  /* Font stacks.
+     • --font-body  → ABC Diatype with full fallback chain. Used for
+                      every element by default.
+     • --font-bold  → Founders Grotesk for any element that is bold
+                      (font-weight ≥ 600, <strong>, <b>, headings, or
+                      Tailwind's `font-semibold` / `font-bold` /
+                      `font-extrabold` / `font-black` utility classes). */
+  --font-body: "ABC Diatype", "Inter", system-ui, "Segoe UI", Roboto,
+               Helvetica, Arial, sans-serif, "Apple Color Emoji",
+               "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-bold: "Founders Grotesk", "ABC Diatype", "Inter", system-ui,
+               "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* ===========================================================================
+   Apollo-inspired design system — applied GLOBALLY across the whole
+   product page (every route, not just NexusDashboard). Mirrors Apollo's
+   token names so any component can opt-in via `var(--ap-*)` references
+   without renaming downstream code.
+
+   Layers:
+     1. Sand palette (#fff → #000 warm-grey scale)
+     2. Alpha tokens (border + shadow stack — Apollo's #2e2b29-based)
+     3. Box-shadow utilities (--ap-shadow-light / -medium / -regular)
+     4. Elevation stack (--ap-elevation-{1..3})
+     5. Radius scale (4 / 8 / 12 / 16 / 100)
+     6. Semantic surface + text tokens
+     7. Apollo-style scrollbar (thin, sand-40 thumb, transparent track)
+     8. Body-level adoption (font-feature-settings for proper ABC Diatype)
+   =========================================================================== */
+:root {
+  /* 1. Sand palette — Apollo's warm-grey scale. */
+  --ap-sand-0:  #ffffff;
+  --ap-sand-10: #f8f7f7;
+  --ap-sand-20: #ebebea;
+  --ap-sand-30: #d8d6d4;
+  --ap-sand-40: #b0adab;
+  --ap-sand-50: #77736e;
+  --ap-sand-60: #585450;
+  --ap-sand-70: #3f3c39;
+  --ap-sand-80: #2b2926;   /* matches the user's #2B2926 brief */
+  --ap-sand-90: #000000;
+
+  /* 2. Alpha tokens — Apollo's #2e2b29-based shadow/border palette. */
+  --ap-alpha-shadow-1:   #2e2b2908;
+  --ap-alpha-shadow-2:   #2e2b290d;
+  --ap-alpha-shadow-3:   #2e2b290f;
+  --ap-alpha-shadow-4:   #2e2b2914;
+  --ap-alpha-shadow-5:   #2e2b2917;
+  --ap-alpha-shadow-6:   #2e2b2926;
+  --ap-alpha-shadow-7:   #2e2b2940;
+  --ap-alpha-border:     #2e2b291a;
+  --ap-alpha-overlay:    #2e2b2933;
+  /* Convenience aliases used by earlier components. */
+  --ap-border-soft:   var(--ap-alpha-border);   /* #2e2b291a */
+  --ap-border-medium: var(--ap-alpha-shadow-6); /* #2e2b2926 */
+
+  /* 3. Drop-shadow utility tokens. */
+  --ap-shadow-light:   0 0 4px 0 #00000014;
+  --ap-shadow-medium:  0 1px 3px #0000001a;
+  --ap-shadow-regular: 0 2px 4px #0000001a;
+
+  /* 4. Elevation stack — cumulative low-blur shadows. */
+  --ap-elevation-1: 0 0 0 1px var(--ap-alpha-border);
+  --ap-elevation-2: 0 4px 8px -2px var(--ap-alpha-shadow-2),
+                    0 2px 8px -2px var(--ap-alpha-shadow-5);
+  --ap-elevation-3: 0 8px 16px -4px var(--ap-alpha-shadow-1),
+                    0 8px 16px -4px var(--ap-alpha-shadow-5);
+  --ap-elevation-4: 0 16px 24px -6px var(--ap-alpha-shadow-1),
+                    0 16px 24px -6px var(--ap-alpha-shadow-5);
+  --ap-elevation-5: 0 24px 40px 18px var(--ap-alpha-shadow-1),
+                    0 24px 40px -8px var(--ap-alpha-shadow-5);
+
+  /* 5. Radius scale. */
+  --ap-radius-xs:   4px;
+  --ap-radius-sm:   8px;
+  --ap-radius-md:   12px;
+  --ap-radius-lg:   16px;
+  --ap-radius-full: 100px;
+
+  /* 6. Semantic tokens. */
+  --ap-bg-primary:   var(--ap-sand-0);
+  --ap-bg-secondary: var(--ap-sand-10);
+  --ap-bg-tertiary:  var(--ap-sand-20);
+  --ap-text-primary:    var(--ap-sand-80);
+  --ap-text-secondary:  var(--ap-sand-70);
+  --ap-text-tertiary:   var(--ap-sand-60);
+  --ap-text-quaternary: var(--ap-sand-50);
+  --ap-text-disabled:   var(--ap-sand-40);
+  --ap-text-inverse:    var(--ap-sand-0);
+}
+
+/* 7. Apollo-style scrollbar — applied to every scrollable surface in
+      the product page (Firefox + WebKit). Tracks blend into the page
+      background; the thumb is sand-40 with a rounded 80px pill. */
+html { scrollbar-color: var(--ap-sand-40) transparent; scrollbar-width: thin; }
+*::-webkit-scrollbar           { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track     { background: transparent; }
+*::-webkit-scrollbar-thumb     {
+  background-color: var(--ap-sand-40);
+  background-clip: padding-box;
+  border: 3px solid transparent;
+  border-radius: 80px;
+}
+*::-webkit-scrollbar-thumb:hover { background-color: var(--ap-sand-50); }
+
+/* 8. Body-level font tuning — Apollo enables proper ABC Diatype
+      ligatures + kerning via font-feature-settings. */
+body {
+  font-feature-settings: "kern", "liga", "calt";
+  text-rendering: optimizeLegibility;
+}
+
+/* ─── Utility helper classes — opt-in across any page ─────────────────────────
+   Use these instead of hardcoded hexes when adding new components, so the
+   whole codebase converges on the Apollo token system without rewriting
+   what's already there. */
+.ap-surface     { background: var(--ap-bg-primary); color: var(--ap-text-primary); }
+.ap-surface-alt { background: var(--ap-bg-secondary); }
+.ap-card {
+  background: var(--ap-bg-primary);
+  border: 1px solid var(--ap-alpha-border);
+  border-radius: var(--ap-radius-lg);
+  box-shadow: var(--ap-elevation-2);
+}
+.ap-hairline { border-color: var(--ap-alpha-border) !important; }
+.ap-text-primary    { color: var(--ap-text-primary); }
+.ap-text-secondary  { color: var(--ap-text-secondary); }
+.ap-text-tertiary   { color: var(--ap-text-tertiary); }
+.ap-text-quaternary { color: var(--ap-text-quaternary); }
+.ap-shadow-light    { box-shadow: var(--ap-shadow-light); }
+.ap-shadow-medium   { box-shadow: var(--ap-shadow-medium); }
+.ap-shadow-regular  { box-shadow: var(--ap-shadow-regular); }
+.ap-elevation-1     { box-shadow: var(--ap-elevation-1); }
+.ap-elevation-2     { box-shadow: var(--ap-elevation-2); }
+.ap-elevation-3     { box-shadow: var(--ap-elevation-3); }
+
+html,
+body,
+#root {
+  background-color: #fff !important;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #fff;
+  color: #1a1a1a;
+}
+
+#root {
+  width: 100%;
+  height: 100vh;
+  background-color: #fff;
+}
+
+/* ======================================================================
+   GLOBAL FONT-FAMILY ENFORCEMENT
+   ----------------------------------------------------------------------
+   We want ABC Diatype for body text and Founders Grotesk for bold-ish
+   text across the whole product page.
+
+   PERFORMANCE NOTES — read before changing anything here:
+     • `body * { font-family … !important }` was forcing the browser to
+       recompute font-family on EVERY element on EVERY paint. With
+       Pipelyt's KeepAliveTab keeping many tabs in the DOM, that meant
+       tens of thousands of nodes per recalc — felt as cursor freezes.
+       It's GONE.  The body rule alone is enough: font-family
+       INHERITS by default, so children pick it up for free.
+     • The earlier `[style*="font-weight: 700"]` attribute-substring
+       selectors were even worse (string scan per node per paint). Also
+       GONE.
+
+   Trade-off: any element with an inline `fontFamily: "Plus Jakarta
+   Sans"` (or similar) will still render in that font. Inline styles
+   beat regular CSS rules, and we're choosing the cheaper rule over the
+   blanket override because the perf gain is enormous.
+
+   If you need to force a specific component back to ABC Diatype, give
+   it the `font-body` class (defined below) — it costs nothing.
+   ====================================================================== */
+
+/* Body sets the default. Every descendant inherits unless an inline
+   `fontFamily` style or a more-specific rule overrides it. No `*`
+   selector, no !important — fast paths only. */
+body {
+  font-family: var(--font-body);
+}
+
+/* Anything bold-ish jumps to Founders Grotesk via INHERITANCE rules
+   on a small, fixed set of selectors — h1–h6, <strong>, <b>, and the
+   Tailwind weight utility classes. No universal selectors, no
+   attribute-substring scans. */
+strong,
+b,
+h1, h2, h3, h4, h5, h6,
+.font-semibold,
+.font-bold,
+.font-extrabold,
+.font-black {
+  font-family: var(--font-bold);
+}
+
+/* Form controls default to system fonts in some browsers — explicit
+   inherit pulls them back to whatever the parent uses. */
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+}
+
+/* Helper classes — apply manually to force a font where it matters. */
+.font-body { font-family: var(--font-body) !important; }
+.font-display { font-family: var(--font-bold) !important; }
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-orange);
+}
+
+/* ── Custom Scrollbar Utility Used in Playbook ── */
+.custom-scrollbar {
+  scrollbar-width: thin !important;
+  scrollbar-color: #cbd5e1 #f8fafc !important;
+}
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+  display: block !important;
+  visibility: visible !important;
+  background: #f1f5f9 !important;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f8fafc !important;
+  border-radius: 4px !important;
+  border: 1px solid #e2e8f0 !important;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1 !important;
+  border-radius: 4px !important;
+  border: 2px solid #f8fafc !important;
+  min-height: 40px !important;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8 !important;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+@keyframes progress-fast {
+  0% { width: 0%; }
+  50% { width: 60%; }
+  100% { width: 100%; }
+}
+
+.animate-progress-fast {
+  animation: progress-fast 2s ease-in-out infinite;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInFromTop {
+  from {
+    transform: translateY(-0.5rem);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+.slide-in-from-top-2 {
+  animation: slideInFromTop 0.3s ease-out forwards;
+}

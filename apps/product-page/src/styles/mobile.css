@@ -1,0 +1,65 @@
+/* Specialized overrides for Mobile Responsiveness */
+
+@media (max-width: 1024px) {
+  /* Reduce main content padding on mobile to maximize space */
+  .flex-1.overflow-auto {
+    padding: 0.75rem !important;
+  }
+
+  /* Calendar Specific Overrides */
+  .grid-cols-7 > div {
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+  }
+
+  .calendar-day-cell {
+    min-height: 80px !important;
+  }
+
+  /* Analytics Specific Overrides */
+  .analytics-kpi-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .recharts-responsive-container {
+    height: 300px !important;
+  }
+
+  /* Detailed Table Overrides */
+  .detailed-table-container {
+    max-height: 400px !important;
+  }
+
+  .custom-scrollbar-horizontal {
+    overflow-x: auto !important;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .custom-scrollbar-horizontal::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .custom-scrollbar-horizontal::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar-horizontal::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 20px;
+    border: 2px solid transparent;
+  }
+}
+
+@media (max-width: 640px) {
+  .calendar-weekday-text {
+    font-size: 8px !important;
+    letter-spacing: normal !important;
+  }
+
+  .calendar-day-cell {
+    min-height: 70px !important;
+  }
+}

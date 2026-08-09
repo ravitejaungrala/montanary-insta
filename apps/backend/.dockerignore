@@ -1,0 +1,45 @@
+# Secrets / per-machine
+.env
+.env.*
+*.env
+
+# Python build artefacts
+venv
+.venv
+__pycache__
+*.pyc
+*.pyo
+.pytest_cache
+.mypy_cache
+
+# VCS
+.git
+.gitignore
+
+# Local DB & temp files (Lambda has read-only FS — none of this is ever
+# usable in the deployed image; excluding keeps the layer small).
+*.db
+*.sqlite
+*.sqlite3
+*.log
+tmp/
+scratch/
+static/uploads/*
+
+# Per-tool caches
+canva_tokens.json
+diagnostic_output.txt
+db_report.txt
+models.txt
+test_output.txt
+
+# Docs aren't shipped in the image
+*.md
+docs/
+tests/
+
+# One-shot scripts (data migration, cleanups, NEXUS migration tools) —
+# used locally only, never in the Lambda runtime path. Excluding keeps
+# the image smaller and the deployed surface free of credentials that
+# may be hard-coded in scripts/nexus_tools/*.py.
+scripts/

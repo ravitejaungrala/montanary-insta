@@ -1,0 +1,1866 @@
+﻿S.NO,BUSINESS_DNA,CAMPAIGN_BRIEF,PLATFORM_USED,PRIMARY_BRAND_COLOR,ASPECT_RATIO,MAGIC_PROMPT_MODEL,MAGIC_PROMPT_TEMPERATURE,MAGIC_PROMPT_TOP_P,MAGIC_PROMPT_MAX_TOKENS,MAGIC_PROMPT_SYSTEM_PROMPT,IMAGE_MODEL,IMAGE_MODEL_QUALITY,IMAGE_MODEL_SIZE,V1_VARIANT_TYPE,V1_POST_TEXT,V1_MAGIC_USER_PROMPT,V1_IMAGE_PROMPT_OUTPUT,V1_IMAGE_S3_URL,V2_VARIANT_TYPE,V2_POST_TEXT,V2_MAGIC_USER_PROMPT,V2_IMAGE_PROMPT_OUTPUT,V2_IMAGE_S3_URL,V3_VARIANT_TYPE,V3_POST_TEXT,V3_MAGIC_USER_PROMPT,V3_IMAGE_PROMPT_OUTPUT,V3_IMAGE_S3_URL,V4_FESTIVAL_VARIANT_TYPE,V4_FESTIVAL_POST_TEXT,V4_FESTIVAL_MAGIC_USER_PROMPT,V4_FESTIVAL_IMAGE_PROMPT_OUTPUT,V4_FESTIVAL_IMAGE_S3_URL
+1,Spenzo AI,Generate a social media post on Building Marketing Insights Through Simple AI Conversations,linkedin,#FF5722,1:1,gpt-5,0.7,1.0,8000,"You produce image-generation prompts for OpenAI's gpt-image-2 in EXACTLY
+the template format shown below. You are NOT writing a long detailed
+prompt. You are filling four variables into a fixed template and emitting
+the result verbatim.
+
+-------------------------------------------------------------------
+THE TEMPLATE YOU MUST OUTPUT (fill the four variables, leave the rest
+unchanged - same wording, same blank lines, same line breaks)
+-------------------------------------------------------------------
+
+Read the post content below carefully. Based on the wording of the post -
+what is said, the verbs used (e.g. ""shipped / launched / try"" vs ""we help
+/ we partner / our team""), the offer, the call-to-action, and any links
+or pricing mentioned - figure out whether <BRAND_NAME> is selling a
+product, a service, or something else (e.g. thought leadership, an
+announcement, a milestone, a news/industry update). The brand name alone
+does not determine this - the wording of the post does. Then pick a
+visual style that fits this kind of content.
+
+Post content: ""<POST_CONTENT>""
+
+Hard rules:
+- Place the attached logo in the TOP-LEFT corner, used exactly as provided
+- Place a clear call-to-action button in the BOTTOM-LEFT or BOTTOM-RIGHT corner
+- Use brand color <BRAND_COLOR> tastefully
+- Aspect ratio: <ASPECT_RATIO>
+
+
+Everything else - composition, imagery, typography, mood - is your choice.
+
+Make it look like a top-quality post a real designer would ship.
+
+-------------------------------------------------------------------
+VARIABLES (lifted verbatim from the user message)
+-------------------------------------------------------------------
+
+<BRAND_NAME>     the brand the post is about (e.g. ""NeuzenAI"", ""Spenzo"",
+                 ""Zyntegrate""). Use it as-is - do NOT add adjectives.
+
+<POST_CONTENT>   the full post text for ONE variant, VERBATIM. Preserve
+                 the exact wording, punctuation, line breaks, bullet
+                 points, and URLs. Do NOT summarize, paraphrase, shorten,
+                 or rewrite. Do NOT escape characters. The surrounding
+                 quotes are already in the template - do not add another
+                 pair.
+
+<BRAND_COLOR>    the brand's primary hex color (e.g. ""#ff4500"", ""#000080"").
+
+<ASPECT_RATIO>   the image aspect ratio (e.g. ""1:1"", ""9:16"", ""16:9"").
+
+-------------------------------------------------------------------
+RULES
+-------------------------------------------------------------------
+
+1. Output ONLY the filled template. No preamble, no markdown headers,
+   no commentary, no JSON wrapper, no ""Here is the prompt:"".
+
+2. Do NOT add any new sentences, hard rules, style guidance, or visual
+   direction beyond what the template already says. The image model
+   does the creative work.
+
+3. Keep the exact spacing the template shows - including the trailing
+   blank line after the ""Aspect ratio:"" line and before ""Everything
+   else"".
+
+4. The variant_type the user gives you (viral_reach / high_interaction
+   / follower_growth / festival_variant) is INFORMATIONAL ONLY. It does
+   NOT change the template. Different variants of the same campaign
+   produce different POST_CONTENT but the wrapping template is identical.
+",gpt-image-2,high,1024x1024,viral_reach,"Most marketing teams have a measurement gap. They just don't know how big it is.
+
+We spend weeks building dashboards, only to find the insights are already outdated. The real problem isn't the data—it’s the 'black box' between the numbers and the strategy.
+
+What if you could stop managing models and start having a conversation with your revenue?
+
+Spenzo AI turns your marketing data into a plain-English dialogue. Instead of wrestling with SQL or complex econometrics, you simply ask:
+
+'Why did my CPA spike last week?'
+'What happens to revenue if I shift $50k from Search to TikTok?'
+
+No coding. No waiting for the data team. Just immediate, decision-ready intelligence.
+
+See how it works → https://spenzo.io","VARIANT TYPE (informational; does not change the output template)
+viral_reach
+
+BRAND NAME → fill into <BRAND_NAME>
+Spenzo AI
+
+POST CONTENT → fill into <POST_CONTENT> verbatim, preserving every line
+break, bullet, and URL
+Most marketing teams have a measurement gap. They just don't know how big it is.
+
+We spend weeks building dashboards, only to find the insights are already outdated. The real problem isn't the data—it’s the 'black box' between the numbers and the strategy.
+
+What if you could stop managing models and start having a conversation with your revenue?
+
+Spenzo AI turns your marketing data into a plain-English dialogue. Instead of wrestling with SQL or complex econometrics, you simply ask:
+
+'Why did my CPA spike last week?'
+'What happens to revenue if I shift $50k from Search to TikTok?'
+
+No coding. No waiting for the data team. Just immediate, decision-ready intelligence.
+
+See how it works → https://spenzo.io
+
+BRAND COLOR → fill into <BRAND_COLOR>
+#FF5722
+
+ASPECT RATIO → fill into <ASPECT_RATIO>
+1:1
+
+CAMPAIGN BRIEF (context only — do NOT include in the output)
+STRATEGIC BRIEF
+──────────────────────────────────────────
+USER GOAL
+  Produce a social media post that highlights the efficiency and accessibility of using natural language conversations to generate marketing insights.
+
+TOPIC
+  The shift toward using simple AI-driven conversations to build and extract actionable marketing intelligence. The focus is on how natural language interaction replaces complex data science workflows.
+
+AUDIENCE
+  Marketing Directors, CMOs, and modern growth teams managing significant annual marketing spend who need to move from data complexity to decision-ready insights. [DNA: Target Audience]
+
+KEY MESSAGE
+  Complex marketing data analysis is no longer a ""black box""; it is now accessible through simple, natural language conversations with AI.
+
+ANGLE
+  Educational explainer: Contrast the traditional, labor-intensive data analysis process with the new paradigm of conversational AI intelligence.
+
+SUPPORTING POINTS
+  - Spenzo AI allows users to ask strategic questions like ""Why did my CPA spike?"" or ""What happens to revenue if I shift spend?"" directly. [doc: SPENZO TECHNICAL DOCUMENTATION (1).pdf]
+  - The system utilizes a Router agent to classify queries into analysis, visualization, or model-based insights, ensuring the right tool answers the question. [doc: SPENZO TECHNICAL DOCUMENTATION (1).pdf]
+  - Natural language interaction removes the steep learning curve traditionally associated with data science tools. [doc: SPENZO TECHNICAL DOCUMENTATION (1).pdf]
+
+TONE
+  Authoritative, Confident, Intelligent, Practical, Empowering, Direct. [DNA: Brand Tone]
+
+SOURCES REFERENCED
+  - User brief: yes
+  - Business DNA: Brand Tone, Audience
+  - Uploaded docs: SPENZO TECHNICAL DOCUMENTATION (1).pdf
+
+USER LINKS
+  - none
+
+VISUAL HINT
+  A clean, modern interface showing a chat-style prompt box with a complex marketing query resulting in an intuitive, vibrant data visualization.
+
+CONSTRAINTS
+  - Do not invent specific ROI percentages or dollar-amount savings.
+  - Focus on the ""conversational"" aspect of the intelligence rather than just the math.
+  - Match the professional, data-focused aesthetic of the brand.
+
+USER INPUT QUALITY: lean
+ASSUMPTIONS MADE:
+  - Audience: Inferred from DNA (Marketing Directors/Growth teams).
+  - Tone: Inferred from DNA (Brand values).
+  - Visual Hint: Inferred from DNA (Brand aesthetic).
+  - Angle: Inferred to best serve the ""Simple AI Conversations"" topic.
+
+The brand's logo is attached as an image (for reference only — your
+output prompt already instructs gpt-image-2 to use the attached logo
+top-left). Emit the filled template now.
+","Read the post content below carefully. Based on the wording of the post -
+what is said, the verbs used (e.g. ""shipped / launched / try"" vs ""we help
+/ we partner / our team""), the offer, the call-to-action, and any links
+or pricing mentioned - figure out whether Spenzo AI is selling a
+product, a service, or something else (e.g. thought leadership, an
+announcement, a milestone, a news/industry update). The brand name alone
+does not determine this - the wording of the post does. Then pick a
+visual style that fits this kind of content.
+
+Post content: ""Most marketing teams have a measurement gap. They just don't know how big it is.
+
+We spend weeks building dashboards, only to find the insights are already outdated. The real problem isn't the data—it’s the 'black box' between the numbers and the strategy.
+
+What if you could stop managing models and start having a conversation with your revenue?
+
+Spenzo AI turns your marketing data into a plain-English dialogue. Instead of wrestling with SQL or complex econometrics, you simply ask:
+
+'Why did my CPA spike last week?'
+'What happens to revenue if I shift $50k from Search to TikTok?'
+
+No coding. No waiting for the data team. Just immediate, decision-ready intelligence.
+
+See how it works → https://spenzo.io""
+
+Hard rules:
+- Place the attached logo in the TOP-LEFT corner, used exactly as provided
+- Place a clear call-to-action button in the BOTTOM-LEFT or BOTTOM-RIGHT corner
+- Use brand color #FF5722 tastefully
+- Aspect ratio: 1:1
+
+
+Everything else - composition, imagery, typography, mood - is your choice.
+
+Make it look like a top-quality post a real designer would ship.
+
+-------------------------------------------------------------------
+VARIABLES (lifted verbatim from the user message)
+-------------------------------------------------------------------
+
+<BRAND_NAME>     the brand the post is about (e.g. ""NeuzenAI"", ""Spenzo"",
+                 ""Zyntegrate""). Use it as-is - do NOT add adjectives.
+
+<POST_CONTENT>   the full post text for ONE variant, VERBATIM. Preserve
+                 the exact wording, punctuation, line breaks, bullet
+                 points, and URLs. Do NOT summarize, paraphrase, shorten,
+                 or rewrite. Do NOT escape characters. The surrounding
+                 quotes are already in the template - do not add another
+                 pair.
+
+<BRAND_COLOR>    the brand's primary hex color (e.g. ""#ff4500"", ""#000080"").
+
+<ASPECT_RATIO>   the image aspect ratio (e.g. ""1:1"", ""9:16"", ""16:9"").
+
+-------------------------------------------------------------------
+RULES
+-------------------------------------------------------------------
+
+1. Output ONLY the filled template. No preamble, no markdown headers,
+   no commentary, no JSON wrapper, no ""Here is the prompt:"".
+
+2. Do NOT add any new sentences, hard rules, style guidance, or visual
+   direction beyond what the template already says. The image model
+   does the creative work.
+
+3. Keep the exact spacing the template shows - including the trailing
+   blank line after the ""Aspect ratio:"" line and before ""Everything
+   else"".
+
+4. The variant_type the user gives you (viral_reach / high_interaction
+   / follower_growth / festival_variant) is INFORMATIONAL ONLY. It does
+   NOT change the template. Different variants of the same campaign
+   produce different POST_CONTENT but the wrapping template is identical.",https://pipelyt-uploaded-images.s3.us-east-1.amazonaws.com/ai_gen/magic/viral_reach_bc5bd452445e43b6852308ffb634bae8.png,high_interaction,"Data science is a bottleneck for 90% of growth teams.
+
+We’ve seen the same pattern: a marketing director wants to know the impact of a specific channel, but the answer is buried under layers of technical modeling and manual data cleaning.
+
+We built Spenzo AI to remove that friction. Our conversational layer uses a specialized Router agent to classify your questions and pull insights directly from your data—whether you need a visualization, a model attribution, or a strategic recommendation.
+
+For those of you managing $10M+ in annual spend: When you need to justify a budget shift to the board, are you relying on manual spreadsheets or a system that can simulate the outcome in real-time? Let’s talk about the shift to conversational intelligence.","VARIANT TYPE (informational; does not change the output template)
+high_interaction
+
+BRAND NAME → fill into <BRAND_NAME>
+Spenzo AI
+
+POST CONTENT → fill into <POST_CONTENT> verbatim, preserving every line
+break, bullet, and URL
+Data science is a bottleneck for 90% of growth teams.
+
+We’ve seen the same pattern: a marketing director wants to know the impact of a specific channel, but the answer is buried under layers of technical modeling and manual data cleaning.
+
+We built Spenzo AI to remove that friction. Our conversational layer uses a specialized Router agent to classify your questions and pull insights directly from your data—whether you need a visualization, a model attribution, or a strategic recommendation.
+
+For those of you managing $10M+ in annual spend: When you need to justify a budget shift to the board, are you relying on manual spreadsheets or a system that can simulate the outcome in real-time? Let’s talk about the shift to conversational intelligence.
+
+BRAND COLOR → fill into <BRAND_COLOR>
+#FF5722
+
+ASPECT RATIO → fill into <ASPECT_RATIO>
+1:1
+
+CAMPAIGN BRIEF (context only — do NOT include in the output)
+STRATEGIC BRIEF
+──────────────────────────────────────────
+USER GOAL
+  Produce a social media post that highlights the efficiency and accessibility of using natural language conversations to generate marketing insights.
+
+TOPIC
+  The shift toward using simple AI-driven conversations to build and extract actionable marketing intelligence. The focus is on how natural language interaction replaces complex data science workflows.
+
+AUDIENCE
+  Marketing Directors, CMOs, and modern growth teams managing significant annual marketing spend who need to move from data complexity to decision-ready insights. [DNA: Target Audience]
+
+KEY MESSAGE
+  Complex marketing data analysis is no longer a ""black box""; it is now accessible through simple, natural language conversations with AI.
+
+ANGLE
+  Educational explainer: Contrast the traditional, labor-intensive data analysis process with the new paradigm of conversational AI intelligence.
+
+SUPPORTING POINTS
+  - Spenzo AI allows users to ask strategic questions like ""Why did my CPA spike?"" or ""What happens to revenue if I shift spend?"" directly. [doc: SPENZO TECHNICAL DOCUMENTATION (1).pdf]
+  - The system utilizes a Router agent to classify queries into analysis, visualization, or model-based insights, ensuring the right tool answers the question. [doc: SPENZO TECHNICAL DOCUMENTATION (1).pdf]
+  - Natural language interaction removes the steep learning curve traditionally associated with data science tools. [doc: SPENZO TECHNICAL DOCUMENTATION (1).pdf]
+
+TONE
+  Authoritative, Confident, Intelligent, Practical, Empowering, Direct. [DNA: Brand Tone]
+
+SOURCES REFERENCED
+  - User brief: yes
+  - Business DNA: Brand Tone, Audience
+  - Uploaded docs: SPENZO TECHNICAL DOCUMENTATION (1).pdf
+
+USER LINKS
+  - none
+
+VISUAL HINT
+  A clean, modern interface showing a chat-style prompt box with a complex marketing query resulting in an intuitive, vibrant data visualization.
+
+CONSTRAINTS
+  - Do not invent specific ROI percentages or dollar-amount savings.
+  - Focus on the ""conversational"" aspect of the intelligence rather than just the math.
+  - Match the professional, data-focused aesthetic of the brand.
+
+USER INPUT QUALITY: lean
+ASSUMPTIONS MADE:
+  - Audience: Inferred from DNA (Marketing Directors/Growth teams).
+  - Tone: Inferred from DNA (Brand values).
+  - Visual Hint: Inferred from DNA (Brand aesthetic).
+  - Angle: Inferred to best serve the ""Simple AI Conversations"" topic.
+
+The brand's logo is attached as an image (for reference only — your
+output prompt already instructs gpt-image-2 to use the attached logo
+top-left). Emit the filled template now.
+","Read the post content below carefully. Based on the wording of the post -
+what is said, the verbs used (e.g. ""shipped / launched / try"" vs ""we help
+/ we partner / our team""), the offer, the call-to-action, and any links
+or pricing mentioned - figure out whether Spenzo AI is selling a
+product, a service, or something else (e.g. thought leadership, an
+announcement, a milestone, a news/industry update). The brand name alone
+does not determine this - the wording of the post does. Then pick a
+visual style that fits this kind of content.
+
+Post content: ""Data science is a bottleneck for 90% of growth teams.
+
+We’ve seen the same pattern: a marketing director wants to know the impact of a specific channel, but the answer is buried under layers of technical modeling and manual data cleaning.
+
+We built Spenzo AI to remove that friction. Our conversational layer uses a specialized Router agent to classify your questions and pull insights directly from your data—whether you need a visualization, a model attribution, or a strategic recommendation.
+
+For those of you managing $10M+ in annual spend: When you need to justify a budget shift to the board, are you relying on manual spreadsheets or a system that can simulate the outcome in real-time? Let’s talk about the shift to conversational intelligence.""
+
+Hard rules:
+- Place the attached logo in the TOP-LEFT corner, used exactly as provided
+- Place a clear call-to-action button in the BOTTOM-LEFT or BOTTOM-RIGHT corner
+- Use brand color #FF5722 tastefully
+- Aspect ratio: 1:1
+
+
+Everything else - composition, imagery, typography, mood - is your choice.
+
+Make it look like a top-quality post a real designer would ship.",https://pipelyt-uploaded-images.s3.us-east-1.amazonaws.com/ai_gen/magic/high_interaction_c676f5a786024bc5994a8c6b79887adb.png,follower_growth,"Stop treating Marketing Mix Modeling (MMM) like a dark art.
+
+Traditional MMM often feels like a black box—expensive, slow, and impossible to adjust on the fly. But the landscape has changed. The new standard isn't building models; it’s interacting with them.
+
+At Neuzenai, we’ve integrated GenAI to act as a bridge between complex econometrics and executive decision-making.
+
+Here is the framework for modern marketing intelligence:
+
+1. Ingestion: Automated data pipelines that clean and standardize your spend and performance metrics.
+2. Engine: Serverless model training using Ridge Regression and Bayesian priors.
+3. Summarizer: AI-driven translation of statistical outputs into plain-English 'Golden Moves.'
+4. Planner: Constraint-based optimization to prescribe exact spend allocations.
+
+Complexity is no longer an excuse for poor visibility. Follow us for more on the evolution of data-driven growth.
+
+Learn more → https://spenzo.io","VARIANT TYPE (informational; does not change the output template)
+follower_growth
+
+BRAND NAME → fill into <BRAND_NAME>
+Spenzo AI
+
+POST CONTENT → fill into <POST_CONTENT> verbatim, preserving every line
+break, bullet, and URL
+Stop treating Marketing Mix Modeling (MMM) like a dark art.
+
+Traditional MMM often feels like a black box—expensive, slow, and impossible to adjust on the fly. But the landscape has changed. The new standard isn't building models; it’s interacting with them.
+
+At Neuzenai, we’ve integrated GenAI to act as a bridge between complex econometrics and executive decision-making.
+
+Here is the framework for modern marketing intelligence:
+
+1. Ingestion: Automated data pipelines that clean and standardize your spend and performance metrics.
+2. Engine: Serverless model training using Ridge Regression and Bayesian priors.
+3. Summarizer: AI-driven translation of statistical outputs into plain-English 'Golden Moves.'
+4. Planner: Constraint-based optimization to prescribe exact spend allocations.
+
+Complexity is no longer an excuse for poor visibility. Follow us for more on the evolution of data-driven growth.
+
+Learn more → https://spenzo.io
+
+BRAND COLOR → fill into <BRAND_COLOR>
+#FF5722
+
+ASPECT RATIO → fill into <ASPECT_RATIO>
+1:1
+
+CAMPAIGN BRIEF (context only — do NOT include in the output)
+STRATEGIC BRIEF
+──────────────────────────────────────────
+USER GOAL
+  Produce a social media post that highlights the efficiency and accessibility of using natural language conversations to generate marketing insights.
+
+TOPIC
+  The shift toward using simple AI-driven conversations to build and extract actionable marketing intelligence. The focus is on how natural language interaction replaces complex data science workflows.
+
+AUDIENCE
+  Marketing Directors, CMOs, and modern growth teams managing significant annual marketing spend who need to move from data complexity to decision-ready insights. [DNA: Target Audience]
+
+KEY MESSAGE
+  Complex marketing data analysis is no longer a ""black box""; it is now accessible through simple, natural language conversations with AI.
+
+ANGLE
+  Educational explainer: Contrast the traditional, labor-intensive data analysis process with the new paradigm of conversational AI intelligence.
+
+SUPPORTING POINTS
+  - Spenzo AI allows users to ask strategic questions like ""Why did my CPA spike?"" or ""What happens to revenue if I shift spend?"" directly. [doc: SPENZO TECHNICAL DOCUMENTATION (1).pdf]
+  - The system utilizes a Router agent to classify queries into analysis, visualization, or model-based insights, ensuring the right tool answers the question. [doc: SPENZO TECHNICAL DOCUMENTATION (1).pdf]
+  - Natural language interaction removes the steep learning curve traditionally associated with data science tools. [doc: SPENZO TECHNICAL DOCUMENTATION (1).pdf]
+
+TONE
+  Authoritative, Confident, Intelligent, Practical, Empowering, Direct. [DNA: Brand Tone]
+
+SOURCES REFERENCED
+  - User brief: yes
+  - Business DNA: Brand Tone, Audience
+  - Uploaded docs: SPENZO TECHNICAL DOCUMENTATION (1).pdf
+
+USER LINKS
+  - none
+
+VISUAL HINT
+  A clean, modern interface showing a chat-style prompt box with a complex marketing query resulting in an intuitive, vibrant data visualization.
+
+CONSTRAINTS
+  - Do not invent specific ROI percentages or dollar-amount savings.
+  - Focus on the ""conversational"" aspect of the intelligence rather than just the math.
+  - Match the professional, data-focused aesthetic of the brand.
+
+USER INPUT QUALITY: lean
+ASSUMPTIONS MADE:
+  - Audience: Inferred from DNA (Marketing Directors/Growth teams).
+  - Tone: Inferred from DNA (Brand values).
+  - Visual Hint: Inferred from DNA (Brand aesthetic).
+  - Angle: Inferred to best serve the ""Simple AI Conversations"" topic.
+
+The brand's logo is attached as an image (for reference only — your
+output prompt already instructs gpt-image-2 to use the attached logo
+top-left). Emit the filled template now.
+","Read the post content below carefully. Based on the wording of the post -
+what is said, the verbs used (e.g. ""shipped / launched / try"" vs ""we help
+/ we partner / our team""), the offer, the call-to-action, and any links
+or pricing mentioned - figure out whether Spenzo AI is selling a
+product, a service, or something else (e.g. thought leadership, an
+announcement, a milestone, a news/industry update). The brand name alone
+does not determine this - the wording of the post does. Then pick a
+visual style that fits this kind of content.
+
+Post content: ""Stop treating Marketing Mix Modeling (MMM) like a dark art.
+
+Traditional MMM often feels like a black box—expensive, slow, and impossible to adjust on the fly. But the landscape has changed. The new standard isn't building models; it’s interacting with them.
+
+At Neuzenai, we’ve integrated GenAI to act as a bridge between complex econometrics and executive decision-making.
+
+Here is the framework for modern marketing intelligence:
+
+1. Ingestion: Automated data pipelines that clean and standardize your spend and performance metrics.
+2. Engine: Serverless model training using Ridge Regression and Bayesian priors.
+3. Summarizer: AI-driven translation of statistical outputs into plain-English 'Golden Moves.'
+4. Planner: Constraint-based optimization to prescribe exact spend allocations.
+
+Complexity is no longer an excuse for poor visibility. Follow us for more on the evolution of data-driven growth.
+
+Learn more → https://spenzo.io""
+
+Hard rules:
+- Place the attached logo in the TOP-LEFT corner, used exactly as provided
+- Place a clear call-to-action button in the BOTTOM-LEFT or BOTTOM-RIGHT corner
+- Use brand color #FF5722 tastefully
+- Aspect ratio: 1:1
+
+
+Everything else - composition, imagery, typography, mood - is your choice.",https://pipelyt-uploaded-images.s3.us-east-1.amazonaws.com/ai_gen/magic/follower_growth_7ac57b1aa52e44ba9ec100b1a2aef39f.png,,,,,
+2,Spenzo AI,Generate a social media post on Forecasting Marketing Performance Before Launching Campaigns,linkedin,#FF5722,1:1,gpt-5,0.7,1.0,8000,"You produce image-generation prompts for OpenAI's gpt-image-2 in EXACTLY
+the template format shown below. You are NOT writing a long detailed
+prompt. You are filling four variables into a fixed template and emitting
+the result verbatim.
+
+-------------------------------------------------------------------
+THE TEMPLATE YOU MUST OUTPUT (fill the four variables, leave the rest
+unchanged - same wording, same blank lines, same line breaks)
+-------------------------------------------------------------------
+
+Read the post content below carefully. Based on the wording of the post -
+what is said, the verbs used (e.g. ""shipped / launched / try"" vs ""we help
+/ we partner / our team""), the offer, the call-to-action, and any links
+or pricing mentioned - figure out whether <BRAND_NAME> is selling a
+product, a service, or something else (e.g. thought leadership, an
+announcement, a milestone, a news/industry update). The brand name alone
+does not determine this - the wording of the post does. Then pick a
+visual style that fits this kind of content.
+
+Post content: ""<POST_CONTENT>""
+
+Hard rules:
+- Place the attached logo in the TOP-LEFT corner, used exactly as provided
+- Place a clear call-to-action button in the BOTTOM-LEFT or BOTTOM-RIGHT corner
+- Use brand color <BRAND_COLOR> tastefully
+- Aspect ratio: <ASPECT_RATIO>
+
+
+Everything else - composition, imagery, typography, mood - is your choice.
+
+Make it look like a top-quality post a real designer would ship.
+
+-------------------------------------------------------------------
+VARIABLES (lifted verbatim from the user message)
+-------------------------------------------------------------------
+
+<BRAND_NAME>     the brand the post is about (e.g. ""NeuzenAI"", ""Spenzo"",
+                 ""Zyntegrate""). Use it as-is - do NOT add adjectives.
+
+<POST_CONTENT>   the full post text for ONE variant, VERBATIM. Preserve
+                 the exact wording, punctuation, line breaks, bullet
+                 points, and URLs. Do NOT summarize, paraphrase, shorten,
+                 or rewrite. Do NOT escape characters. The surrounding
+                 quotes are already in the template - do not add another
+                 pair.
+
+<BRAND_COLOR>    the brand's primary hex color (e.g. ""#ff4500"", ""#000080"").
+
+<ASPECT_RATIO>   the image aspect ratio (e.g. ""1:1"", ""9:16"", ""16:9"").
+
+-------------------------------------------------------------------
+RULES
+-------------------------------------------------------------------
+
+1. Output ONLY the filled template. No preamble, no markdown headers,
+   no commentary, no JSON wrapper, no ""Here is the prompt:"".
+
+2. Do NOT add any new sentences, hard rules, style guidance, or visual
+   direction beyond what the template already says. The image model
+   does the creative work.
+
+3. Keep the exact spacing the template shows - including the trailing
+   blank line after the ""Aspect ratio:"" line and before ""Everything
+   else"".
+
+4. The variant_type the user gives you (viral_reach / high_interaction
+   / follower_growth / festival_variant) is INFORMATIONAL ONLY. It does
+   NOT change the template. Different variants of the same campaign
+   produce different POST_CONTENT but the wrapping template is identical.
+",gpt-image-2,high,1024x1024,viral_reach,"Most marketing budgets are spent in the rearview mirror.
+
+Teams look at what happened last month, adjust, and hope for better results next time. This is reactive, not strategic.
+
+True growth comes from forecasting performance before the first dollar is spent.
+
+By simulating outcomes based on historical data and channel dynamics, you move from 'hoping for ROI' to 'engineering it.'
+
+Stop guessing. Start modeling.
+
+Understand your marketing impact → https://spenzo.io","VARIANT TYPE (informational; does not change the output template)
+viral_reach
+
+BRAND NAME → fill into <BRAND_NAME>
+Spenzo AI
+
+POST CONTENT → fill into <POST_CONTENT> verbatim, preserving every line
+break, bullet, and URL
+Most marketing budgets are spent in the rearview mirror.
+
+Teams look at what happened last month, adjust, and hope for better results next time. This is reactive, not strategic.
+
+True growth comes from forecasting performance before the first dollar is spent.
+
+By simulating outcomes based on historical data and channel dynamics, you move from 'hoping for ROI' to 'engineering it.'
+
+Stop guessing. Start modeling.
+
+Understand your marketing impact → https://spenzo.io
+
+BRAND COLOR → fill into <BRAND_COLOR>
+#FF5722
+
+ASPECT RATIO → fill into <ASPECT_RATIO>
+1:1
+
+CAMPAIGN BRIEF (context only — do NOT include in the output)
+STRATEGIC BRIEF
+──────────────────────────────────────────
+USER GOAL
+Create a social media post that explains the value and necessity of forecasting marketing performance before launching new campaigns.
+
+TOPIC
+The strategic importance of pre-campaign forecasting and performance modeling. It focuses on the shift from reactive decision-making to predictive, data-driven planning.
+
+AUDIENCE
+Modern growth teams, Marketing Directors, and CMOs managing significant annual marketing budgets ($10M+) who need to justify spend and improve ROI. [DNA: Target Audience]
+
+KEY MESSAGE
+Predicting campaign outcomes before launch transforms marketing from a cost center into a measurable, optimized revenue engine.
+
+ANGLE
+Educational explainer: A shift from ""guessing"" to ""forecasting"" using data-driven intelligence.
+
+SUPPORTING POINTS
+- Forecasting allows marketing teams to predict future outcomes based on historical data and model simulations. [DNA: SPECIFIC USE CASES]
+- Advanced modeling helps teams validate the true impact of marketing activities before scaling investments. [DNA: SPECIFIC USE CASES]
+- Constraint-based optimization helps identify high-return budget mixes while respecting channel-level guardrails. [DNA: SPECIFIC USE CASES]
+
+TONE
+Authoritative, Confident, Intelligent, Practical, Empowering, Direct. [DNA: Brand Tone]
+
+SOURCES REFERENCED
+- User brief: yes
+- Business DNA: Target Audience, SPECIFIC USE CASES, Brand Tone
+- Uploaded docs: none
+
+USER LINKS
+- none
+
+VISUAL HINT
+A clean, modern, data-focused visualization showing a predictive trend line or a balanced budget allocation chart that conveys confidence and clarity.
+
+CONSTRAINTS
+- Do not pivot into a hard-sell product pitch for Spenzo AI.
+- Do not invent specific metrics, percentages, or dollar amounts.
+- Maintain the authoritative and direct brand voice.
+
+USER INPUT QUALITY: lean
+ASSUMPTIONS MADE:
+- Audience: Inferred from DNA (Growth teams/CMOs/high-spend businesses).
+- Tone: Inferred from DNA (Brand values).
+- Visual Hint: Inferred from DNA (Brand aesthetic).
+- Angle: Inferred to provide educational value suitable for the topic.
+
+The brand's logo is attached as an image (for reference only — your
+output prompt already instructs gpt-image-2 to use the attached logo
+top-left). Emit the filled template now.
+","Read the post content below carefully. Based on the wording of the post -
+what is said, the verbs used (e.g. ""shipped / launched / try"" vs ""we help
+/ we partner / our team""), the offer, the call-to-action, and any links
+or pricing mentioned - figure out whether Spenzo AI is selling a
+product, a service, or something else (e.g. thought leadership, an
+announcement, a milestone, a news/industry update). The brand name alone
+does not determine this - the wording of the post does. Then pick a
+visual style that fits this kind of content.
+
+Post content: ""Most marketing budgets are spent in the rearview mirror.
+
+Teams look at what happened last month, adjust, and hope for better results next time. This is reactive, not strategic.
+
+True growth comes from forecasting performance before the first dollar is spent.
+
+By simulating outcomes based on historical data and channel dynamics, you move from 'hoping for ROI' to 'engineering it.'
+
+Stop guessing. Start modeling.
+
+Understand your marketing impact → https://spenzo.io""
+
+Hard rules:
+- Place the attached logo in the TOP-LEFT corner, used exactly as provided
+- Place a clear call-to-action button in the BOTTOM-LEFT or BOTTOM-RIGHT corner
+- Use brand color #FF5722 tastefully
+- Aspect ratio: 1:1
+
+
+Everything else - composition, imagery, typography, mood - is your choice.
+
+Make it look like a top-quality post a real designer would ship.
+
+-------------------------------------------------------------------
+VARIABLES (lifted verbatim from the user message)
+-------------------------------------------------------------------
+
+<BRAND_NAME>     Spenzo AI
+
+<POST_CONTENT>   Most marketing budgets are spent in the rearview mirror.
+
+Teams look at what happened last month, adjust, and hope for better results next time. This is reactive, not strategic.
+
+True growth comes from forecasting performance before the first dollar is spent.
+
+By simulating outcomes based on historical data and channel dynamics, you move from 'hoping for ROI' to 'engineering it.'
+
+Stop guessing. Start modeling.
+
+Understand your marketing impact → https://spenzo.io
+
+<BRAND_COLOR>    #FF5722
+
+<ASPECT_RATIO>   1:1",https://pipelyt-uploaded-images.s3.us-east-1.amazonaws.com/ai_gen/magic/viral_reach_701a0e9ec0054128a317c400f60ad0ba.png,high_interaction,"The hardest part of a $10M+ marketing budget isn't spending it—it's knowing exactly which channel change will actually move the revenue needle.
+
+Many growth teams struggle with the 'black box' of attribution. They see the spend, but they don't see the true impact until the quarter is over.
+
+For those managing complex cross-channel stacks: How do you currently validate the impact of a channel shift before you commit the budget?
+
+Are you relying on last-touch attribution, or have you moved toward predictive modeling?","VARIANT TYPE (informational; does not change the output template)
+high_interaction
+
+BRAND NAME → fill into <BRAND_NAME>
+Spenzo AI
+
+POST CONTENT → fill into <POST_CONTENT> verbatim, preserving every line
+break, bullet, and URL
+The hardest part of a $10M+ marketing budget isn't spending it—it's knowing exactly which channel change will actually move the revenue needle.
+
+Many growth teams struggle with the 'black box' of attribution. They see the spend, but they don't see the true impact until the quarter is over.
+
+For those managing complex cross-channel stacks: How do you currently validate the impact of a channel shift before you commit the budget?
+
+Are you relying on last-touch attribution, or have you moved toward predictive modeling?
+
+BRAND COLOR → fill into <BRAND_COLOR>
+#FF5722
+
+ASPECT RATIO → fill into <ASPECT_RATIO>
+1:1
+
+CAMPAIGN BRIEF (context only — do NOT include in the output)
+STRATEGIC BRIEF
+──────────────────────────────────────────
+USER GOAL
+Create a social media post that explains the value and necessity of forecasting marketing performance before launching new campaigns.
+
+TOPIC
+The strategic importance of pre-campaign forecasting and performance modeling. It focuses on the shift from reactive decision-making to predictive, data-driven planning.
+
+AUDIENCE
+Modern growth teams, Marketing Directors, and CMOs managing significant annual marketing budgets ($10M+) who need to justify spend and improve ROI. [DNA: Target Audience]
+
+KEY MESSAGE
+Predicting campaign outcomes before launch transforms marketing from a cost center into a measurable, optimized revenue engine.
+
+ANGLE
+Educational explainer: A shift from ""guessing"" to ""forecasting"" using data-driven intelligence.
+
+SUPPORTING POINTS
+- Forecasting allows marketing teams to predict future outcomes based on historical data and model simulations. [DNA: SPECIFIC USE CASES]
+- Advanced modeling helps teams validate the true impact of marketing activities before scaling investments. [DNA: SPECIFIC USE CASES]
+- Constraint-based optimization helps identify high-return budget mixes while respecting channel-level guardrails. [DNA: SPECIFIC USE CASES]
+
+TONE
+Authoritative, Confident, Intelligent, Practical, Empowering, Direct. [DNA: Brand Tone]
+
+SOURCES REFERENCED
+- User brief: yes
+- Business DNA: Target Audience, SPECIFIC USE CASES, Brand Tone
+- Uploaded docs: none
+
+USER LINKS
+- none
+
+VISUAL HINT
+A clean, modern, data-focused visualization showing a predictive trend line or a balanced budget allocation chart that conveys confidence and clarity.
+
+CONSTRAINTS
+- Do not pivot into a hard-sell product pitch for Spenzo AI.
+- Do not invent specific metrics, percentages, or dollar amounts.
+- Maintain the authoritative and direct brand voice.
+
+USER INPUT QUALITY: lean
+ASSUMPTIONS MADE:
+- Audience: Inferred from DNA (Growth teams/CMOs/high-spend businesses).
+- Tone: Inferred from DNA (Brand values).
+- Visual Hint: Inferred from DNA (Brand aesthetic).
+- Angle: Inferred to provide educational value suitable for the topic.
+
+The brand's logo is attached as an image (for reference only — your
+output prompt already instructs gpt-image-2 to use the attached logo
+top-left). Emit the filled template now.
+","Read the post content below carefully. Based on the wording of the post -
+what is said, the verbs used (e.g. ""shipped / launched / try"" vs ""we help
+/ we partner / our team""), the offer, the call-to-action, and any links
+or pricing mentioned - figure out whether Spenzo AI is selling a
+product, a service, or something else (e.g. thought leadership, an
+announcement, a milestone, a news/industry update). The brand name alone
+does not determine this - the wording of the post does. Then pick a
+visual style that fits this kind of content.
+
+Post content: ""The hardest part of a $10M+ marketing budget isn't spending it—it's knowing exactly which channel change will actually move the revenue needle.
+
+Many growth teams struggle with the 'black box' of attribution. They see the spend, but they don't see the true impact until the quarter is over.
+
+For those managing complex cross-channel stacks: How do you currently validate the impact of a channel shift before you commit the budget?
+
+Are you relying on last-touch attribution, or have you moved toward predictive modeling?""
+
+Hard rules:
+- Place the attached logo in the TOP-LEFT corner, used exactly as provided
+- Place a clear call-to-action button in the BOTTOM-LEFT or BOTTOM-RIGHT corner
+- Use brand color #FF5722 tastefully
+- Aspect ratio: 1:1
+
+
+Everything else - composition, imagery, typography, mood - is your choice.
+
+Make it look like a top-quality post a real designer would ship.
+
+-------------------------------------------------------------------
+VARIABLES (lifted verbatim from the user message)
+-------------------------------------------------------------------
+
+<BRAND_NAME>     Spenzo AI
+
+<POST_CONTENT>   The hardest part of a $10M+ marketing budget isn't spending it—it's knowing exactly which channel change will actually move the revenue needle.
+
+Many growth teams struggle with the 'black box' of attribution. They see the spend, but they don't see the true impact until the quarter is over.
+
+For those managing complex cross-channel stacks: How do you currently validate the impact of a channel shift before you commit the budget?
+
+Are you relying on last-touch attribution, or have you moved toward predictive modeling?
+
+<BRAND_COLOR>    #FF5722
+
+<ASPECT_RATIO>   1:1",https://pipelyt-uploaded-images.s3.us-east-1.amazonaws.com/ai_gen/magic/high_interaction_f88a4ec393224e0e98e1df3113f3a1c9.png,follower_growth,"Marketing is a science, not a gamble.
+
+If you’re scaling a multi-million dollar budget, 'intuition' is a liability. The shift from reactive spending to predictive planning is the single biggest differentiator between growth teams that scale and those that stall.
+
+Here is the framework for intelligent planning:
+
+1. Baseline validation: Use historical data to identify the true saturation point of every channel.
+2. Constraint-based simulation: Run scenarios that respect your business guardrails while optimizing for the highest return.
+3. Predictive forecasting: Model future outcomes based on current trends, not just past results.
+
+When you remove the guesswork, you gain the confidence to scale.
+
+Learn more about intelligent budget planning → https://spenzo.io","VARIANT TYPE (informational; does not change the output template)
+follower_growth
+
+BRAND NAME → fill into <BRAND_NAME>
+Spenzo AI
+
+POST CONTENT → fill into <POST_CONTENT> verbatim, preserving every line
+break, bullet, and URL
+Marketing is a science, not a gamble.
+
+If you’re scaling a multi-million dollar budget, 'intuition' is a liability. The shift from reactive spending to predictive planning is the single biggest differentiator between growth teams that scale and those that stall.
+
+Here is the framework for intelligent planning:
+
+1. Baseline validation: Use historical data to identify the true saturation point of every channel.
+2. Constraint-based simulation: Run scenarios that respect your business guardrails while optimizing for the highest return.
+3. Predictive forecasting: Model future outcomes based on current trends, not just past results.
+
+When you remove the guesswork, you gain the confidence to scale.
+
+Learn more about intelligent budget planning → https://spenzo.io
+
+BRAND COLOR → fill into <BRAND_COLOR>
+#FF5722
+
+ASPECT RATIO → fill into <ASPECT_RATIO>
+1:1
+
+CAMPAIGN BRIEF (context only — do NOT include in the output)
+STRATEGIC BRIEF
+──────────────────────────────────────────
+USER GOAL
+Create a social media post that explains the value and necessity of forecasting marketing performance before launching new campaigns.
+
+TOPIC
+The strategic importance of pre-campaign forecasting and performance modeling. It focuses on the shift from reactive decision-making to predictive, data-driven planning.
+
+AUDIENCE
+Modern growth teams, Marketing Directors, and CMOs managing significant annual marketing budgets ($10M+) who need to justify spend and improve ROI. [DNA: Target Audience]
+
+KEY MESSAGE
+Predicting campaign outcomes before launch transforms marketing from a cost center into a measurable, optimized revenue engine.
+
+ANGLE
+Educational explainer: A shift from ""guessing"" to ""forecasting"" using data-driven intelligence.
+
+SUPPORTING POINTS
+- Forecasting allows marketing teams to predict future outcomes based on historical data and model simulations. [DNA: SPECIFIC USE CASES]
+- Advanced modeling helps teams validate the true impact of marketing activities before scaling investments. [DNA: SPECIFIC USE CASES]
+- Constraint-based optimization helps identify high-return budget mixes while respecting channel-level guardrails. [DNA: SPECIFIC USE CASES]
+
+TONE
+Authoritative, Confident, Intelligent, Practical, Empowering, Direct. [DNA: Brand Tone]
+
+SOURCES REFERENCED
+- User brief: yes
+- Business DNA: Target Audience, SPECIFIC USE CASES, Brand Tone
+- Uploaded docs: none
+
+USER LINKS
+- none
+
+VISUAL HINT
+A clean, modern, data-focused visualization showing a predictive trend line or a balanced budget allocation chart that conveys confidence and clarity.
+
+CONSTRAINTS
+- Do not pivot into a hard-sell product pitch for Spenzo AI.
+- Do not invent specific metrics, percentages, or dollar amounts.
+- Maintain the authoritative and direct brand voice.
+
+USER INPUT QUALITY: lean
+ASSUMPTIONS MADE:
+- Audience: Inferred from DNA (Growth teams/CMOs/high-spend businesses).
+- Tone: Inferred from DNA (Brand values).
+- Visual Hint: Inferred from DNA (Brand aesthetic).
+- Angle: Inferred to provide educational value suitable for the topic.
+
+The brand's logo is attached as an image (for reference only — your
+output prompt already instructs gpt-image-2 to use the attached logo
+top-left). Emit the filled template now.
+","Read the post content below carefully. Based on the wording of the post -
+what is said, the verbs used (e.g. ""shipped / launched / try"" vs ""we help
+/ we partner / our team""), the offer, the call-to-action, and any links
+or pricing mentioned - figure out whether Spenzo AI is selling a
+product, a service, or something else (e.g. thought leadership, an
+announcement, a milestone, a news/industry update). The brand name alone
+does not determine this - the wording of the post does. Then pick a
+visual style that fits this kind of content.
+
+Post content: ""Marketing is a science, not a gamble.
+
+If you’re scaling a multi-million dollar budget, 'intuition' is a liability. The shift from reactive spending to predictive planning is the single biggest differentiator between growth teams that scale and those that stall.
+
+Here is the framework for intelligent planning:
+
+1. Baseline validation: Use historical data to identify the true saturation point of every channel.
+2. Constraint-based simulation: Run scenarios that respect your business guardrails while optimizing for the highest return.
+3. Predictive forecasting: Model future outcomes based on current trends, not just past results.
+
+When you remove the guesswork, you gain the confidence to scale.
+
+Learn more about intelligent budget planning → https://spenzo.io""
+
+Hard rules:
+- Place the attached logo in the TOP-LEFT corner, used exactly as provided
+- Place a clear call-to-action button in the BOTTOM-LEFT or BOTTOM-RIGHT corner
+- Use brand color #FF5722 tastefully
+- Aspect ratio: 1:1
+
+
+Everything else - composition, imagery, typography, mood - is your choice.
+
+Make it look like a top-quality post a real designer would ship.",https://pipelyt-uploaded-images.s3.us-east-1.amazonaws.com/ai_gen/magic/follower_growth_63e8ea6be3914171857db390132a1c4c.png,,,,,
+3,Zyntegrate,Generate a social media post on Connecting Salesforce and ServiceNow Without Custom Development by through agent chat interface,linkedin,#3366FF,1:1,gpt-5,0.7,1.0,8000,"You produce image-generation prompts for OpenAI's gpt-image-2 in EXACTLY
+one of the two template formats shown below. You are NOT writing a long
+detailed prompt. You are filling variables into the chosen fixed template
+and emitting the result verbatim.
+
+WHICH TEMPLATE TO USE - decide from the variant_type given in the user
+message:
+
+  - viral_reach        -> TEMPLATE A
+  - high_interaction   -> TEMPLATE A
+  - festival_variant   -> TEMPLATE A
+  - follower_growth    -> TEMPLATE B (must include a real-looking person)
+
+-------------------------------------------------------------------
+TEMPLATE A (default - no person requirement)
+-------------------------------------------------------------------
+
+Read the post content below carefully. Based on the wording of the post -
+what is said, the verbs used (e.g. ""shipped / launched / try"" vs ""we help
+/ we partner / our team""), the offer, the call-to-action, and any links
+or pricing mentioned - figure out whether <BRAND_NAME> is selling a
+product, a service, or something else (e.g. thought leadership, an
+announcement, a milestone, a news/industry update). The brand name alone
+does not determine this - the wording of the post does. Then pick a
+visual style that fits this kind of content.
+
+Post content: ""<POST_CONTENT>""
+
+Hard rules:
+- Place the attached logo in the TOP-LEFT corner, used exactly as provided
+- Place a clear call-to-action button in the BOTTOM-LEFT or BOTTOM-RIGHT corner
+- Use brand color <BRAND_COLOR> tastefully
+- Aspect ratio: <ASPECT_RATIO>
+
+
+Everything else - composition, imagery, typography, mood - is your choice.
+
+Make it look like a top-quality post a real designer would ship.
+
+-------------------------------------------------------------------
+TEMPLATE B (follower_growth only - real person required)
+-------------------------------------------------------------------
+
+Read the post content below and figure out from the wording what kind of
+business <BRAND_NAME> is. Then generate a social media post that includes
+at least one real-looking person in the scene. Pick the person, setting,
+mood, and outfit based on what fits the content.
+
+Post content: ""<POST_CONTENT>""
+
+Hard rules:
+- Logo (attached) in TOP-LEFT, used exactly as provided
+- Call-to-action in BOTTOM-LEFT or BOTTOM-RIGHT
+- Brand color <BRAND_COLOR> used tastefully
+- Aspect ratio: <ASPECT_RATIO>
+- Minimum one person clearly visible
+- Person must look natural - no AI face artifacts, no wrong-fingered hands
+
+Style choice is yours.
+
+-------------------------------------------------------------------
+VARIABLES (lifted verbatim from the user message)
+-------------------------------------------------------------------
+
+<BRAND_NAME>     the brand the post is about (e.g. ""NeuzenAI"", ""Spenzo"",
+                 ""Zyntegrate""). Use it as-is - do NOT add adjectives.
+
+<POST_CONTENT>   the full post text for ONE variant, VERBATIM. Preserve
+                 the exact wording, punctuation, line breaks, bullet
+                 points, and URLs. Do NOT summarize, paraphrase, shorten,
+                 or rewrite. Do NOT escape characters. The surrounding
+                 quotes are already in the template - do not add another
+                 pair.
+
+<BRAND_COLOR>    the brand's primary hex color (e.g. ""#ff4500"", ""#000080"").
+
+<ASPECT_RATIO>   the image aspect ratio (e.g. ""1:1"", ""9:16"", ""16:9"").
+
+-------------------------------------------------------------------
+RULES
+-------------------------------------------------------------------
+
+1. Output ONLY the filled template (A or B - whichever fits the
+   variant_type). No preamble, no markdown headers, no commentary, no
+   JSON wrapper, no ""Here is the prompt:"".
+
+2. Do NOT add any new sentences, hard rules, style guidance, or visual
+   direction beyond what the chosen template says. The image model does
+   the creative work.
+
+3. Keep the exact spacing each template shows - including blank lines
+   between the ""Aspect ratio:"" line and the next section.
+
+4. variant_type controls TEMPLATE SELECTION. It does not change the
+   wording inside the chosen template - only which template you emit.
+",gpt-image-2,high,1024x1024,558.36,viral_reach,"The manual plumbing between Salesforce and ServiceNow is a relic of the past.
+
+Most IT teams are still spending weeks on custom code, API mapping, and credential management just to get two platforms talking. It’s not just slow—it’s fragile.
+
+We built Zyntegrate to move from managing integrations to orchestrating autonomous systems.
+
+Instead of manual coding, our Integration Builder Agent handles the discovery, credential collection, and field mapping automatically. You describe the outcome, the agent builds the pipeline.
+
+Stop building pipes. Start orchestrating.
+
+See how it works → https://zyntegrate.com","VARIANT TYPE (informational; does not change the output template)
+viral_reach
+
+BRAND NAME → fill into <BRAND_NAME>
+Zyntegrate
+
+POST CONTENT → fill into <POST_CONTENT> verbatim, preserving every line
+break, bullet, and URL
+The manual plumbing between Salesforce and ServiceNow is a relic of the past.
+
+Most IT teams are still spending weeks on custom code, API mapping, and credential management just to get two platforms talking. It’s not just slow—it’s fragile.
+
+We built Zyntegrate to move from managing integrations to orchestrating autonomous systems.
+
+Instead of manual coding, our Integration Builder Agent handles the discovery, credential collection, and field mapping automatically. You describe the outcome, the agent builds the pipeline.
+
+Stop building pipes. Start orchestrating.
+
+See how it works → https://zyntegrate.com
+
+BRAND COLOR → fill into <BRAND_COLOR>
+#3366FF
+
+ASPECT RATIO → fill into <ASPECT_RATIO>
+1:1
+
+CAMPAIGN BRIEF (context only — do NOT include in the output)
+STRATEGIC BRIEF
+──────────────────────────────────────────
+USER GOAL
+  To demonstrate how users can connect Salesforce and ServiceNow without custom development by utilizing Zyntegrate's conversational AI agent interface.
+
+TOPIC
+  The integration of Salesforce and ServiceNow platforms using an AI-driven chat interface to bypass the need for traditional manual coding. This focuses on the simplicity of the ""ask and build"" workflow offered by Zyntegrate.
+
+AUDIENCE
+  IT managers, system administrators, and operations leads at mid-to-large enterprises who are currently managing fragmented tech stacks and are burdened by the time and cost of custom integration projects.
+
+KEY MESSAGE
+  You can achieve complex, direct integrations between Salesforce and ServiceNow in minutes through natural language conversation, eliminating the need for extensive custom engineering.
+
+ANGLE
+  Educational explainer/Workflow showcase: Highlighting the shift from manual ""plumbing"" to autonomous, agent-led orchestration.
+
+SUPPORTING POINTS
+  - Zyntegrate allows users to describe an integration in natural language to build it end-to-end [doc: ZYNTEGRATE_TECHNICAL_DOCUMENT_20260520.pdf]
+  - The platform provides pre-built connectors for enterprise platforms like Salesforce and ServiceNow [DNA: PRODUCTS & SERVICES]
+  - The Integration Builder Agent handles discovery, credential collection, and field mapping automatically [doc: ZYNTEGRATE_TECHNICAL_DOCUMENT_20260520.pdf]
+
+TONE
+  Professional, Innovative, Empowering, Efficient, Confident, Solution-oriented [DNA: Brand Tone]
+
+SOURCES REFERENCED
+  - User brief: yes
+  - Business DNA: Products & Services, Brand Tone
+  - Uploaded docs: ZYNTEGRATE_TECHNICAL_DOCUMENT_20260520.pdf
+
+USER LINKS
+  - none
+
+VISUAL HINT
+  A split-screen or dual-interface visual showing a natural language chat prompt on one side successfully generating a mapped integration flow between Salesforce and ServiceNow icons on the other.
+
+CONSTRAINTS
+  - Do not invent specific deployment time metrics or cost-savings percentages not found in the provided documentation.
+  - Maintain a professional and solution-oriented tone consistent with Neuzenai brand values.
+  - Focus specifically on the ""chat-to-integration"" capability.
+
+USER INPUT QUALITY: lean
+ASSUMPTIONS MADE:
+  - AUDIENCE: Inferred from DNA (Target Audience section) as IT/Ops professionals tasked with managing fragmented enterprise systems.
+  - TONE: Inferred from the specific Brand Tone defined in the DNA.
+  - VISUAL HINT: Inferred to best represent the ""agent chat interface"" mentioned in the user brief.
+
+The brand's logo is attached as an image (for reference only — your
+output prompt already instructs gpt-image-2 to use the attached logo
+top-left). Emit the filled template now.
+","Read the post content below carefully. Based on the wording of the post - what is said, the verbs used (e.g. ""shipped / launched / try"" vs ""we help / we partner / our team""), the offer, the call-to-action, and any links or pricing mentioned - figure out whether Zyntegrate is selling a product, a service, or something else (e.g. thought leadership, an announcement, a milestone, a news/industry update). The brand name alone does not determine this - the wording of the post does. Then pick a visual style that fits this kind of content.
+
+Post content: ""The manual plumbing between Salesforce and ServiceNow is a relic of the past.
+
+Most IT teams are still spending weeks on custom code, API mapping, and credential management just to get two platforms talking. It’s not just slow—it’s fragile.
+
+We built Zyntegrate to move from managing integrations to orchestrating autonomous systems.
+
+Instead of manual coding, our Integration Builder Agent handles the discovery, credential collection, and field mapping automatically. You describe the outcome, the agent builds the pipeline.
+
+Stop building pipes. Start orchestrating.
+
+See how it works → https://zyntegrate.com""
+
+Hard rules:
+- Place the attached logo in the TOP-LEFT corner, used exactly as provided
+- Place a clear call-to-action button in the BOTTOM-LEFT or BOTTOM-RIGHT corner
+- Use brand color #3366FF tastefully
+- Aspect ratio: 1:1
+
+
+Everything else - composition, imagery, typography, mood - is your choice.
+
+Make it look like a top-quality post a real designer would ship.",https://pipelyt-uploaded-images.s3.us-east-1.amazonaws.com/ai_gen/magic/viral_reach_c95dad64ad50476eb28aa83e6468fd0c.png,8.97,170.28,high_interaction,"How much time is your team currently losing to 'integration debt'?
+
+It’s the silent killer of enterprise velocity. You have a vision for a new workflow—like syncing live chat events to Salesforce and ServiceNow—but the execution gets stuck in a backlog of custom dev work.
+
+We’re curious: what’s the biggest bottleneck you hit when connecting legacy databases with modern cloud apps? Is it the API documentation, the field mapping, or just getting different platforms to agree on a data schema?
+
+Let’s talk about how to bypass the manual build process.","VARIANT TYPE (informational; does not change the output template)
+high_interaction
+
+BRAND NAME → fill into <BRAND_NAME>
+Zyntegrate
+
+POST CONTENT → fill into <POST_CONTENT> verbatim, preserving every line
+break, bullet, and URL
+How much time is your team currently losing to 'integration debt'?
+
+It’s the silent killer of enterprise velocity. You have a vision for a new workflow—like syncing live chat events to Salesforce and ServiceNow—but the execution gets stuck in a backlog of custom dev work.
+
+We’re curious: what’s the biggest bottleneck you hit when connecting legacy databases with modern cloud apps? Is it the API documentation, the field mapping, or just getting different platforms to agree on a data schema?
+
+Let’s talk about how to bypass the manual build process.
+
+BRAND COLOR → fill into <BRAND_COLOR>
+#3366FF
+
+ASPECT RATIO → fill into <ASPECT_RATIO>
+1:1
+
+CAMPAIGN BRIEF (context only — do NOT include in the output)
+STRATEGIC BRIEF
+──────────────────────────────────────────
+USER GOAL
+  To demonstrate how users can connect Salesforce and ServiceNow without custom development by utilizing Zyntegrate's conversational AI agent interface.
+
+TOPIC
+  The integration of Salesforce and ServiceNow platforms using an AI-driven chat interface to bypass the need for traditional manual coding. This focuses on the simplicity of the ""ask and build"" workflow offered by Zyntegrate.
+
+AUDIENCE
+  IT managers, system administrators, and operations leads at mid-to-large enterprises who are currently managing fragmented tech stacks and are burdened by the time and cost of custom integration projects.
+
+KEY MESSAGE
+  You can achieve complex, direct integrations between Salesforce and ServiceNow in minutes through natural language conversation, eliminating the need for extensive custom engineering.
+
+ANGLE
+  Educational explainer/Workflow showcase: Highlighting the shift from manual ""plumbing"" to autonomous, agent-led orchestration.
+
+SUPPORTING POINTS
+  - Zyntegrate allows users to describe an integration in natural language to build it end-to-end [doc: ZYNTEGRATE_TECHNICAL_DOCUMENT_20260520.pdf]
+  - The platform provides pre-built connectors for enterprise platforms like Salesforce and ServiceNow [DNA: PRODUCTS & SERVICES]
+  - The Integration Builder Agent handles discovery, credential collection, and field mapping automatically [doc: ZYNTEGRATE_TECHNICAL_DOCUMENT_20260520.pdf]
+
+TONE
+  Professional, Innovative, Empowering, Efficient, Confident, Solution-oriented [DNA: Brand Tone]
+
+SOURCES REFERENCED
+  - User brief: yes
+  - Business DNA: Products & Services, Brand Tone
+  - Uploaded docs: ZYNTEGRATE_TECHNICAL_DOCUMENT_20260520.pdf
+
+USER LINKS
+  - none
+
+VISUAL HINT
+  A split-screen or dual-interface visual showing a natural language chat prompt on one side successfully generating a mapped integration flow between Salesforce and ServiceNow icons on the other.
+
+CONSTRAINTS
+  - Do not invent specific deployment time metrics or cost-savings percentages not found in the provided documentation.
+  - Maintain a professional and solution-oriented tone consistent with Neuzenai brand values.
+  - Focus specifically on the ""chat-to-integration"" capability.
+
+USER INPUT QUALITY: lean
+ASSUMPTIONS MADE:
+  - AUDIENCE: Inferred from DNA (Target Audience section) as IT/Ops professionals tasked with managing fragmented enterprise systems.
+  - TONE: Inferred from the specific Brand Tone defined in the DNA.
+  - VISUAL HINT: Inferred to best represent the ""agent chat interface"" mentioned in the user brief.
+
+The brand's logo is attached as an image (for reference only — your
+output prompt already instructs gpt-image-2 to use the attached logo
+top-left). Emit the filled template now.
+","Read the post content below carefully. Based on the wording of the post -
+what is said, the verbs used (e.g. ""shipped / launched / try"" vs ""we help
+/ we partner / our team""), the offer, the call-to-action, and any links
+or pricing mentioned - figure out whether Zyntegrate is selling a
+product, a service, or something else (e.g. thought leadership, an
+announcement, a milestone, a news/industry update). The brand name alone
+does not determine this - the wording of the post does. Then pick a
+visual style that fits this kind of content.
+
+Post content: ""How much time is your team currently losing to 'integration debt'?
+
+It’s the silent killer of enterprise velocity. You have a vision for a new workflow—like syncing live chat events to Salesforce and ServiceNow—but the execution gets stuck in a backlog of custom dev work.
+
+We’re curious: what’s the biggest bottleneck you hit when connecting legacy databases with modern cloud apps? Is it the API documentation, the field mapping, or just getting different platforms to agree on a data schema?
+
+Let’s talk about how to bypass the manual build process.""
+
+Hard rules:
+- Place the attached logo in the TOP-LEFT corner, used exactly as provided
+- Place a clear call-to-action button in the BOTTOM-LEFT or BOTTOM-RIGHT corner
+- Use brand color #3366FF tastefully
+- Aspect ratio: 1:1
+
+
+Everything else - composition, imagery, typography, mood - is your choice.
+
+Make it look like a top-quality post a real designer would ship.",https://pipelyt-uploaded-images.s3.us-east-1.amazonaws.com/ai_gen/magic/high_interaction_38f7fdf7683747fbb7a91221fd3e445e.png,9.08,170.08,follower_growth,"Autonomous orchestration is the new standard for data ecosystems.
+
+Traditional integration platforms require you to be the architect, the coder, and the QA engineer. But with Zyntegrate, the platform is the architect.
+
+Our AI-driven approach uses specialized agents to handle the heavy lifting:
+
+1️⃣ Discovery: Identifying triggers and destination objects.
+2️⃣ Connection: Securely managing credentials.
+3️⃣ Mapping: Auto-generating the schema.
+4️⃣ Execution: Running the pipeline in a serverless, secure environment.
+
+Follow us for deeper dives into building AI-driven workflows that eliminate manual maintenance.
+
+Explore our platform → https://zyntegrate.com","VARIANT TYPE (informational; does not change the output template)
+follower_growth
+
+BRAND NAME → fill into <BRAND_NAME>
+Zyntegrate
+
+POST CONTENT → fill into <POST_CONTENT> verbatim, preserving every line
+break, bullet, and URL
+Autonomous orchestration is the new standard for data ecosystems.
+
+Traditional integration platforms require you to be the architect, the coder, and the QA engineer. But with Zyntegrate, the platform is the architect.
+
+Our AI-driven approach uses specialized agents to handle the heavy lifting:
+
+1️⃣ Discovery: Identifying triggers and destination objects.
+2️⃣ Connection: Securely managing credentials.
+3️⃣ Mapping: Auto-generating the schema.
+4️⃣ Execution: Running the pipeline in a serverless, secure environment.
+
+Follow us for deeper dives into building AI-driven workflows that eliminate manual maintenance.
+
+Explore our platform → https://zyntegrate.com
+
+BRAND COLOR → fill into <BRAND_COLOR>
+#3366FF
+
+ASPECT RATIO → fill into <ASPECT_RATIO>
+1:1
+
+CAMPAIGN BRIEF (context only — do NOT include in the output)
+STRATEGIC BRIEF
+──────────────────────────────────────────
+USER GOAL
+  To demonstrate how users can connect Salesforce and ServiceNow without custom development by utilizing Zyntegrate's conversational AI agent interface.
+
+TOPIC
+  The integration of Salesforce and ServiceNow platforms using an AI-driven chat interface to bypass the need for traditional manual coding. This focuses on the simplicity of the ""ask and build"" workflow offered by Zyntegrate.
+
+AUDIENCE
+  IT managers, system administrators, and operations leads at mid-to-large enterprises who are currently managing fragmented tech stacks and are burdened by the time and cost of custom integration projects.
+
+KEY MESSAGE
+  You can achieve complex, direct integrations between Salesforce and ServiceNow in minutes through natural language conversation, eliminating the need for extensive custom engineering.
+
+ANGLE
+  Educational explainer/Workflow showcase: Highlighting the shift from manual ""plumbing"" to autonomous, agent-led orchestration.
+
+SUPPORTING POINTS
+  - Zyntegrate allows users to describe an integration in natural language to build it end-to-end [doc: ZYNTEGRATE_TECHNICAL_DOCUMENT_20260520.pdf]
+  - The platform provides pre-built connectors for enterprise platforms like Salesforce and ServiceNow [DNA: PRODUCTS & SERVICES]
+  - The Integration Builder Agent handles discovery, credential collection, and field mapping automatically [doc: ZYNTEGRATE_TECHNICAL_DOCUMENT_20260520.pdf]
+
+TONE
+  Professional, Innovative, Empowering, Efficient, Confident, Solution-oriented [DNA: Brand Tone]
+
+SOURCES REFERENCED
+  - User brief: yes
+  - Business DNA: Products & Services, Brand Tone
+  - Uploaded docs: ZYNTEGRATE_TECHNICAL_DOCUMENT_20260520.pdf
+
+USER LINKS
+  - none
+
+VISUAL HINT
+  A split-screen or dual-interface visual showing a natural language chat prompt on one side successfully generating a mapped integration flow between Salesforce and ServiceNow icons on the other.
+
+CONSTRAINTS
+  - Do not invent specific deployment time metrics or cost-savings percentages not found in the provided documentation.
+  - Maintain a professional and solution-oriented tone consistent with Neuzenai brand values.
+  - Focus specifically on the ""chat-to-integration"" capability.
+
+USER INPUT QUALITY: lean
+ASSUMPTIONS MADE:
+  - AUDIENCE: Inferred from DNA (Target Audience section) as IT/Ops professionals tasked with managing fragmented enterprise systems.
+  - TONE: Inferred from the specific Brand Tone defined in the DNA.
+  - VISUAL HINT: Inferred to best represent the ""agent chat interface"" mentioned in the user brief.
+
+The brand's logo is attached as an image (for reference only — your
+output prompt already instructs gpt-image-2 to use the attached logo
+top-left). Emit the filled template now.
+","Read the post content below and figure out from the wording what kind of
+business Zyntegrate is. Then generate a social media post that includes
+at least one real-looking person in the scene. Pick the person, setting,
+mood, and outfit based on what fits the content.
+
+Post content: ""Autonomous orchestration is the new standard for data ecosystems.
+
+Traditional integration platforms require you to be the architect, the coder, and the QA engineer. But with Zyntegrate, the platform is the architect.
+
+Our AI-driven approach uses specialized agents to handle the heavy lifting:
+
+1️⃣ Discovery: Identifying triggers and destination objects.
+2️⃣ Connection: Securely managing credentials.
+3️⃣ Mapping: Auto-generating the schema.
+4️⃣ Execution: Running the pipeline in a serverless, secure environment.
+
+Follow us for deeper dives into building AI-driven workflows that eliminate manual maintenance.
+
+Explore our platform → https://zyntegrate.com""
+
+Hard rules:
+- Logo (attached) in TOP-LEFT, used exactly as provided
+- Call-to-action in BOTTOM-LEFT or BOTTOM-RIGHT
+- Brand color #3366FF used tastefully
+- Aspect ratio: 1:1
+- Minimum one person clearly visible
+- Person must look natural - no AI face artifacts, no wrong-fingered hands
+
+Style choice is yours.",https://pipelyt-uploaded-images.s3.us-east-1.amazonaws.com/ai_gen/magic/follower_growth_c4081203a5c3414ab298de41b207fa78.png,8.52,182.84,,,,,,,
+4,Zyntegrate,Generate a social media post on Creating Powerful Integrations Without Writing a Single Line of Code with simple drag and drop ,linkedin,#3366FF,1:1,gpt-5,0.7,1.0,8000,"You produce image-generation prompts for OpenAI's gpt-image-2 in EXACTLY
+one of the two template formats shown below. You are NOT writing a long
+detailed prompt. You are filling variables into the chosen fixed template
+and emitting the result verbatim.
+
+WHICH TEMPLATE TO USE - decide from the variant_type given in the user
+message:
+
+  - viral_reach        -> TEMPLATE A
+  - high_interaction   -> TEMPLATE A
+  - festival_variant   -> TEMPLATE A
+  - follower_growth    -> TEMPLATE B (must include a real-looking person)
+
+-------------------------------------------------------------------
+TEMPLATE A (default - no person requirement)
+-------------------------------------------------------------------
+
+Read the post content below carefully. Based on the wording of the post -
+what is said, the verbs used (e.g. ""shipped / launched / try"" vs ""we help
+/ we partner / our team""), the offer, the call-to-action, and any links
+or pricing mentioned - figure out whether <BRAND_NAME> is selling a
+product, a service, or something else (e.g. thought leadership, an
+announcement, a milestone, a news/industry update). The brand name alone
+does not determine this - the wording of the post does. Then pick a
+visual style that fits this kind of content.
+
+Post content: ""<POST_CONTENT>""
+
+Hard rules:
+- Place the attached logo in the TOP-LEFT corner, used exactly as provided
+- Place a clear call-to-action button in the BOTTOM-LEFT or BOTTOM-RIGHT corner
+- Use brand color <BRAND_COLOR> tastefully
+- Aspect ratio: <ASPECT_RATIO>
+
+
+Everything else - composition, imagery, typography, mood - is your choice.
+
+Make it look like a top-quality post a real designer would ship.
+
+-------------------------------------------------------------------
+TEMPLATE B (follower_growth only - real person required)
+-------------------------------------------------------------------
+
+Read the post content below and figure out from the wording what kind of
+business <BRAND_NAME> is. Then generate a social media post that includes
+at least one real-looking person in the scene. Pick the person, setting,
+mood, and outfit based on what fits the content.
+
+Post content: ""<POST_CONTENT>""
+
+Hard rules:
+- Logo (attached) in TOP-LEFT, used exactly as provided
+- Call-to-action in BOTTOM-LEFT or BOTTOM-RIGHT
+- Brand color <BRAND_COLOR> used tastefully
+- Aspect ratio: <ASPECT_RATIO>
+- Minimum one person clearly visible
+- Person must look natural - no AI face artifacts, no wrong-fingered hands
+
+Style choice is yours.
+
+-------------------------------------------------------------------
+VARIABLES (lifted verbatim from the user message)
+-------------------------------------------------------------------
+
+<BRAND_NAME>     the brand the post is about (e.g. ""NeuzenAI"", ""Spenzo"",
+                 ""Zyntegrate""). Use it as-is - do NOT add adjectives.
+
+<POST_CONTENT>   the full post text for ONE variant, VERBATIM. Preserve
+                 the exact wording, punctuation, line breaks, bullet
+                 points, and URLs. Do NOT summarize, paraphrase, shorten,
+                 or rewrite. Do NOT escape characters. The surrounding
+                 quotes are already in the template - do not add another
+                 pair.
+
+<BRAND_COLOR>    the brand's primary hex color (e.g. ""#ff4500"", ""#000080"").
+
+<ASPECT_RATIO>   the image aspect ratio (e.g. ""1:1"", ""9:16"", ""16:9"").
+
+-------------------------------------------------------------------
+RULES
+-------------------------------------------------------------------
+
+1. Output ONLY the filled template (A or B - whichever fits the
+   variant_type). No preamble, no markdown headers, no commentary, no
+   JSON wrapper, no ""Here is the prompt:"".
+
+2. Do NOT add any new sentences, hard rules, style guidance, or visual
+   direction beyond what the chosen template says. The image model does
+   the creative work.
+
+3. Keep the exact spacing each template shows - including blank lines
+   between the ""Aspect ratio:"" line and the next section.
+
+4. variant_type controls TEMPLATE SELECTION. It does not change the
+   wording inside the chosen template - only which template you emit.
+",gpt-image-2,high,1024x1024,753.7,viral_reach,"Stop waiting months for your engineering team to connect your tech stack.
+
+Integration complexity is a choice, not a requirement. We’ve moved the needle from manual coding to visual orchestration.
+
+With Zyntegrate, you can build 1:1, fan-out, fan-in, or sequential pipelines entirely on a drag-and-drop canvas.
+
+✅ Map sources to destinations visually
+✅ Build complex data flows without writing code
+✅ Reduce engineering bottlenecks instantly
+
+See how modern enterprises are building in minutes, not months → https://zyntegrate.com","VARIANT TYPE (informational; does not change the output template)
+viral_reach
+
+BRAND NAME → fill into <BRAND_NAME>
+Zyntegrate
+
+POST CONTENT → fill into <POST_CONTENT> verbatim, preserving every line
+break, bullet, and URL
+Stop waiting months for your engineering team to connect your tech stack.
+
+Integration complexity is a choice, not a requirement. We’ve moved the needle from manual coding to visual orchestration.
+
+With Zyntegrate, you can build 1:1, fan-out, fan-in, or sequential pipelines entirely on a drag-and-drop canvas.
+
+✅ Map sources to destinations visually
+✅ Build complex data flows without writing code
+✅ Reduce engineering bottlenecks instantly
+
+See how modern enterprises are building in minutes, not months → https://zyntegrate.com
+
+BRAND COLOR → fill into <BRAND_COLOR>
+#3366FF
+
+ASPECT RATIO → fill into <ASPECT_RATIO>
+1:1
+
+CAMPAIGN BRIEF (context only — do NOT include in the output)
+STRATEGIC BRIEF
+──────────────────────────────────────────
+USER GOAL
+Create an educational social media post explaining the efficiency and simplicity of building integrations using a drag-and-drop, no-code approach.
+
+TOPIC
+Building complex, powerful system integrations without writing code. This campaign focuses on the capability to design workflows visually through drag-and-drop interfaces.
+
+AUDIENCE
+Modern enterprise teams struggling with disconnected tech stacks and lean teams looking to build integrations without expensive engineering overhead. [DNA: Target Audience]
+
+KEY MESSAGE
+Integration complexity is a thing of the past; you can now unify fragmented systems and automate workflows visually without writing a single line of code.
+
+ANGLE
+Educational explainer: Highlight the shift from manual coding to intuitive, visual integration building.
+
+SUPPORTING POINTS
+- Users can assemble, monitor, and manage complex integration pipelines, including 1:1, fan-out, fan-in, and sequential topologies, entirely via a drag-and-drop canvas. [doc: ZYNTEGRATE_TECHNICAL_DOCUMENT_20260520.pdf]
+- The visual builder uses React Flow, allowing users to place Trigger, Source, and Destination nodes onto a canvas and connect them to create data flows. [doc: ZYNTEGRATE_TECHNICAL_DOCUMENT_20260520.pdf]
+- This approach empowers teams to reduce engineering dependency and build integrations visually, accelerating deployment times. [DNA: Overview]
+
+TONE
+Professional, Innovative, Empowering, Efficient, Confident, Solution-oriented. [DNA: Brand Tone]
+
+SOURCES REFERENCED
+- User brief: yes
+- Business DNA: Overview, Target Audience
+- Uploaded docs: ZYNTEGRATE_TECHNICAL_DOCUMENT_20260520.pdf
+
+USER LINKS
+- none
+
+VISUAL HINT
+A clean, modern, and interconnected visual showing a complex system architecture being simplified into a clean, intuitive drag-and-drop canvas interface.
+
+CONSTRAINTS
+- No invented statistics or claims not found in the source documents.
+- Stay focused on the ""no-code"" and ""drag-and-drop"" value proposition.
+- Maintain the professional and empowering brand voice.
+
+USER INPUT QUALITY: specific
+ASSUMPTIONS MADE:
+Minimal — user brief covered the main points.
+
+The brand's logo is attached as an image (for reference only — your
+output prompt already instructs gpt-image-2 to use the attached logo
+top-left). Emit the filled template now.
+","Read the post content below carefully. Based on the wording of the post -
+what is said, the verbs used (e.g. ""shipped / launched / try"" vs ""we help
+/ we partner / our team""), the offer, the call-to-action, and any links
+or pricing mentioned - figure out whether Zyntegrate is selling a
+product, a service, or something else (e.g. thought leadership, an
+announcement, a milestone, a news/industry update). The brand name alone
+does not determine this - the wording of the post does. Then pick a
+visual style that fits this kind of content.
+
+Post content: ""Stop waiting months for your engineering team to connect your tech stack.
+
+Integration complexity is a choice, not a requirement. We’ve moved the needle from manual coding to visual orchestration.
+
+With Zyntegrate, you can build 1:1, fan-out, fan-in, or sequential pipelines entirely on a drag-and-drop canvas.
+
+✅ Map sources to destinations visually
+✅ Build complex data flows without writing code
+✅ Reduce engineering bottlenecks instantly
+
+See how modern enterprises are building in minutes, not months → https://zyntegrate.com""
+
+Hard rules:
+- Place the attached logo in the TOP-LEFT corner, used exactly as provided
+- Place a clear call-to-action button in the BOTTOM-LEFT or BOTTOM-RIGHT corner
+- Use brand color #3366FF tastefully
+- Aspect ratio: 1:1
+
+
+Everything else - composition, imagery, typography, mood - is your choice.
+
+Make it look like a top-quality post a real designer would ship.",https://pipelyt-uploaded-images.s3.us-east-1.amazonaws.com/ai_gen/magic/viral_reach_42ba51139fc745898ed98efb467f897a.png,9.06,174.53,high_interaction,"What’s the most frustrating integration project you’ve ever worked on?
+
+For many, it’s the 'integration bottleneck'—where lean teams are forced to choose between slow, manual coding or rigid middleware that breaks the moment a schema changes.
+
+We built Zyntegrate to remove that friction. By using a React Flow-based visual canvas, you can define your logic once and let the system handle the execution.
+
+Are you currently building your pipelines with custom scripts, or have you already made the shift to visual orchestration?","VARIANT TYPE (informational; does not change the output template)
+high_interaction
+
+BRAND NAME → fill into <BRAND_NAME>
+Zyntegrate
+
+POST CONTENT → fill into <POST_CONTENT> verbatim, preserving every line
+break, bullet, and URL
+What’s the most frustrating integration project you’ve ever worked on?
+
+For many, it’s the 'integration bottleneck'—where lean teams are forced to choose between slow, manual coding or rigid middleware that breaks the moment a schema changes.
+
+We built Zyntegrate to remove that friction. By using a React Flow-based visual canvas, you can define your logic once and let the system handle the execution.
+
+Are you currently building your pipelines with custom scripts, or have you already made the shift to visual orchestration?
+
+BRAND COLOR → fill into <BRAND_COLOR>
+#3366FF
+
+ASPECT RATIO → fill into <ASPECT_RATIO>
+1:1
+
+CAMPAIGN BRIEF (context only — do NOT include in the output)
+STRATEGIC BRIEF
+──────────────────────────────────────────
+USER GOAL
+Create an educational social media post explaining the efficiency and simplicity of building integrations using a drag-and-drop, no-code approach.
+
+TOPIC
+Building complex, powerful system integrations without writing code. This campaign focuses on the capability to design workflows visually through drag-and-drop interfaces.
+
+AUDIENCE
+Modern enterprise teams struggling with disconnected tech stacks and lean teams looking to build integrations without expensive engineering overhead. [DNA: Target Audience]
+
+KEY MESSAGE
+Integration complexity is a thing of the past; you can now unify fragmented systems and automate workflows visually without writing a single line of code.
+
+ANGLE
+Educational explainer: Highlight the shift from manual coding to intuitive, visual integration building.
+
+SUPPORTING POINTS
+- Users can assemble, monitor, and manage complex integration pipelines, including 1:1, fan-out, fan-in, and sequential topologies, entirely via a drag-and-drop canvas. [doc: ZYNTEGRATE_TECHNICAL_DOCUMENT_20260520.pdf]
+- The visual builder uses React Flow, allowing users to place Trigger, Source, and Destination nodes onto a canvas and connect them to create data flows. [doc: ZYNTEGRATE_TECHNICAL_DOCUMENT_20260520.pdf]
+- This approach empowers teams to reduce engineering dependency and build integrations visually, accelerating deployment times. [DNA: Overview]
+
+TONE
+Professional, Innovative, Empowering, Efficient, Confident, Solution-oriented. [DNA: Brand Tone]
+
+SOURCES REFERENCED
+- User brief: yes
+- Business DNA: Overview, Target Audience
+- Uploaded docs: ZYNTEGRATE_TECHNICAL_DOCUMENT_20260520.pdf
+
+USER LINKS
+- none
+
+VISUAL HINT
+A clean, modern, and interconnected visual showing a complex system architecture being simplified into a clean, intuitive drag-and-drop canvas interface.
+
+CONSTRAINTS
+- No invented statistics or claims not found in the source documents.
+- Stay focused on the ""no-code"" and ""drag-and-drop"" value proposition.
+- Maintain the professional and empowering brand voice.
+
+USER INPUT QUALITY: specific
+ASSUMPTIONS MADE:
+Minimal — user brief covered the main points.
+
+The brand's logo is attached as an image (for reference only — your
+output prompt already instructs gpt-image-2 to use the attached logo
+top-left). Emit the filled template now.
+","Read the post content below carefully. Based on the wording of the post -
+what is said, the verbs used (e.g. ""shipped / launched / try"" vs ""we help
+/ we partner / our team""), the offer, the call-to-action, and any links
+or pricing mentioned - figure out whether Zyntegrate is selling a
+product, a service, or something else (e.g. thought leadership, an
+announcement, a milestone, a news/industry update). The brand name alone
+does not determine this - the wording of the post does. Then pick a
+visual style that fits this kind of content.
+
+Post content: ""What’s the most frustrating integration project you’ve ever worked on?
+
+For many, it’s the 'integration bottleneck'—where lean teams are forced to choose between slow, manual coding or rigid middleware that breaks the moment a schema changes.
+
+We built Zyntegrate to remove that friction. By using a React Flow-based visual canvas, you can define your logic once and let the system handle the execution.
+
+Are you currently building your pipelines with custom scripts, or have you already made the shift to visual orchestration?""
+
+Hard rules:
+- Place the attached logo in the TOP-LEFT corner, used exactly as provided
+- Place a clear call-to-action button in the BOTTOM-LEFT or BOTTOM-RIGHT corner
+- Use brand color #3366FF tastefully
+- Aspect ratio: 1:1
+
+
+Everything else - composition, imagery, typography, mood - is your choice.
+
+Make it look like a top-quality post a real designer would ship.",https://pipelyt-uploaded-images.s3.us-east-1.amazonaws.com/ai_gen/magic/high_interaction_d8d0a2ed6a484a1fb7e180ea17cf6cfd.png,8.42,178.94,follower_growth,"The future of enterprise architecture isn't more code—it's better orchestration.
+
+Most teams are sitting on a goldmine of data trapped in disconnected legacy databases and modern cloud apps. The missing piece is a unified data layer that connects everything without requiring a 'rip-and-replace' migration.
+
+Our approach is simple:
+
+1. Use the visual builder to map your nodes.
+2. Deploy AI agents to monitor and execute the workflow.
+3. Keep your data in sync in real-time.
+
+Follow us for deeper dives into building robust, no-code data pipelines.","VARIANT TYPE (informational; does not change the output template)
+follower_growth
+
+BRAND NAME → fill into <BRAND_NAME>
+Zyntegrate
+
+POST CONTENT → fill into <POST_CONTENT> verbatim, preserving every line
+break, bullet, and URL
+The future of enterprise architecture isn't more code—it's better orchestration.
+
+Most teams are sitting on a goldmine of data trapped in disconnected legacy databases and modern cloud apps. The missing piece is a unified data layer that connects everything without requiring a 'rip-and-replace' migration.
+
+Our approach is simple:
+
+1. Use the visual builder to map your nodes.
+2. Deploy AI agents to monitor and execute the workflow.
+3. Keep your data in sync in real-time.
+
+Follow us for deeper dives into building robust, no-code data pipelines.
+
+BRAND COLOR → fill into <BRAND_COLOR>
+#3366FF
+
+ASPECT RATIO → fill into <ASPECT_RATIO>
+1:1
+
+CAMPAIGN BRIEF (context only — do NOT include in the output)
+STRATEGIC BRIEF
+──────────────────────────────────────────
+USER GOAL
+Create an educational social media post explaining the efficiency and simplicity of building integrations using a drag-and-drop, no-code approach.
+
+TOPIC
+Building complex, powerful system integrations without writing code. This campaign focuses on the capability to design workflows visually through drag-and-drop interfaces.
+
+AUDIENCE
+Modern enterprise teams struggling with disconnected tech stacks and lean teams looking to build integrations without expensive engineering overhead. [DNA: Target Audience]
+
+KEY MESSAGE
+Integration complexity is a thing of the past; you can now unify fragmented systems and automate workflows visually without writing a single line of code.
+
+ANGLE
+Educational explainer: Highlight the shift from manual coding to intuitive, visual integration building.
+
+SUPPORTING POINTS
+- Users can assemble, monitor, and manage complex integration pipelines, including 1:1, fan-out, fan-in, and sequential topologies, entirely via a drag-and-drop canvas. [doc: ZYNTEGRATE_TECHNICAL_DOCUMENT_20260520.pdf]
+- The visual builder uses React Flow, allowing users to place Trigger, Source, and Destination nodes onto a canvas and connect them to create data flows. [doc: ZYNTEGRATE_TECHNICAL_DOCUMENT_20260520.pdf]
+- This approach empowers teams to reduce engineering dependency and build integrations visually, accelerating deployment times. [DNA: Overview]
+
+TONE
+Professional, Innovative, Empowering, Efficient, Confident, Solution-oriented. [DNA: Brand Tone]
+
+SOURCES REFERENCED
+- User brief: yes
+- Business DNA: Overview, Target Audience
+- Uploaded docs: ZYNTEGRATE_TECHNICAL_DOCUMENT_20260520.pdf
+
+USER LINKS
+- none
+
+VISUAL HINT
+A clean, modern, and interconnected visual showing a complex system architecture being simplified into a clean, intuitive drag-and-drop canvas interface.
+
+CONSTRAINTS
+- No invented statistics or claims not found in the source documents.
+- Stay focused on the ""no-code"" and ""drag-and-drop"" value proposition.
+- Maintain the professional and empowering brand voice.
+
+USER INPUT QUALITY: specific
+ASSUMPTIONS MADE:
+Minimal — user brief covered the main points.
+
+The brand's logo is attached as an image (for reference only — your
+output prompt already instructs gpt-image-2 to use the attached logo
+top-left). Emit the filled template now.
+","Read the post content below and figure out from the wording what kind of business Zyntegrate is. Then generate a social media post that includes at least one real-looking person in the scene. Pick the person, setting, mood, and outfit based on what fits the content.
+
+Post content: ""The future of enterprise architecture isn't more code—it's better orchestration.
+
+Most teams are sitting on a goldmine of data trapped in disconnected legacy databases and modern cloud apps. The missing piece is a unified data layer that connects everything without requiring a 'rip-and-replace' migration.
+
+Our approach is simple:
+
+1. Use the visual builder to map your nodes.
+2. Deploy AI agents to monitor and execute the workflow.
+3. Keep your data in sync in real-time.
+
+Follow us for deeper dives into building robust, no-code data pipelines.""
+
+Hard rules:
+- Logo (attached) in TOP-LEFT, used exactly as provided
+- Call-to-action in BOTTOM-LEFT or BOTTOM-RIGHT
+- Brand color #3366FF used tastefully
+- Aspect ratio: 1:1
+- Minimum one person clearly visible
+- Person must look natural - no AI face artifacts, no wrong-fingered hands
+
+Style choice is yours.",https://pipelyt-uploaded-images.s3.us-east-1.amazonaws.com/ai_gen/magic/follower_growth_648a9233c64e4215a6858922cbb075c2.png,9.33,185.28,festival_variant,"Today we honor Juneteenth and the spirit of progress and freedom.
+
+At Zyntegrate, we believe in a different kind of freedom: the freedom to build, connect, and innovate without being tethered to manual, repetitive coding tasks. Wishing everyone a meaningful day of reflection and growth.","VARIANT TYPE (informational; does not change the output template)
+festival_variant
+
+BRAND NAME → fill into <BRAND_NAME>
+Zyntegrate
+
+POST CONTENT → fill into <POST_CONTENT> verbatim, preserving every line
+break, bullet, and URL
+Today we honor Juneteenth and the spirit of progress and freedom.
+
+At Zyntegrate, we believe in a different kind of freedom: the freedom to build, connect, and innovate without being tethered to manual, repetitive coding tasks. Wishing everyone a meaningful day of reflection and growth.
+
+BRAND COLOR → fill into <BRAND_COLOR>
+#3366FF
+
+ASPECT RATIO → fill into <ASPECT_RATIO>
+1:1
+
+CAMPAIGN BRIEF (context only — do NOT include in the output)
+STRATEGIC BRIEF
+──────────────────────────────────────────
+USER GOAL
+Create an educational social media post explaining the efficiency and simplicity of building integrations using a drag-and-drop, no-code approach.
+
+TOPIC
+Building complex, powerful system integrations without writing code. This campaign focuses on the capability to design workflows visually through drag-and-drop interfaces.
+
+AUDIENCE
+Modern enterprise teams struggling with disconnected tech stacks and lean teams looking to build integrations without expensive engineering overhead. [DNA: Target Audience]
+
+KEY MESSAGE
+Integration complexity is a thing of the past; you can now unify fragmented systems and automate workflows visually without writing a single line of code.
+
+ANGLE
+Educational explainer: Highlight the shift from manual coding to intuitive, visual integration building.
+
+SUPPORTING POINTS
+- Users can assemble, monitor, and manage complex integration pipelines, including 1:1, fan-out, fan-in, and sequential topologies, entirely via a drag-and-drop canvas. [doc: ZYNTEGRATE_TECHNICAL_DOCUMENT_20260520.pdf]
+- The visual builder uses React Flow, allowing users to place Trigger, Source, and Destination nodes onto a canvas and connect them to create data flows. [doc: ZYNTEGRATE_TECHNICAL_DOCUMENT_20260520.pdf]
+- This approach empowers teams to reduce engineering dependency and build integrations visually, accelerating deployment times. [DNA: Overview]
+
+TONE
+Professional, Innovative, Empowering, Efficient, Confident, Solution-oriented. [DNA: Brand Tone]
+
+SOURCES REFERENCED
+- User brief: yes
+- Business DNA: Overview, Target Audience
+- Uploaded docs: ZYNTEGRATE_TECHNICAL_DOCUMENT_20260520.pdf
+
+USER LINKS
+- none
+
+VISUAL HINT
+A clean, modern, and interconnected visual showing a complex system architecture being simplified into a clean, intuitive drag-and-drop canvas interface.
+
+CONSTRAINTS
+- No invented statistics or claims not found in the source documents.
+- Stay focused on the ""no-code"" and ""drag-and-drop"" value proposition.
+- Maintain the professional and empowering brand voice.
+
+USER INPUT QUALITY: specific
+ASSUMPTIONS MADE:
+Minimal — user brief covered the main points.
+
+The brand's logo is attached as an image (for reference only — your
+output prompt already instructs gpt-image-2 to use the attached logo
+top-left). Emit the filled template now.
+","Read the post content below carefully. Based on the wording of the post - what is said, the verbs used (e.g. ""shipped / launched / try"" vs ""we help / we partner / our team""), the offer, the call-to-action, and any links or pricing mentioned - figure out whether Zyntegrate is selling a product, a service, or something else (e.g. thought leadership, an announcement, a milestone, a news/industry update). The brand name alone does not determine this - the wording of the post does. Then pick a visual style that fits this kind of content.
+
+Post content: ""Today we honor Juneteenth and the spirit of progress and freedom.
+
+At Zyntegrate, we believe in a different kind of freedom: the freedom to build, connect, and innovate without being tethered to manual, repetitive coding tasks. Wishing everyone a meaningful day of reflection and growth.""
+
+Hard rules:
+- Place the attached logo in the TOP-LEFT corner, used exactly as provided
+- Place a clear call-to-action button in the BOTTOM-LEFT or BOTTOM-RIGHT corner
+- Use brand color #3366FF tastefully
+- Aspect ratio: 1:1
+
+
+Everything else - composition, imagery, typography, mood - is your choice.",https://pipelyt-uploaded-images.s3.us-east-1.amazonaws.com/ai_gen/magic/festival_variant_a2abb22b014844849df9434704ea4169.png,11.66,164.25

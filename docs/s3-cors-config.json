@@ -1,0 +1,16 @@
+[
+  {
+    "AllowedHeaders": ["*"],
+    "AllowedMethods": ["GET", "PUT", "POST", "HEAD"],
+    "AllowedOrigins": [
+      "https://app.pipelyt.ai",
+      "https://staging.app.pipelyt.ai",
+      "https://www.pipelyt.ai",
+      "https://pipelyt.ai",
+      "http://localhost:5173",
+      "http://localhost:3000"
+    ],
+    "ExposeHeaders": ["ETag", "x-amz-request-id", "x-amz-version-id"],
+    "MaxAgeSeconds": 3000
+  }
+]

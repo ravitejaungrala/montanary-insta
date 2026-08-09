@@ -1,0 +1,677 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-04-16T00:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="pipelyt-architecture" name="Pipelyt Architecture">
+    <mxGraphModel dx="2200" dy="1400" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ===== TITLE ===== -->
+        <mxCell id="title" value="Pipelyt — System Architecture" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=24;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="700" y="20" width="800" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ============================================================= -->
+        <!-- LEFT COLUMN: CLIENT + SCHEDULER + DATA (x: 60 - 520)           -->
+        <!-- ============================================================= -->
+
+        <!-- Client group -->
+        <mxCell id="g-client" value="Client / Browser" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;verticalAlign=top;fontStyle=1;fontSize=14;spacingTop=8" vertex="1" parent="1">
+          <mxGeometry x="60" y="80" width="460" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="user" value="End User" style="shape=umlActor;verticalLabelPosition=bottom;labelBackgroundColor=none;verticalAlign=top;html=1;outlineConnect=0;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="120" y="130" width="40" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="landing" value="Landing Page&#10;React 19 + TS + Vite" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;spacing=6" vertex="1" parent="1">
+          <mxGeometry x="220" y="130" width="260" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="product" value="Product Dashboard&#10;React 18 + Tailwind + Vite" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;spacing=6" vertex="1" parent="1">
+          <mxGeometry x="220" y="210" width="260" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="amplify" value="AWS Amplify Hosting  (amplify.yml)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="100" y="290" width="380" height="36" as="geometry" />
+        </mxCell>
+
+        <!-- Scheduler group -->
+        <mxCell id="g-sched" value="Scheduler" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;verticalAlign=top;fontStyle=1;fontSize=14;spacingTop=8" vertex="1" parent="1">
+          <mxGeometry x="60" y="380" width="460" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="eventbridge" value="AWS EventBridge&#10;cron — every 1 minute" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;spacing=6" vertex="1" parent="1">
+          <mxGeometry x="100" y="430" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="pinger" value="lambda_pinger.py&#10;(separate Lambda)&#10;POST /scheduler/process&#10;X-Scheduler-Secret" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;spacing=6" vertex="1" parent="1">
+          <mxGeometry x="320" y="420" width="180" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="sched-note" value="/scheduler/process generates agentic posts: refine brief → research → content → visuals → publish" style="text;html=1;align=center;fontSize=11;fontStyle=2;whiteSpace=wrap" vertex="1" parent="1">
+          <mxGeometry x="80" y="530" width="420" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Data group -->
+        <mxCell id="g-data" value="Data Stores" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;verticalAlign=top;fontStyle=1;fontSize=14;spacingTop=8" vertex="1" parent="1">
+          <mxGeometry x="60" y="640" width="460" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="pg" value="PostgreSQL&#10;users, social_accounts, posts,&#10;drafts, scheduled_posts, otps,&#10;analytics" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;spacingTop=10" vertex="1" parent="1">
+          <mxGeometry x="100" y="690" width="180" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="s3" value="AWS S3&#10;uploads · images · leads CSV&#10;DNA documents" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;spacing=8" vertex="1" parent="1">
+          <mxGeometry x="320" y="710" width="180" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- ============================================================= -->
+        <!-- MIDDLE COLUMN: API BACKEND (x: 600 - 1540)                     -->
+        <!-- ============================================================= -->
+
+        <mxCell id="g-api" value="AWS Lambda — FastAPI Backend (Mangum)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;verticalAlign=top;fontStyle=1;fontSize=14;spacingTop=8" vertex="1" parent="1">
+          <mxGeometry x="600" y="80" width="940" height="1050" as="geometry" />
+        </mxCell>
+
+        <!-- Entry files -->
+        <mxCell id="main-py" value="main.py&#10;CORS · logging · routers · sync_db_schema()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;fontSize=12;spacing=8" vertex="1" parent="1">
+          <mxGeometry x="640" y="130" width="420" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="lambda-handler" value="lambda_handler.py&#10;Mangum adapter · EventBridge router" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;fontSize=12;spacing=8" vertex="1" parent="1">
+          <mxGeometry x="1080" y="130" width="420" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Routers header -->
+        <mxCell id="routers-label" value="Routers  (apps/backend/routers)" style="text;html=1;align=center;fontSize=13;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="640" y="220" width="860" height="24" as="geometry" />
+        </mxCell>
+
+        <!-- Routers row 1 -->
+        <mxCell id="r-auth" value="auth.py&#10;/auth · OTP · JWT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;spacing=6" vertex="1" parent="1">
+          <mxGeometry x="640" y="260" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="r-social" value="social.py&#10;OAuth + connections" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;spacing=6" vertex="1" parent="1">
+          <mxGeometry x="860" y="260" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="r-content" value="content.py&#10;AI gen · publish · /scheduler/process" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;spacing=6" vertex="1" parent="1">
+          <mxGeometry x="1080" y="260" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="r-drafts" value="drafts.py&#10;Draft CRUD + publish" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;spacing=6" vertex="1" parent="1">
+          <mxGeometry x="1300" y="260" width="200" height="70" as="geometry" />
+        </mxCell>
+        <!-- Routers row 2 -->
+        <mxCell id="r-analytics" value="analytics.py&#10;Metrics sync + summary" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;spacing=6" vertex="1" parent="1">
+          <mxGeometry x="640" y="350" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="r-canva" value="canva.py&#10;Canva OAuth + export" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;spacing=6" vertex="1" parent="1">
+          <mxGeometry x="860" y="350" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="r-payment" value="payment.py&#10;Stripe checkout / webhook" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;spacing=6" vertex="1" parent="1">
+          <mxGeometry x="1080" y="350" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="r-profile" value="profile.py&#10;Profile · onboarding · DNA" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;spacing=6" vertex="1" parent="1">
+          <mxGeometry x="1300" y="350" width="200" height="70" as="geometry" />
+        </mxCell>
+        <!-- Routers row 3 -->
+        <mxCell id="r-contact" value="contact.py&#10;Leads → S3 CSV" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;spacing=6" vertex="1" parent="1">
+          <mxGeometry x="640" y="440" width="200" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Services header -->
+        <mxCell id="services-label" value="Services  (apps/backend/services)" style="text;html=1;align=center;fontSize=13;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="640" y="540" width="860" height="24" as="geometry" />
+        </mxCell>
+
+        <mxCell id="s-ai" value="ai_service.py&#10;Gemini multi-agent orchestration" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;spacing=6" vertex="1" parent="1">
+          <mxGeometry x="640" y="580" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="s-dna" value="business_dna_service.py&#10;Jina AI + Microlink" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;spacing=6" vertex="1" parent="1">
+          <mxGeometry x="860" y="580" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="s-doc" value="doc_processor.py&#10;PDF/DOCX/CSV extract" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;spacing=6" vertex="1" parent="1">
+          <mxGeometry x="1080" y="580" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="s-email" value="email_service.py&#10;Azure Graph OTP email" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;spacing=6" vertex="1" parent="1">
+          <mxGeometry x="1300" y="580" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="s-s3" value="s3_service.py&#10;S3 uploads · lead CSV" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;spacing=6" vertex="1" parent="1">
+          <mxGeometry x="640" y="670" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="s-social" value="social_service.py&#10;Media · token refresh" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;spacing=6" vertex="1" parent="1">
+          <mxGeometry x="860" y="670" width="200" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Core + Models -->
+        <mxCell id="core-label" value="Core  (apps/backend/core)" style="text;html=1;align=center;fontSize=13;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="640" y="780" width="860" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="core-box" value="config.py  ·  database.py (SQLAlchemy)  ·  auth.py (JWT + bcrypt)  ·  s3_utils.py" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;spacing=8" vertex="1" parent="1">
+          <mxGeometry x="640" y="810" width="860" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="models-box" value="models.py — User · SocialAccount · PublishedPost · PublishedPostPlatform · Draft · ScheduledPost · UserAnalyticsSnapshot · UserOTP · PendingOAuthSync" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;spacing=8" vertex="1" parent="1">
+          <mxGeometry x="640" y="880" width="860" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="api-note" value="also exposes:   /   ·   /health   ·   /test-db   ·   /login (root fallback)   ·   /static/*" style="text;html=1;align=center;fontSize=11;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="640" y="960" width="860" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Internal arrow: routers -> services (one clean vertical indicator) -->
+        <mxCell id="int-arrow" value="routers call services" style="text;html=1;align=center;fontSize=10;fontStyle=2;fontColor=#666666" vertex="1" parent="1">
+          <mxGeometry x="640" y="520" width="860" height="16" as="geometry" />
+        </mxCell>
+
+        <!-- ============================================================= -->
+        <!-- RIGHT COLUMN: EXTERNAL SERVICES (x: 1600 - 2140)               -->
+        <!-- ============================================================= -->
+
+        <mxCell id="g-ext" value="External Services" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8e8e8;strokeColor=#999999;verticalAlign=top;fontStyle=1;fontSize=14;spacingTop=8" vertex="1" parent="1">
+          <mxGeometry x="1600" y="80" width="540" height="1050" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ext-gemini" value="Google Gemini 2.5 Flash&#10;content + image generation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;fontSize=12;spacing=8" vertex="1" parent="1">
+          <mxGeometry x="1630" y="130" width="480" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-linkedin" value="LinkedIn v2&#10;OAuth 2.0 · publish · metrics" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;fontSize=12;spacing=8" vertex="1" parent="1">
+          <mxGeometry x="1630" y="220" width="480" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-twitter" value="Twitter / X  API v1.1 + v2&#10;OAuth 1.0a &amp; OAuth 2.0 PKCE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;fontSize=12;spacing=8" vertex="1" parent="1">
+          <mxGeometry x="1630" y="310" width="480" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-meta" value="Meta Graph API v19&#10;Facebook pages + Instagram" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;fontSize=12;spacing=8" vertex="1" parent="1">
+          <mxGeometry x="1630" y="400" width="480" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-canva" value="Canva Connect API&#10;design creation + export" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;fontSize=12;spacing=8" vertex="1" parent="1">
+          <mxGeometry x="1630" y="490" width="480" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-stripe" value="Stripe&#10;checkout · webhook · portal" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;fontSize=12;spacing=8" vertex="1" parent="1">
+          <mxGeometry x="1630" y="580" width="480" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-jina" value="Jina AI Reader + Microlink&#10;site scrape for Business DNA" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;fontSize=12;spacing=8" vertex="1" parent="1">
+          <mxGeometry x="1630" y="670" width="480" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-azure" value="Azure AD + Microsoft Graph&#10;OTP email sending" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;fontSize=12;spacing=8" vertex="1" parent="1">
+          <mxGeometry x="1630" y="760" width="480" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-cw" value="AWS CloudWatch&#10;Lambda logs · metrics" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;fontSize=12;spacing=8" vertex="1" parent="1">
+          <mxGeometry x="1630" y="850" width="480" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ============================================================= -->
+        <!-- LEGEND                                                          -->
+        <!-- ============================================================= -->
+        <mxCell id="legend" value="Solid line = runtime call      ·      Dashed line = deploy / internal dependency" style="text;html=1;align=center;fontSize=12;fontStyle=2;fillColor=#fafafa;strokeColor=#cccccc;rounded=1" vertex="1" parent="1">
+          <mxGeometry x="60" y="1150" width="2080" height="28" as="geometry" />
+        </mxCell>
+
+        <!-- ============================================================= -->
+        <!-- EDGES — all orthogonal, no overlaps                            -->
+        <!-- ============================================================= -->
+
+        <!-- User → frontends -->
+        <mxCell id="e-u-l" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="user" target="landing">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-u-p" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=1;exitY=0.7;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="user" target="product">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Amplify deploys both (dashed) -->
+        <mxCell id="e-a-l" value="deploys" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;fontSize=11;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="amplify" target="landing">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-a-p" value="deploys" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;fontSize=11;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="amplify" target="product">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Product dashboard → API (main.py) -->
+        <mxCell id="e-p-api" value="HTTPS · JWT" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;fontSize=11;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="product" target="main-py">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-l-api" value="auth · contact" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="landing" target="main-py">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- EventBridge chain -->
+        <mxCell id="e-eb-pg" value="trigger" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="eventbridge" target="pinger">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-pg-content" value="POST /scheduler/process" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;fontSize=11;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="pinger" target="r-content">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Backend → data stores (from models box) -->
+        <mxCell id="e-api-pg" value="SQLAlchemy" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;fontSize=11;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.3;entryDx=0;entryDy=0;" edge="1" parent="1" source="models-box" target="pg">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-s3svc-s3" value="boto3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="s-s3" target="s3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Backend → External (all exit RIGHT, enter LEFT of external box — no crossings) -->
+        <mxCell id="e-ai-gem" value="google-genai" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="s-ai" target="ext-gemini">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-social-li" value="OAuth + publish" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;exitX=1;exitY=0.4;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="s-social" target="ext-linkedin">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-social-tw" value="OAuth + publish" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;exitX=1;exitY=0.6;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="s-social" target="ext-twitter">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-rsocial-meta" value="Graph API" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="r-social" target="ext-meta">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-canva" value="OAuth + export" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="r-canva" target="ext-canva">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-stripe" value="stripe SDK" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="r-payment" target="ext-stripe">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-dna" value="scrape" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="s-dna" target="ext-jina">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-email" value="OTP email" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=11;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="s-email" target="ext-azure">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-cw" value="logs" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;fontSize=11;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="lambda-handler" target="ext-cw">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <!-- =========================================================== -->
+  <!-- PAGE 2:  AUTH FLOW  (sign-up, sign-in, verify credentials)  -->
+  <!-- =========================================================== -->
+  <diagram id="pipelyt-auth-flow" name="Auth &amp; Credential Flow">
+    <mxGraphModel dx="2000" dy="1400" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2000" pageHeight="2300" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ===== TITLE ===== -->
+        <mxCell id="af-title" value="Pipelyt — Authentication &amp; Credential Flow" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=22;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="500" y="15" width="1000" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- =========================================================== -->
+        <!-- LIFELINE HEADERS  (at top, y=70-140)                         -->
+        <!-- centers:  User=120  Frontend=360  Backend=700  Email=1050    -->
+        <!--           DB=1400  JWT=1750                                   -->
+        <!-- =========================================================== -->
+
+        <mxCell id="lh-user" value="👤 End User&#10;(browser)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;spacing=6" vertex="1" parent="1">
+          <mxGeometry x="40" y="70" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="lh-fe" value="🌐 Frontend&#10;(React product-page)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1;spacing=6" vertex="1" parent="1">
+          <mxGeometry x="280" y="70" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="lh-be" value="⚡ Backend&#10;routers/auth.py" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;fontStyle=1;spacing=6" vertex="1" parent="1">
+          <mxGeometry x="620" y="70" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="lh-email" value="📧 Email Service&#10;(Azure / MS Graph)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;fontStyle=1;spacing=6" vertex="1" parent="1">
+          <mxGeometry x="970" y="70" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="lh-db" value="🗃️ PostgreSQL&#10;users · user_otps" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;spacing=6" vertex="1" parent="1">
+          <mxGeometry x="1320" y="70" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="lh-jwt" value="🔐 JWT Module&#10;core/auth.py · HS256" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;fontStyle=1;spacing=6" vertex="1" parent="1">
+          <mxGeometry x="1670" y="70" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ===== LIFELINE VERTICAL DASHED LINES ===== -->
+        <mxCell id="ll-user" style="endArrow=none;html=1;dashed=1;dashPattern=6 6;strokeColor=#6c8ebf" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="120" y="130" as="sourcePoint" />
+            <mxPoint x="120" y="2230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ll-fe" style="endArrow=none;html=1;dashed=1;dashPattern=6 6;strokeColor=#82b366" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="360" y="130" as="sourcePoint" />
+            <mxPoint x="360" y="2230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ll-be" style="endArrow=none;html=1;dashed=1;dashPattern=6 6;strokeColor=#d79b00" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="700" y="130" as="sourcePoint" />
+            <mxPoint x="700" y="2230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ll-email" style="endArrow=none;html=1;dashed=1;dashPattern=6 6;strokeColor=#b85450" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1050" y="130" as="sourcePoint" />
+            <mxPoint x="1050" y="2230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ll-db" style="endArrow=none;html=1;dashed=1;dashPattern=6 6;strokeColor=#6c8ebf" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1400" y="130" as="sourcePoint" />
+            <mxPoint x="1400" y="2230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ll-jwt" style="endArrow=none;html=1;dashed=1;dashPattern=6 6;strokeColor=#9673a6" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1750" y="130" as="sourcePoint" />
+            <mxPoint x="1750" y="2230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- =========================================================== -->
+        <!-- SECTION A:  SIGN UP  (new user registration via OTP)         -->
+        <!-- =========================================================== -->
+        <mxCell id="sec-a" value="A)  SIGN UP  —  new user registers with email + OTP + password" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;fontStyle=1;align=left;spacingLeft=14" vertex="1" parent="1">
+          <mxGeometry x="40" y="160" width="1790" height="32" as="geometry" />
+        </mxCell>
+
+        <!-- Step 1: User → Frontend -->
+        <mxCell id="a1" value="1.  open Sign Up, enter email" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="120" y="215" as="sourcePoint" />
+            <mxPoint x="360" y="215" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- Step 2: Frontend → Backend -->
+        <mxCell id="a2" value="2.  POST /auth/request-otp  { email, purpose: &quot;register&quot; }" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="360" y="255" as="sourcePoint" />
+            <mxPoint x="700" y="255" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- Step 3: Backend → DB -->
+        <mxCell id="a3" value="3.  SELECT users WHERE email = ?" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="700" y="295" as="sourcePoint" />
+            <mxPoint x="1400" y="295" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- Step 4: DB → Backend (return, dashed) -->
+        <mxCell id="a4" value="4.  not found  (email available)" style="endArrow=open;html=1;rounded=0;dashed=1;fontSize=11;strokeColor=#6c8ebf" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1400" y="335" as="sourcePoint" />
+            <mxPoint x="700" y="335" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- Step 5: Backend → DB (insert OTP) -->
+        <mxCell id="a5" value="5.  generate 6-digit OTP · INSERT user_otps (code, expires_at = now + 10 min)" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="700" y="375" as="sourcePoint" />
+            <mxPoint x="1400" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- Step 6: Backend → Email -->
+        <mxCell id="a6" value="6.  email_service.send_otp_email(email, otp)" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="700" y="415" as="sourcePoint" />
+            <mxPoint x="1050" y="415" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- Step 7: Email → User -->
+        <mxCell id="a7" value="7.  email delivered to user's inbox with OTP code" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5;strokeColor=#b85450" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1050" y="455" as="sourcePoint" />
+            <mxPoint x="120" y="455" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- Step 8: User → Frontend -->
+        <mxCell id="a8" value="8.  type OTP on verify screen" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="120" y="495" as="sourcePoint" />
+            <mxPoint x="360" y="495" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- Step 9: Frontend → Backend -->
+        <mxCell id="a9" value="9.  POST /auth/verify-otp  { email, code, purpose: &quot;register&quot; }" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="360" y="535" as="sourcePoint" />
+            <mxPoint x="700" y="535" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- Step 10: Backend → DB (verify) -->
+        <mxCell id="a10" value="10.  SELECT user_otps WHERE code=? AND NOT is_used AND expires_at &gt; now()" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="700" y="575" as="sourcePoint" />
+            <mxPoint x="1400" y="575" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- Step 11: DB → Backend (match found, mark used) -->
+        <mxCell id="a11" value="11.  match found → UPDATE is_used = true" style="endArrow=open;html=1;rounded=0;dashed=1;fontSize=11;strokeColor=#6c8ebf" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1400" y="615" as="sourcePoint" />
+            <mxPoint x="700" y="615" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- Step 12: Backend → Frontend -->
+        <mxCell id="a12" value="12.  200  { is_new_user: true, email }" style="endArrow=open;html=1;rounded=0;dashed=1;fontSize=11;strokeColor=#d79b00" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="700" y="655" as="sourcePoint" />
+            <mxPoint x="360" y="655" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- Step 13: Frontend shows password form to user -->
+        <mxCell id="a13" value="13.  show &quot;create password&quot; form" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5;strokeColor=#82b366" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="360" y="695" as="sourcePoint" />
+            <mxPoint x="120" y="695" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- Step 14: User enters password -->
+        <mxCell id="a14" value="14.  enter password" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="120" y="735" as="sourcePoint" />
+            <mxPoint x="360" y="735" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- Step 15: Frontend → Backend register -->
+        <mxCell id="a15" value="15.  POST /auth/register  { email, password }" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="360" y="775" as="sourcePoint" />
+            <mxPoint x="700" y="775" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- Step 16: Backend → DB (insert user with bcrypt hash) -->
+        <mxCell id="a16" value="16.  hash password (bcrypt) · INSERT users (email, hashed_password)" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="700" y="815" as="sourcePoint" />
+            <mxPoint x="1400" y="815" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- Step 17: Backend → Frontend (user created) -->
+        <mxCell id="a17" value="17.  200  User created" style="endArrow=open;html=1;rounded=0;dashed=1;fontSize=11;strokeColor=#d79b00" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="700" y="855" as="sourcePoint" />
+            <mxPoint x="360" y="855" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- =========================================================== -->
+        <!-- SECTION B:  SIGN IN  (existing user login via OTP → JWT)     -->
+        <!-- =========================================================== -->
+        <mxCell id="sec-b" value="B)  SIGN IN  —  existing user logs in with OTP, receives JWT" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;fontStyle=1;align=left;spacingLeft=14" vertex="1" parent="1">
+          <mxGeometry x="40" y="900" width="1790" height="32" as="geometry" />
+        </mxCell>
+
+        <mxCell id="b1" value="1.  enter email on Sign In" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="120" y="955" as="sourcePoint" />
+            <mxPoint x="360" y="955" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b2" value="2.  POST /auth/request-otp  { email, purpose: &quot;login&quot; }" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="360" y="995" as="sourcePoint" />
+            <mxPoint x="700" y="995" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b3" value="3.  generate OTP · INSERT user_otps" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="700" y="1035" as="sourcePoint" />
+            <mxPoint x="1400" y="1035" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b4" value="4.  send_otp_email()" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="700" y="1075" as="sourcePoint" />
+            <mxPoint x="1050" y="1075" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b5" value="5.  email delivered with OTP" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5;strokeColor=#b85450" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1050" y="1115" as="sourcePoint" />
+            <mxPoint x="120" y="1115" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b6" value="6.  enter OTP" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="120" y="1155" as="sourcePoint" />
+            <mxPoint x="360" y="1155" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b7" value="7.  POST /auth/verify-otp  { email, code, purpose: &quot;login&quot; }" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="360" y="1195" as="sourcePoint" />
+            <mxPoint x="700" y="1195" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b8" value="8.  verify OTP (not used, not expired) · mark is_used=true · SELECT user" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="700" y="1235" as="sourcePoint" />
+            <mxPoint x="1400" y="1235" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b9" value="9.  user row found (credentials verified)" style="endArrow=open;html=1;rounded=0;dashed=1;fontSize=11;strokeColor=#6c8ebf" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1400" y="1275" as="sourcePoint" />
+            <mxPoint x="700" y="1275" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b10" value="10.  create_access_token({ sub: email })  HS256 · exp = 10 years" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="700" y="1315" as="sourcePoint" />
+            <mxPoint x="1750" y="1315" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b11" value="11.  signed JWT" style="endArrow=open;html=1;rounded=0;dashed=1;fontSize=11;strokeColor=#9673a6" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1750" y="1355" as="sourcePoint" />
+            <mxPoint x="700" y="1355" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b12" value="12.  200  { access_token, token_type: &quot;bearer&quot;, is_new_user: false }" style="endArrow=open;html=1;rounded=0;dashed=1;fontSize=11;strokeColor=#d79b00" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="700" y="1395" as="sourcePoint" />
+            <mxPoint x="360" y="1395" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b13" value="13.  save token in localStorage · redirect → /dashboard" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5;strokeColor=#82b366" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="360" y="1435" as="sourcePoint" />
+            <mxPoint x="120" y="1435" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- =========================================================== -->
+        <!-- SECTION C:  PASSWORD LOGIN (alt)                             -->
+        <!-- =========================================================== -->
+        <mxCell id="sec-c" value="C)  PASSWORD LOGIN  —  alternative flow, /auth/login with email + password" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;fontStyle=1;align=left;spacingLeft=14" vertex="1" parent="1">
+          <mxGeometry x="40" y="1480" width="1790" height="32" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c1" value="1.  enter email + password" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="120" y="1535" as="sourcePoint" />
+            <mxPoint x="360" y="1535" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c2" value="2.  POST /auth/login  (form: username + password)" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="360" y="1575" as="sourcePoint" />
+            <mxPoint x="700" y="1575" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c3" value="3.  SELECT users WHERE email = ?" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="700" y="1615" as="sourcePoint" />
+            <mxPoint x="1400" y="1615" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c4" value="4.  row { hashed_password }" style="endArrow=open;html=1;rounded=0;dashed=1;fontSize=11;strokeColor=#6c8ebf" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1400" y="1655" as="sourcePoint" />
+            <mxPoint x="700" y="1655" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <!-- self-note on backend -->
+        <mxCell id="c5note" value="5.  verify_password(plain, bcrypt hash)  ✓" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;fontSize=11;dashed=1" vertex="1" parent="1">
+          <mxGeometry x="560" y="1685" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="c6" value="6.  create_access_token({ sub: email })" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="700" y="1735" as="sourcePoint" />
+            <mxPoint x="1750" y="1735" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c7" value="7.  200  { access_token, token_type: &quot;bearer&quot; }" style="endArrow=open;html=1;rounded=0;dashed=1;fontSize=11;strokeColor=#d79b00" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="700" y="1775" as="sourcePoint" />
+            <mxPoint x="360" y="1775" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- =========================================================== -->
+        <!-- SECTION D:  AUTHENTICATED REQUEST  (credential verification) -->
+        <!-- =========================================================== -->
+        <mxCell id="sec-d" value="D)  AUTHENTICATED REQUEST  —  every API call verifies the JWT (get_current_user dependency)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;fontStyle=1;align=left;spacingLeft=14" vertex="1" parent="1">
+          <mxGeometry x="40" y="1820" width="1790" height="32" as="geometry" />
+        </mxCell>
+
+        <mxCell id="d1" value="1.  click something (e.g. open Dashboard)" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="120" y="1875" as="sourcePoint" />
+            <mxPoint x="360" y="1875" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d2" value="2.  GET /profile   Header:  Authorization: Bearer &lt;JWT&gt;" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="360" y="1915" as="sourcePoint" />
+            <mxPoint x="700" y="1915" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d3" value="3.  jwt.decode(token, SECRET_KEY, algorithms=[HS256])" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="700" y="1955" as="sourcePoint" />
+            <mxPoint x="1750" y="1955" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d4" value="4.  { sub: email }   (valid signature, not expired)" style="endArrow=open;html=1;rounded=0;dashed=1;fontSize=11;strokeColor=#9673a6" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1750" y="1995" as="sourcePoint" />
+            <mxPoint x="700" y="1995" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d5" value="5.  SELECT users WHERE email = ?   →   current_user" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="700" y="2035" as="sourcePoint" />
+            <mxPoint x="1400" y="2035" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d6" value="6.  user row" style="endArrow=open;html=1;rounded=0;dashed=1;fontSize=11;strokeColor=#6c8ebf" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1400" y="2075" as="sourcePoint" />
+            <mxPoint x="700" y="2075" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d7" value="7.  200  { user data / dashboard payload }" style="endArrow=open;html=1;rounded=0;dashed=1;fontSize=11;strokeColor=#d79b00" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="700" y="2115" as="sourcePoint" />
+            <mxPoint x="360" y="2115" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d8" value="8.  render page" style="endArrow=classic;html=1;rounded=0;fontSize=11;strokeWidth=1.5;strokeColor=#82b366" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="360" y="2155" as="sourcePoint" />
+            <mxPoint x="120" y="2155" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ===== LEGEND ===== -->
+        <mxCell id="af-legend" value="Solid arrow = request / action   ·   Dashed arrow = response / return   ·   Each section is an independent flow" style="text;html=1;align=center;fontSize=12;fontStyle=2;fillColor=#fafafa;strokeColor=#cccccc;rounded=1" vertex="1" parent="1">
+          <mxGeometry x="40" y="2200" width="1790" height="28" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

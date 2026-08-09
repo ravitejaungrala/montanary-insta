@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 980" font-family="'Segoe UI', Arial, sans-serif" role="img" aria-labelledby="ttl desc">
+  <title id="ttl">Pipelyt System Architecture</title>
+  <desc id="desc">Layered architecture: React frontends call a FastAPI backend on AWS Lambda whose ai_service multi-agent engine (Refiner, Researcher, Copywriter, Visualist, Visual Critic, Strategic Critic, Planner) runs on Gemini; backed by PostgreSQL, an EventBridge scheduler, and external services.</desc>
+
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arrowO" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 Z" fill="#ff4500"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="980" fill="#ffffff"/>
+
+  <!-- ===== Title ===== -->
+  <text x="600" y="44" font-size="27" font-weight="700" fill="#141414" text-anchor="middle">Pipelyt — System Architecture</text>
+  <text x="600" y="68" font-size="13" fill="#6b6b6b" text-anchor="middle">Agentic AI social-media platform — request flow runs top to bottom</text>
+
+  <!-- ===== Client layer ===== -->
+  <text x="60" y="106" font-size="11" font-weight="700" fill="#ff4500" letter-spacing="2">CLIENT LAYER</text>
+
+  <rect x="300" y="116" width="270" height="70" rx="12" fill="#ffffff" stroke="#d9d9d9" stroke-width="1.5"/>
+  <text x="435" y="148" font-size="15" font-weight="700" fill="#141414" text-anchor="middle">Landing Page</text>
+  <text x="435" y="168" font-size="11.5" fill="#6b6b6b" text-anchor="middle">Marketing &amp; sign-up · React 19</text>
+
+  <rect x="630" y="116" width="270" height="70" rx="12" fill="#ffffff" stroke="#d9d9d9" stroke-width="1.5"/>
+  <text x="765" y="148" font-size="15" font-weight="700" fill="#141414" text-anchor="middle">Product Dashboard</text>
+  <text x="765" y="168" font-size="11.5" fill="#6b6b6b" text-anchor="middle">Authenticated app UI · React 18</text>
+
+  <text x="600" y="206" font-size="11" fill="#6b6b6b" text-anchor="middle" font-style="italic">Both build with Vite · deployed via AWS Amplify</text>
+
+  <!-- frontends -> backend -->
+  <line x1="600" y1="214" x2="600" y2="244" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="612" y="233" font-size="10.5" fill="#6b6b6b">REST API over HTTPS</text>
+
+  <!-- ===== Backend container ===== -->
+  <rect x="60" y="248" width="1080" height="476" rx="16" fill="#fafafa" stroke="#141414" stroke-width="2"/>
+  <text x="84" y="280" font-size="13" font-weight="700" fill="#141414">BACKEND</text>
+  <text x="158" y="280" font-size="13" fill="#6b6b6b">·  FastAPI on AWS Lambda (Mangum adapter)</text>
+
+  <!-- routers strip -->
+  <rect x="90" y="294" width="1020" height="62" rx="10" fill="#ffffff" stroke="#d9d9d9" stroke-width="1.5"/>
+  <text x="108" y="320" font-size="11.5" font-weight="700" fill="#141414">ROUTERS</text>
+  <text x="168" y="320" font-size="11.5" fill="#6b6b6b">—  thin HTTP layer</text>
+  <text x="108" y="340" font-size="11.5" fill="#6b6b6b">auth · social · content · drafts · analytics · payment · profile · contact</text>
+
+  <!-- services strip -->
+  <rect x="90" y="366" width="1020" height="62" rx="10" fill="#ffffff" stroke="#d9d9d9" stroke-width="1.5"/>
+  <text x="108" y="392" font-size="11.5" font-weight="700" fill="#141414">SERVICES</text>
+  <text x="176" y="392" font-size="11.5" fill="#6b6b6b">—  integration &amp; business logic</text>
+  <text x="108" y="412" font-size="11.5" fill="#6b6b6b">business_dna_service · social_service · email_service · s3_service · doc_processor</text>
+
+  <!-- ===== Multi-agent engine ===== -->
+  <rect x="90" y="438" width="1020" height="272" rx="12" fill="#fff3ee" stroke="#ff4500" stroke-width="2.5"/>
+  <text x="108" y="466" font-size="13" font-weight="700" fill="#ff4500">ai_service.py — THE MULTI-AGENT ENGINE</text>
+  <text x="1090" y="466" font-size="11.5" font-weight="700" fill="#9a4a2e" text-anchor="end">Powered by Gemini 2.5 Flash</text>
+
+  <!-- 7 agent chips -->
+  <!-- chip group: numbers + 2-line labels. 1-4 orange, 5-7 green -->
+  <g font-family="'Segoe UI', Arial, sans-serif">
+    <!-- chip 1 -->
+    <rect x="110" y="486" width="124" height="84" rx="9" fill="#ffffff" stroke="#ff4500" stroke-width="1.8"/>
+    <circle cx="172" cy="506" r="12" fill="#ff4500"/>
+    <text x="172" y="510" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+    <text x="172" y="538" font-size="11" font-weight="700" fill="#141414" text-anchor="middle">Brief</text>
+    <text x="172" y="553" font-size="11" font-weight="700" fill="#141414" text-anchor="middle">Refiner</text>
+    <!-- chip 2 -->
+    <rect x="252" y="486" width="124" height="84" rx="9" fill="#ffffff" stroke="#ff4500" stroke-width="1.8"/>
+    <circle cx="314" cy="506" r="12" fill="#ff4500"/>
+    <text x="314" y="510" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
+    <text x="314" y="538" font-size="11" font-weight="700" fill="#141414" text-anchor="middle">Research</text>
+    <text x="314" y="553" font-size="11" font-weight="700" fill="#141414" text-anchor="middle">Analyst</text>
+    <!-- chip 3 -->
+    <rect x="394" y="486" width="124" height="84" rx="9" fill="#ffffff" stroke="#ff4500" stroke-width="1.8"/>
+    <circle cx="456" cy="506" r="12" fill="#ff4500"/>
+    <text x="456" y="510" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+    <text x="456" y="538" font-size="11" font-weight="700" fill="#141414" text-anchor="middle">Content</text>
+    <text x="456" y="553" font-size="11" font-weight="700" fill="#141414" text-anchor="middle">Copywriter</text>
+    <!-- chip 4 -->
+    <rect x="536" y="486" width="124" height="84" rx="9" fill="#ffffff" stroke="#ff4500" stroke-width="1.8"/>
+    <circle cx="598" cy="506" r="12" fill="#ff4500"/>
+    <text x="598" y="510" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">4</text>
+    <text x="598" y="545" font-size="11" font-weight="700" fill="#141414" text-anchor="middle">Visualist</text>
+    <!-- chip 5 -->
+    <rect x="678" y="486" width="124" height="84" rx="9" fill="#ffffff" stroke="#10b981" stroke-width="1.8"/>
+    <circle cx="740" cy="506" r="12" fill="#10b981"/>
+    <text x="740" y="510" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">5</text>
+    <text x="740" y="538" font-size="11" font-weight="700" fill="#141414" text-anchor="middle">Visual</text>
+    <text x="740" y="553" font-size="11" font-weight="700" fill="#141414" text-anchor="middle">Critic</text>
+    <!-- chip 6 -->
+    <rect x="820" y="486" width="124" height="84" rx="9" fill="#ffffff" stroke="#10b981" stroke-width="1.8"/>
+    <circle cx="882" cy="506" r="12" fill="#10b981"/>
+    <text x="882" y="510" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">6</text>
+    <text x="882" y="538" font-size="11" font-weight="700" fill="#141414" text-anchor="middle">Strategic</text>
+    <text x="882" y="553" font-size="11" font-weight="700" fill="#141414" text-anchor="middle">Critic</text>
+    <!-- chip 7 -->
+    <rect x="962" y="486" width="124" height="84" rx="9" fill="#ffffff" stroke="#10b981" stroke-width="1.8"/>
+    <circle cx="1024" cy="506" r="12" fill="#10b981"/>
+    <text x="1024" y="510" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">7</text>
+    <text x="1024" y="538" font-size="11" font-weight="700" fill="#141414" text-anchor="middle">Campaign</text>
+    <text x="1024" y="553" font-size="11" font-weight="700" fill="#141414" text-anchor="middle">Planner</text>
+  </g>
+
+  <!-- chip connectors -->
+  <g stroke="#ff4500" stroke-width="2" marker-end="url(#arrowO)">
+    <line x1="236" y1="528" x2="250" y2="528"/>
+    <line x1="378" y1="528" x2="392" y2="528"/>
+    <line x1="520" y1="528" x2="534" y2="528"/>
+    <line x1="662" y1="528" x2="676" y2="528"/>
+    <line x1="804" y1="528" x2="818" y2="528"/>
+    <line x1="946" y1="528" x2="960" y2="528"/>
+  </g>
+
+  <!-- regenerate loop: Visual Critic (5) back to Visualist (4) -->
+  <path d="M 740 570 C 740 606, 598 606, 598 572" fill="none" stroke="#ff4500" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrowO)"/>
+  <text x="669" y="623" font-size="10" font-weight="700" fill="#ff4500" text-anchor="middle">auto-regenerate if image quality fails</text>
+
+  <!-- engine caption -->
+  <text x="600" y="660" font-size="11" fill="#6b6b6b" text-anchor="middle">Sequential pipeline — each agent's structured output becomes the next agent's input.</text>
+  <text x="600" y="677" font-size="11" fill="#6b6b6b" text-anchor="middle">Shared Business DNA brand context (scraped via Jina AI + Microlink) is injected into every agent.</text>
+  <text x="600" y="697" font-size="10.5" font-weight="700" fill="#ff4500" text-anchor="middle">Refine  →  Research  →  Content  →  Visuals</text>
+
+  <!-- backend -> data arrows -->
+  <line x1="340" y1="724" x2="340" y2="754" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="860" y1="724" x2="860" y2="754" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arrow)"/>
+  <!-- backend -> external arrow (through the gap) -->
+  <line x1="600" y1="724" x2="600" y2="872" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="608" y="846" font-size="10.5" fill="#6b6b6b">outbound API calls</text>
+
+  <!-- ===== Data + Scheduler ===== -->
+  <text x="60" y="746" font-size="11" font-weight="700" fill="#ff4500" letter-spacing="2">STATE &amp; SCHEDULING</text>
+
+  <rect x="120" y="756" width="430" height="80" rx="12" fill="#141414"/>
+  <text x="140" y="788" font-size="14" font-weight="700" fill="#ffffff">PostgreSQL Database</text>
+  <text x="140" y="809" font-size="10.8" fill="#bdbdbd">AWS RDS — users, social accounts, posts,</text>
+  <text x="140" y="824" font-size="10.8" fill="#bdbdbd">drafts, scheduled posts, analytics snapshots</text>
+
+  <rect x="650" y="756" width="430" height="80" rx="12" fill="#141414"/>
+  <text x="670" y="788" font-size="14" font-weight="700" fill="#ffffff">Scheduler Heartbeat</text>
+  <text x="670" y="809" font-size="10.8" fill="#bdbdbd">AWS EventBridge fires every minute →</text>
+  <text x="670" y="824" font-size="10.8" fill="#bdbdbd">lambda_pinger → /scheduler/process (auto-publish)</text>
+
+  <!-- ===== External services ===== -->
+  <text x="60" y="884" font-size="11" font-weight="700" fill="#ff4500" letter-spacing="2">EXTERNAL SERVICES</text>
+
+  <g>
+    <rect x="60" y="896" width="165" height="64" rx="10" fill="#ffffff" stroke="#d9d9d9" stroke-width="1.5"/>
+    <text x="142.5" y="922" font-size="11.5" font-weight="700" fill="#141414" text-anchor="middle">Google Gemini 2.5</text>
+    <text x="142.5" y="941" font-size="10" fill="#6b6b6b" text-anchor="middle">Content &amp; image generation</text>
+
+    <rect x="243" y="896" width="165" height="64" rx="10" fill="#ffffff" stroke="#d9d9d9" stroke-width="1.5"/>
+    <text x="325.5" y="922" font-size="11.5" font-weight="700" fill="#141414" text-anchor="middle">AWS S3</text>
+    <text x="325.5" y="941" font-size="10" fill="#6b6b6b" text-anchor="middle">Media &amp; file storage</text>
+
+    <rect x="426" y="896" width="165" height="64" rx="10" fill="#ffffff" stroke="#d9d9d9" stroke-width="1.5"/>
+    <text x="508.5" y="922" font-size="11.5" font-weight="700" fill="#141414" text-anchor="middle">Stripe</text>
+    <text x="508.5" y="941" font-size="10" fill="#6b6b6b" text-anchor="middle">Payments &amp; billing</text>
+
+    <rect x="609" y="896" width="165" height="64" rx="10" fill="#ffffff" stroke="#d9d9d9" stroke-width="1.5"/>
+    <text x="691.5" y="922" font-size="11.5" font-weight="700" fill="#141414" text-anchor="middle">Microsoft Graph</text>
+    <text x="691.5" y="941" font-size="10" fill="#6b6b6b" text-anchor="middle">OTP / transactional email</text>
+
+    <rect x="792" y="896" width="165" height="64" rx="10" fill="#ffffff" stroke="#d9d9d9" stroke-width="1.5"/>
+    <text x="874.5" y="922" font-size="11.5" font-weight="700" fill="#141414" text-anchor="middle">Social OAuth APIs</text>
+    <text x="874.5" y="941" font-size="10" fill="#6b6b6b" text-anchor="middle">LinkedIn · X · Facebook · IG</text>
+
+    <rect x="975" y="896" width="165" height="64" rx="10" fill="#ffffff" stroke="#d9d9d9" stroke-width="1.5"/>
+    <text x="1057.5" y="922" font-size="11.5" font-weight="700" fill="#141414" text-anchor="middle">Jina AI + Microlink</text>
+    <text x="1057.5" y="941" font-size="10" fill="#6b6b6b" text-anchor="middle">Site scraping for Brand DNA</text>
+  </g>
+</svg>

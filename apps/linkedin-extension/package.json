@@ -1,0 +1,12 @@
+{
+  "name": "pipelyt-gtm-linkedin-extension",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pipelyt GTM Chrome extension — captures a logged-in LinkedIn session for outreach.",
+  "scripts": {
+    "genkey": "node gen-key.js",
+    "build": "node build-manifest.js",
+    "build:prod": "node build-manifest.js --prod",
+    "build:extension": "node build-manifest.js"
+  }
+}

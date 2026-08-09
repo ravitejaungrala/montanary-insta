@@ -1,0 +1,126 @@
+# Secrets
+.env
+*.env
+*.pem
+*.key
+# Local snapshot of the FULL env (with real secrets) - kept for personal
+# reference / rotation cross-checks. NEVER commit. Named explicitly so a
+# misclick can't slip it in. If you create .env.example or .env.template
+# as a public placeholder file, those are NOT blocked by these rules.
+.env.fullexample
+apps/backend/.env.fullexample
+# EXCEPTION: product-page .env holds only public VITE_* vars (URLs + flags)
+# that get baked into the public JS bundle anyway. Safe to commit so Amplify
+# + teammates get the same Lambda URL without per-machine setup.
+!apps/product-page/.env
+apps/backend/routers/canva_tokens.json
+apps/backend/canva_tokens.json
+# Claude Code per-machine settings — contains personal Bearer JWTs / OAuth
+# tokens that should NEVER ship to the repo. Tracked-in instances were
+# untracked in the same commit that adds this rule.
+.claude/settings.local.json
+.claude/settings.json
+# Agent worktrees (transient subagent workspaces). These contain embedded
+# git repos that don't belong in the main repo. Never commit.
+.claude/worktrees/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+db.sqlite3
+*.sqlite3
+apps/backend/pipelyt.db
+apps/backend/*.db
+
+# Debug / scratch output (never commit)
+apps/backend/tmp/
+apps/backend/scratch/
+apps/backend/static/uploads/
+apps/backend/diagnostic_output.txt
+apps/backend/db_report.txt
+apps/backend/models.txt
+apps/backend/test_output.txt
+apps/backend/build_error.log
+apps/backend/temp_tsc.log
+apps/landing-page/build_error.log
+apps/landing-page/temp_tsc.log
+test_output.txt
+test_dna.py
+
+# Image generation lab outputs — every freeform / oneshot / lab run drops
+# a folder of PNGs + JSON artifacts here. Currently ~80MB+ of binary churn
+# that should never ship to the repo. The lab harness scripts themselves
+# (image_lab.py, image_lab_freeform.py, image_lab_oneshot.py) ARE tracked.
+apps/backend/image_lab_out/
+
+# Temp / one-shot scratch scripts (named with leading underscore, e.g.
+# _verify_*.py, _swap_*.py, _compress_*.py — created and deleted during
+# refactors. Anything under apps/backend/_*.py is throwaway by convention).
+apps/backend/_swap_*.py
+apps/backend/_verify_*.py
+apps/backend/_compress_*.py
+apps/backend/_e2e_*.py
+
+# Node
+node_modules/
+dist/
+build/
+.DS_Store
+
+# IDEs
+.vscode/
+.idea/
+
+# AWS / Amplify artifacts
+.aws/
+.amplify/
+.gstack/
+
+# Documents & Excel
+*.xlsx
+~$*.xlsx
+*.csv
+.~lock.*#
+
+# Local scratch / junk
+*.tmp
+/tmp/
+scratch/
+/package-lock.json
+
+# NEXUS legacy archive (apps/nexus-legacy/) — local-dev cruft from the
+# frozen Node/Express stack. Most patterns (node_modules, dist, *.env,
+# *.log) are already caught by the rules above; these are the
+# nexus-legacy-specific ones.
+apps/nexus-legacy/server/uploads/
+apps/nexus-legacy/server/public/uploads/
+apps/nexus-legacy/server/test-*.js
+apps/nexus-legacy/server/test_*.js
+apps/nexus-legacy/server/.env
+apps/nexus-legacy/client/.env
+apps/nexus-legacy/client/.env.local
+apps/nexus-legacy/spenzo-email-final-v2/
+
+# Ad-hoc DB-cleanup backup snapshots dumped before destructive
+# migrations (see scripts/restore_merge.py). Contain raw workspace
+# row data — must never land in git. The restore script itself IS
+# tracked so the undo path is reproducible.
+apps/backend/scripts/merge_backup_*.json
+apps/backend/scripts/*_backup_*.json
+
+# Agent #10 — standalone intent/signal detection agent. Kept inside the repo
+# but fully separate (its own pyproject, no NEXUS imports). Gitignored for now;
+# delete this single line when ready to track it for integration via
+# score_account(). See agent10/README.md.
+
+
+# Archived docs — kept locally for reference, not tracked in the repo
+docs/duplicates/
+docs/not-important/
+
+# LinkedIn debug artifacts — screenshots + HTML dumps saved when selectors miss
+li_debug_*.png
+li_debug_*.html

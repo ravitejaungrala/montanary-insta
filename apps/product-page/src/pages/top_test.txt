@@ -1,0 +1,50 @@
+﻿import React, { useState, useEffect } from 'react';
+import {
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
+  LineChart, Line, PieChart, Pie, Cell, AreaChart, Area
+} from 'recharts';
+import {
+  FiTrendingUp, FiUsers, FiMessageCircle, FiEye,
+  FiLinkedin, FiTwitter, FiFacebook, FiInstagram,
+  FiArrowUpRight, FiArrowDownRight, FiFilter, FiDownload, FiRefreshCw,
+  FiChevronDown, FiX, FiMaximize2
+} from 'react-icons/fi';
+import { formatInTimezone } from '../utils/timezones';
+
+const PLATFORM_COLORS = {
+  'facebook': '#FF6B35',
+  'instagram': '#E4405F',
+  'twitter': '#1DA1F2',
+  'linkedin': '#0077B5',
+  'default': '#94A3B8'
+};
+
+const getPlatformColor = (name) => {
+  const lowerName = name?.toLowerCase() || "";
+  if (lowerName.includes('facebook')) return PLATFORM_COLORS.facebook;
+  if (lowerName.includes('instagram')) return PLATFORM_COLORS.instagram;
+  if (lowerName.includes('twitter')) return PLATFORM_COLORS.twitter;
+  if (lowerName.includes('linkedin')) return PLATFORM_COLORS.linkedin;
+  return PLATFORM_COLORS.default;
+};
+
+const Analytics = ({ authAxios, initialData, user }) => {
+  const [loading, setLoading] = useState(!initialData);
+  const [syncing, setSyncing] = useState(false);
+  const [data, setData] = useState(initialData || null);
+  const [timeRange, setTimeRange] = useState('7d');
+  const [selectedPlatform, setSelectedPlatform] = useState('all');
+  const [posts, setPosts] = useState([]);
+  const [loadingPosts, setLoadingPosts] = useState(false);
+  const [customDates, setCustomDates] = useState({ start: '', end: '' });
+  const [selectedPost, setSelectedPost] = useState(null);
+  const [fullscreenImage, setFullscreenImage] = useState(null);
+  const [hoveredContent, setHoveredContent] = useState(null);
+
+  // Data derived from state - defined early to avoid initialization errors
+  const summary = data?.summary || { total_followers: 0, total_engagement: 0, total_reach: 0, engagement_stats: [0, 0] };
+  const history = data?.history || [];
+  const platforms = data?.platforms || {};
+  const topPosts = data?.top_posts || [];
+  const hasData = summary.total_followers > 0 || summary.total_engagement > 0 || summary.total_reach > 0;
+

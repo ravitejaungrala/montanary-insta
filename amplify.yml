@@ -1,0 +1,53 @@
+version: 1
+applications:
+  # ------------------------------------------------------------------
+  # Landing page (apps/landing-page)
+  # ------------------------------------------------------------------
+ 
+  # ------------------------------------------------------------------
+  # Product page (apps/product-page)
+  # ------------------------------------------------------------------
+  - appRoot: apps/product-page
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            - npm ci
+        build:
+          commands:
+            - |
+              echo "Product-page building for branch $AWS_BRANCH"
+              if [ "$AWS_BRANCH" = "main" ] || [ "$AWS_BRANCH" = "production" ] || [ "$AWS_BRANCH" = "prod" ]; then
+                export VITE_API_URL="${PROD_VITE_API_URL%/}"
+                export VITE_LANDING_URL="${PROD_VITE_LANDING_URL%/}"
+                echo "→ using PROD env"
+              else
+                export VITE_API_URL="${STAGING_VITE_API_URL%/}"
+                export VITE_LANDING_URL="${STAGING_VITE_LANDING_URL%/}"
+                echo "→ using STAGING env"
+              fi
+              export VITE_CANVA_CLIENT_ID="${VITE_CANVA_CLIENT_ID:-}"
+              export VITE_CANVA_REDIRECT_URI="${VITE_CANVA_REDIRECT_URI:-}"
+              # NEXUS feature flag — set in Amplify Console env vars per app
+              # (e.g. "true" for the add-nexus app, unset for prod PIPELYT).
+              export VITE_NEXUS_ENABLED="${VITE_NEXUS_ENABLED:-}"
+              echo "VITE_API_URL=$VITE_API_URL"
+              echo "VITE_LANDING_URL=$VITE_LANDING_URL"
+              echo "VITE_NEXUS_ENABLED=$VITE_NEXUS_ENABLED"
+              printf 'VITE_API_URL=%s\nVITE_LANDING_URL=%s\nVITE_CANVA_CLIENT_ID=%s\nVITE_CANVA_REDIRECT_URI=%s\nVITE_NEXUS_ENABLED=%s\n' \
+                "$VITE_API_URL" "$VITE_LANDING_URL" "$VITE_CANVA_CLIENT_ID" "$VITE_CANVA_REDIRECT_URI" "$VITE_NEXUS_ENABLED" \
+                > .env.production
+              cat .env.production
+              npm run build
+      artifacts:
+        baseDirectory: dist
+        files:
+          - '**/*'
+      # Cache disabled — Amplify's incremental node_modules cache repeatedly
+      # produced corrupt bundles on force-push branch swaps (saw
+      # "ReferenceError: foo is not defined" for symbols that ARE defined
+      # in source). The fresh `npm ci` in preBuild is fast enough that the
+      # ~30s saved isn't worth the broken-deploy risk.
+      # cache:
+      #   paths:
+      #     - node_modules/**/*

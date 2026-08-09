@@ -1,0 +1,60 @@
+```mermaid
+%%{init: {'flowchart': {'nodeSpacing': 30, 'rankSpacing': 42, 'padding': 8, 'curve': 'linear', 'wrappingWidth': 160, 'useMaxWidth': true, 'htmlLabels': true}, 'themeVariables': {'fontFamily': 'Inter, Helvetica, Arial, sans-serif', 'fontSize': '14px'}}}%%
+%% LinkedIn Connect — Session Capture (Extension OR Paste Cookies)
+flowchart TB
+  subgraph g_client["User's Browser"]
+    direction TB
+    user["User<br/><small>logged into LinkedIn</small>"]
+    webapp["GTM Web App<br/><small>Connectors → Connect LinkedIn</small>"]
+    ext["Chrome Extension<br/><small>background.js (auto or popup)</small>"]
+    lidotcom[("linkedin.com cookies<br/><small>chrome.cookies.getAll · li_at</small>")]
+  end
+  subgraph g_api["LinkedIn Agent API  (/nexus/linkedin-agent)"]
+    direction TB
+    tokenep["POST /connect-token<br/><small>mint 30-min JWT</small>"]
+    sessionapp["POST /session<br/><small>Path B · paste cookies · app session</small>"]
+    sessionep["POST /session/token<br/><small>Path A · extension · Bearer token</small>"]
+    attach["auth.attach_session<br/><small>normalize + require li_at · encrypt</small>"]
+  end
+  subgraph g_db["Postgres — account resources"]
+    direction TB
+    accounts[("gtm_linkedin_accounts<br/><small>encrypted_cookies · status=active</small>")]
+    settings[("account_settings<br/><small>daily caps · working hrs</small>")]
+    profile[("browser_profiles<br/><small>device fingerprint</small>")]
+    brands[("account_brands<br/><small>M:N sender brands</small>")]
+  end
+  user -->|"click Connect"| webapp
+  webapp -->|"request token"| tokenep
+  webapp -->|"A · handoff token"| ext
+  ext -->|"read cookies"| lidotcom
+  ext -->|"POST cookies"| sessionep
+  tokenep -->|"JWT verifies"| sessionep
+  webapp -->|"B · paste li_at cookies"| sessionapp
+  sessionep --> attach
+  sessionapp --> attach
+  attach -->|"encrypt li_at"| accounts
+  attach --> settings
+  attach --> profile
+  attach --> brands
+  linkStyle 0 stroke:#2563EB,stroke-width:1.6px;
+  linkStyle 1 stroke:#2563EB,stroke-width:1.6px;
+  linkStyle 2 stroke:#2563EB,stroke-width:1.6px;
+  linkStyle 3 stroke:#059669,stroke-width:1.6px;
+  linkStyle 4 stroke:#2563EB,stroke-width:1.6px;
+  linkStyle 5 stroke:#0891B2,stroke-width:1.6px;
+  linkStyle 6 stroke:#2563EB,stroke-width:1.6px;
+  linkStyle 7 stroke:#2563EB,stroke-width:1.6px;
+  linkStyle 8 stroke:#2563EB,stroke-width:1.6px;
+  linkStyle 9 stroke:#059669,stroke-width:1.6px;
+  linkStyle 10 stroke:#059669,stroke-width:1.6px;
+  linkStyle 11 stroke:#059669,stroke-width:1.6px;
+  linkStyle 12 stroke:#059669,stroke-width:1.6px;
+  classDef client fill:#FFFFFF,stroke:#64748B,stroke-width:2px,color:#334155;
+  class user client;
+  classDef frontend fill:#FFFFFF,stroke:#3B82F6,stroke-width:2px,color:#1E3A8A;
+  class webapp,ext,lidotcom frontend;
+  classDef backend fill:#FFFFFF,stroke:#10B981,stroke-width:2px,color:#065F46;
+  class tokenep,sessionep,sessionapp,attach backend;
+  classDef database fill:#FFFFFF,stroke:#F97316,stroke-width:2px,color:#7C2D12;
+  class accounts,settings,profile,brands database;
+```

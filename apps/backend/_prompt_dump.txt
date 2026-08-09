@@ -1,0 +1,205 @@
+S.NO: 138
+BUSINESS_DNA: NeuZenAI
+V1_VARIANT_TYPE: viral_reach
+V2_VARIANT_TYPE: 
+=== V1_POST_TEXT ===
+One AI model doesn't fit every enterprise.
+
+Deploying the same architecture for retail inventory forecasting that you use for utility grid optimization or financial compliance creates operational friction.
+
+Scaling artificial intelligence across diverse sectors requires tailoring the underlying mechanics to the domain:
+
+• E-commerce & Retail: Dynamic pricing and personalized shopping models
+• Energy & Utilities: Predictive maintenance and smart grid optimization
+• Financial Services: Algorithmic trading and automated compliance workflows
+• Healthcare & Insurance: Claims automation and risk assessment intelligence
+• Media & Entertainment: Audience analytics and recommendation engines
+• Transportation & Logistics: Fleet management and route optimization
+
+When systems are engineered around the specific operational realities of an industry, digital transformation moves from a theoretical goal to measurable baseline performance.
+
+#EnterpriseAI #DigitalTransformation #ArtificialIntelligence #BusinessIntelligence
+=== V1_MAGIC_USER_PROMPT (exact text sent as input to responses.create) ===
+BRAND NAME: NeuZenAI
+BUSINESS CATEGORY: software_service
+BRAND COLOUR HINT: #ff4500
+VARIANT: viral_reach
+
+BUSINESS DNA:
+COMPANY: NeuZenAI
+
+PRIMARY PRODUCT: NeuZenAI
+
+TAGLINE: Where AI meets ambition.
+
+CATEGORY: software_service
+
+BRAND TONE: ["Authoritative", "Visionary", "Innovative", "Trustworthy"]
+
+BRAND COLOURS (use ONLY these — never invent hex): accent=#00b050, primary=#ff4500, secondary=#111111, background=#ffffff
+
+OVERVIEW:
+CORE OFFERINGS AND MASTER VALUE PROPOSITION
+NEUZENAI HARNESSES THE SYNERGY OF DATA, ANALYTICS, AND ARTIFICIAL INTELLIGENCE TO ELEVATE DIGITAL TRANSFORMATION JOURNEYS FOR GLOBAL ENTERPRISES. THEY SPECIALIZE IN CUSTOM ML MODELS, INTELLIGENT PLATFORMS, AND END-TO-END PRODUCT ENGINEERING FROM CONCEPT TO SCALE. BY LEVERAGING INNOVATIVE DIGITAL ACCELERATORS, THEY TRANSFORM RAW DATA INTO ACTIONABLE INSIGHTS, STREAMLINE OPERATIONS, AND REDEFINE THE FUTURE OF BUSINESS INTELLIGENCE.
+
+PRODUCTS AND SERVICES
+ADVANCED ANALYTICS: PREDICTIVE MODELING, STATISTICAL ANALYSIS, DATA VISUALIZATION, BUSINESS INTELLIGENCE.
+AI STRATEGIC CONSULTING: STRATEGY DEVELOPMENT, AI ROAD MAPPING, TECHNOLOGY ASSESSMENT, CHANGE MANAGEMENT.
+CUSTOM AI SOLUTIONS: CUSTOM ML MODELS, NEURAL NETWORKS, COMPUTER VISION, NLP SOLUTIONS.
+INTELLIGENT AUTOMATION: PROCESS AUTOMATION, RPA IMPLEMENTATION, WORKFLOW OPTIMIZATION, SMART SCHEDULING.
+PROPRIETARY PRODUCTS:
+- ARQ PULSE: AI-POWERED SALESFORCE INTELLIGENCE AND GOVERNANCE PLATFORM.
+- LENS AI: AI-POWERED RECRUITING AND RESUME SCREENING PLATFORM.
+- NVISION AI: COMPUTER VISION FOR DEFECT DETECTION AND QUALITY INSPECTION.
+- PIPELYT: AI GO-TO-MARKET PLATFORM FOR BRAND DNA, SOCIAL CO
+
+CAMPAIGN BRIEF (background context — do not paste onto the image):
+STRATEGIC BRIEF
+──────────────────────────────────────────
+USER GOAL
+  Highlight the diverse industries Neuzenai serves and demonstrate how its tailored AI solutions drive measurable ROI, innovation, and growth across sectors.
+
+TOPIC
+  Neuzenai's comprehensive industry-specific AI capabilities spanning E-commerce & Retail, Energy & Utilities, Financial Services, Healthcare & Insurance, Media & Entertainment, and Transportation & Logistics. It details practical AI use cases that transform operations, enhance efficiency, and accelerate growth across these key sectors.
+
+AUDIENCE
+  C-level executives, enterprise technology leaders, and business strategists across retail, energy, finance, healthcare, media, and logistics looking to scale operations with AI.
+
+KEY MESSAGE
+  Neuzenai delivers tailored, high-impact AI solutions designed to solve complex industry challenges and drive measurable business growth.
+
+ANGLE
+  Industry-by-industry capability showcase highlighting sector-specific transformation and value creation.
+
+SUPPORTING POINTS
+  - E-commerce & Retail: enables personalized shopping experiences, inventory optimization, customer behavior analytics, and dynamic pricing [user brief]
+  - Energy & Utilities: powers smart grid optimization, predictive maintenance, energy forecasting, and renewable energy integration [user brief]
+  - Financial Services: provides fraud detection, credit scoring, algorithmic trading, and compliance AI for security and risk management [user brief]
+ 
+
+POST TEXT CONTENT (already written — the image accompanies this):
+One AI model doesn't fit every enterprise.
+
+Deploying the same architecture for retail inventory forecasting that you use for utility grid optimization or financial compliance creates operational friction.
+
+Scaling artificial intelligence across diverse sectors requires tailoring the underlying mechanics to the domain:
+
+• E-commerce & Retail: Dynamic pricing and personalized shopping models
+• Energy & Utilities: Predictive maintenance and smart grid optimization
+• Financial Services: Algorithmic trading and automated compliance workflows
+• Healthcare & Insurance: Claims automation and risk assessment intelligence
+• Media & Entertainment: Audience analytics and recommendation engines
+• Transportation & Logistics: Fleet management and route optimization
+
+When systems are engineered around the specific operational realities of an industry, digital transformation moves from a theoretical goal to measurable baseline performance.
+
+#EnterpriseAI #DigitalTransformation #ArtificialIntelligence #BusinessIntelligence
+
+Generate the image now.
+=== MAGIC_PROMPT_SYSTEM_PROMPT (instructions field) ===
+You produce image-generation prompts for OpenAI's gpt-image-2 in EXACTLY
+one of the two template formats shown below. You are NOT writing a long
+detailed prompt. You are filling variables into the chosen fixed template
+and emitting the result verbatim.
+
+WHICH TEMPLATE TO USE - decide from the variant_type given in the user
+message:
+
+  - viral_reach        -> TEMPLATE A
+  - high_interaction   -> TEMPLATE A
+  - festival_variant   -> TEMPLATE A
+  - follower_growth    -> TEMPLATE B (must include a real-looking person)
+
+-------------------------------------------------------------------
+TEMPLATE A (default - no person requirement)
+-------------------------------------------------------------------
+
+Read the post content below carefully. Based on the wording of the post -
+what is said, the verbs used (e.g. "shipped / launched / try" vs "we help
+/ we partner / our team"), the offer, the call-to-action, and any links
+or pricing mentioned - figure out whether <BRAND_NAME> is selling a
+product, a service, or something else (e.g. thought leadership, an
+announcement, a milestone, a news/industry update). The brand name alone
+does not determine this - the wording of the post does. Then pick a
+visual style that fits this kind of content.
+
+Post content: "<POST_CONTENT>"
+
+Hard rules:
+- Place the attached logo in the TOP-LEFT corner, used exactly as provided
+- Place a clear call-to-action button in the BOTTOM-LEFT or BOTTOM-RIGHT corner
+- Use brand color <BRAND_COLOR> as an ACCENT (headline highlight, CTA button, thin divider) - NOT as background or dominant fill. Choose complementary colors for the rest of the composition based on the occasion and mood.
+- Aspect ratio: <ASPECT_RATIO>
+- If a product/service reference photograph is attached (named product_1.png, product_2.png, etc.), it IS the hero. Feature the actual product from the reference photo as the primary subject - preserve its exact shape, materials, colors, gemstones, textures, and proportions. Do not invent a similar-but-different product. Compose the scene AROUND that product.
+- If the post explicitly mentions a specific country, holiday, or occasion (e.g. "U.S. Independence Day / July 4th", "Diwali", "Chinese New Year", "Thanksgiving", "Bastille Day"), the imagery MUST match THAT country and occasion - NOT the brand's country of origin. If the post says "U.S. Independence Day", show U.S. flags, red-white-blue, American cues - never Indian tricolor or ashoka chakra regardless of the brand's origin.
+- BACKGROUND SHARPNESS: keep the ENTIRE scene in sharp focus. NO depth-of-field blur, NO bokeh, NO out-of-focus background, NO soft-focus effect, NO blurred bokeh lights. Every element in the frame - product, model, flags, decor, textures, lights - must be crisp and clearly readable. Think editorial catalog photography or a well-lit product studio shot: sharp end-to-end, deep focus, no cinematic falloff.
+
+
+Everything else - composition, imagery, typography, mood - is your choice.
+
+Make it look like a top-quality post a real designer would ship.
+
+-------------------------------------------------------------------
+TEMPLATE B (follower_growth only - real person required)
+-------------------------------------------------------------------
+
+Read the post content below and figure out from the wording what kind of
+business <BRAND_NAME> is. Then generate a social media post that includes
+at least one real-looking person in the scene. Pick the person, setting,
+mood, and outfit based on what fits the content.
+
+Post content: "<POST_CONTENT>"
+
+Hard rules:
+- Logo (attached) in TOP-LEFT, used exactly as provided
+- Call-to-action in BOTTOM-LEFT or BOTTOM-RIGHT
+- Brand color <BRAND_COLOR> used as an ACCENT (headline highlight, CTA button, small motif) - never as a background wash or dominant fill. Use complementary contextual colors for the rest.
+- Aspect ratio: <ASPECT_RATIO>
+- Minimum one person clearly visible
+- Person must look natural - no AI face artifacts, no wrong-fingered hands
+- If a product/service reference photograph is attached (named product_1.png, product_2.png, etc.), the person MUST be interacting with, wearing, or presenting the ACTUAL product from that reference photo - preserve its exact shape, colors, gemstones, materials, textures. Do NOT invent a stand-in.
+- If the post explicitly mentions a specific country, holiday, or occasion (e.g. "U.S. Independence Day / July 4th", "Diwali", "Chinese New Year", "Thanksgiving"), the person's setting, outfit context, and any national symbols MUST match THAT country and occasion, regardless of the brand's country of origin. If the post says "U.S. Independence Day", use U.S. flags, red-white-blue, American cues - never Indian tricolor.
+- BACKGROUND SHARPNESS: keep the ENTIRE scene in sharp focus. NO depth-of-field blur, NO bokeh, NO out-of-focus background, NO soft-focus effect, NO blurred bokeh lights. Both the person AND everything behind them (walls, decor, flags, furniture, textures) must be crisp and clearly readable. Think editorial magazine cover or a well-lit commercial catalog: sharp end-to-end, deep focus, no cinematic falloff.
+
+Style choice is yours.
+
+-------------------------------------------------------------------
+VARIABLES (lifted verbatim from the user message)
+-------------------------------------------------------------------
+
+<BRAND_NAME>     the brand the post is about (e.g. "NeuzenAI", "Spenzo",
+                 "Zyntegrate"). Use it as-is - do NOT add adjectives.
+
+<POST_CONTENT>   the full post text for ONE variant, VERBATIM. Preserve
+                 the exact wording, punctuation, line breaks, bullet
+                 points, and URLs. Do NOT summarize, paraphrase, shorten,
+                 or rewrite. Do NOT escape characters. The surrounding
+                 quotes are already in the template - do not add another
+                 pair.
+
+<BRAND_COLOR>    the brand's primary hex color (e.g. "#ff4500", "#000080").
+
+<ASPECT_RATIO>   the image aspect ratio (e.g. "1:1", "9:16", "16:9").
+
+-------------------------------------------------------------------
+RULES
+-------------------------------------------------------------------
+
+1. Output ONLY the filled template (A or B - whichever fits the
+   variant_type). No preamble, no markdown headers, no commentary, no
+   JSON wrapper, no "Here is the prompt:".
+
+2. Do NOT add any new sentences, hard rules, style guidance, or visual
+   direction beyond what the chosen template says. The image model does
+   the creative work.
+
+3. Keep the exact spacing each template shows - including blank lines
+   between the "Aspect ratio:" line and the next section.
+
+4. variant_type controls TEMPLATE SELECTION. It does not change the
+   wording inside the chosen template - only which template you emit.
+
+=== IMAGE_MODEL / QUALITY / SIZE ===
+gpt-image-2 / high / '1024x1024
+=== MAGIC_PROMPT_MODEL ===
+gpt-5.1

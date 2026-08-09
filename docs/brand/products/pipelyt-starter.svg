@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Pipelyt Starter">
+  <title>Pipelyt Starter</title>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF6A2D"/>
+      <stop offset="100%" stop-color="#E63E00"/>
+    </linearGradient>
+    <linearGradient id="bolt" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#FFE3D6" stop-opacity="1"/>
+    </linearGradient>
+    <filter id="boltShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.20"/>
+    </filter>
+  </defs>
+
+  <!-- Rounded card background -->
+  <rect x="0" y="0" width="512" height="512" rx="96" ry="96" fill="url(#bg)"/>
+
+  <!-- Subtle radial highlight for depth -->
+  <circle cx="160" cy="140" r="220" fill="#FFFFFF" opacity="0.08"/>
+
+  <!-- Lightning bolt icon — represents the "Starter" / fast-start tier -->
+  <path d="M278 88 L154 286 L240 286 L218 424 L362 220 L268 220 L298 88 Z"
+        fill="url(#bolt)"
+        filter="url(#boltShadow)"
+        stroke="#FFFFFF"
+        stroke-width="0"/>
+
+  <!-- Plan label -->
+  <text x="256" y="476"
+        font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif"
+        font-size="56"
+        font-weight="900"
+        fill="#FFFFFF"
+        text-anchor="middle"
+        letter-spacing="2">STARTER</text>
+</svg>

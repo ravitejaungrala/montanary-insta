@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pipelyt GTM — LinkedIn Process Diagrams</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 0; background:#fafafa; color:#111; }
+  header { padding: 28px 32px 12px; border-bottom:1px solid #e5e5e5; background:#fff; }
+  h1 { margin:0 0 4px; font-size:22px; }
+  header p { margin:0; color:#666; font-size:14px; }
+  nav { padding:14px 32px; background:#fff; border-bottom:1px solid #eee; position:sticky; top:0; z-index:2; }
+  nav a { display:inline-block; margin-right:18px; color:#0a66c2; text-decoration:none; font-size:14px; font-weight:600; }
+  nav a:hover { text-decoration:underline; }
+  section { padding: 28px 32px 8px; }
+  section h2 { font-size:17px; margin:0 0 4px; }
+  section p.sub { margin:0 0 14px; color:#666; font-size:13px; }
+  .frame { background:#fff; border:1px solid #e5e5e5; border-radius:10px; padding:10px; overflow:auto; }
+  .frame img { display:block; width:100%; height:auto; }
+  footer { padding:24px 32px 48px; color:#888; font-size:12px; }
+  @media (prefers-color-scheme: dark){ body{background:#0f0f0f;color:#eee} header,nav,.frame{background:#181818;border-color:#2a2a2a} header p,section p.sub,footer{color:#aaa} }
+</style>
+</head>
+<body>
+<header>
+  <h1>Pipelyt GTM — LinkedIn Process (as implemented)</h1>
+  <p>Source: <code>apps/backend/gtm/linkedin/</code> + <code>apps/linkedin-extension/</code>. Four views of the same system. Feature-flagged by <code>NEXUS_LINKEDIN_ENABLED</code>.</p>
+</header>
+<nav>
+  <a href="#connect">1 · Connect</a>
+  <a href="#schedule">2 · Scheduling</a>
+  <a href="#worker">3 · Worker</a>
+  <a href="#branching">4 · Branching</a>
+</nav>
+
+<section id="connect">
+  <h2>1 · Connect — Session Capture via Chrome Extension</h2>
+  <p class="sub">How a user connects a LinkedIn account with no cloud login: the extension reads the user's own cookies and posts them (Bearer connect-token) to be encrypted at rest.</p>
+  <div class="frame"><img src="li_connect.svg" alt="LinkedIn connect flow"></div>
+</section>
+
+<section id="schedule">
+  <h2>2 · Scheduling & Dispatch — EventBridge → SQS</h2>
+  <p class="sub">How a due step is picked, gated by the Safety layer (warm-up ramp, daily caps, auto-pause, cooldown), written to a durable job, and published to SQS FIFO.</p>
+  <div class="frame"><img src="li_schedule.svg" alt="LinkedIn scheduling flow"></div>
+</section>
+
+<section id="worker">
+  <h2>3 · Worker Execution — Playwright</h2>
+  <p class="sub">How one SQS job becomes a browser action (send / check) via Playwright, then updates lead_state + appends an event, closing the loop for the next tick.</p>
+  <div class="frame"><img src="li_worker.svg" alt="LinkedIn worker execution flow"></div>
+</section>
+
+<section id="branching">
+  <h2>4 · Sequence Engine — Branching State Machine</h2>
+  <p class="sub">Connection request → acceptance check → Message branch (accepted) or InMail branch (not accepted) → COMPLETED / STOPPED, with reply-based global stops and the late-accept branch-cancel.</p>
+  <div class="frame"><img src="li_branching.svg" alt="LinkedIn branching state machine"></div>
+</section>
+
+<footer>
+  Each diagram is also available as <code>.png</code>, <code>.pdf</code>, editable <code>.drawio</code>, and <code>.mmd</code> (Mermaid) alongside this file in <code>docs/</code>.
+</footer>
+</body>
+</html>

@@ -1,0 +1,579 @@
+<mxfile host="app.diagrams.net" agent="Claude">
+  <diagram id="pipelyt-signup-payment" name="Signup → Payment Flow">
+    <mxGraphModel dx="507773" dy="580011" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="3200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title1" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#1F3A93;" value="1. LANDING &amp; AUTHENTICATION" vertex="1">
+          <mxGeometry height="30" width="400" y="-530" as="geometry" />
+        </mxCell>
+        <mxCell id="tB676kLeMwOJdIVJv7b2-3" edge="1" parent="1" source="landing" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="signup_ui">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="landing" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;align=center;verticalAlign=middle;" value="Landing page (marketing site)&#xa;apps/landing-page&#xa;URL: pipelyt.ai&#xa;Deployed to AWS Amplify" vertex="1">
+          <mxGeometry height="90" width="240" y="-440" as="geometry" />
+        </mxCell>
+        <mxCell id="tB676kLeMwOJdIVJv7b2-6" edge="1" parent="1" source="signup_ui" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="otp_request">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="signup_ui" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;align=center;verticalAlign=middle;" value="/signup — SignUpCard&#xa;apps/product-page (app.pipelyt.ai)&#xa;Form: email, password, confirm" vertex="1">
+          <mxGeometry height="90" width="240" x="200" y="-240" as="geometry" />
+        </mxCell>
+        <mxCell id="tB676kLeMwOJdIVJv7b2-9" edge="1" parent="1" source="otp_request" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="otp_verify">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tB676kLeMwOJdIVJv7b2-11" edge="1" parent="1" source="otp_request" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;dashPattern=8 8;" target="resend_signup">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="otp_request" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;align=center;verticalAlign=middle;" value="POST /auth/request-otp&#xa;routers/auth.py&#xa;Body: {email, purpose:&#39;register&#39;}&#xa;Creates UserOTP row (6-digit code, 10m TTL)" vertex="1">
+          <mxGeometry height="90" width="260" x="200" y="-40" as="geometry" />
+        </mxCell>
+        <mxCell id="tB676kLeMwOJdIVJv7b2-24" edge="1" parent="1" source="azure_email" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;dashed=1;dashPattern=8 8;" target="resend_signup">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="azure_email" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;align=center;verticalAlign=middle;" value="Microsoft Graph (Azure AD)&#xa;services/email_service.py&#xa;Sends OTP email from AZURE_SENDER_EMAIL" vertex="1">
+          <mxGeometry height="90" width="260" x="630" y="-240" as="geometry" />
+        </mxCell>
+        <mxCell id="e_otp_azure" edge="1" parent="1" source="otp_request" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="azure_email" />
+        <mxCell id="db_userotps" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=light-dark(#FFFFFF,#281D00);strokeColor=#d6b656;fontSize=11;align=center;verticalAlign=middle;" value="DB write&#xa;user_otps table&#xa;(email, otp_code, purpose, expires_at, is_used=false)" vertex="1">
+          <mxGeometry height="70" width="260" x="1080" y="-10" as="geometry" />
+        </mxCell>
+        <mxCell id="e_otp_db" edge="1" parent="1" source="otp_request" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="db_userotps" />
+        <mxCell id="tB676kLeMwOJdIVJv7b2-13" edge="1" parent="1" source="otp_verify" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="tB676kLeMwOJdIVJv7b2-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="otp_verify" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;align=center;verticalAlign=middle;" value="POST /auth/verify-otp&#xa;routers/auth.py&#xa;Body: {email, code, purpose:&#39;register&#39;}&#xa;Returns is_new_user=true" vertex="1">
+          <mxGeometry height="90" width="260" x="200" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="tB676kLeMwOJdIVJv7b2-20" edge="1" parent="1" source="register" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="login_auto">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="register" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;align=center;verticalAlign=middle;" value="POST /auth/register (auto-chained)&#xa;Creates User row, bcrypt hash(password)" vertex="1">
+          <mxGeometry height="80" width="270" x="440" y="325" as="geometry" />
+        </mxCell>
+        <mxCell id="e_verify_register" edge="1" parent="1" source="otp_verify" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="register" />
+        <mxCell id="db_user" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;align=center;verticalAlign=middle;" value="DB write&#xa;users table (email, hashed_password,&#xa;onboarded=false, pricing_plan=null)" vertex="1">
+          <mxGeometry height="70" width="280" x="1080" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="e_register_db" edge="1" parent="1" source="register" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="db_user" />
+        <mxCell id="login_auto" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;align=center;verticalAlign=middle;" value="POST /auth/login (auto-chained)&lt;br&gt;Returns access_token (JWT HS256, 1d)" vertex="1">
+          <mxGeometry height="70" width="260" x="440" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="e_register_login" edge="1" parent="1" source="register" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="login_auto" />
+        <mxCell id="fail_otp" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;align=center;verticalAlign=middle;" value="FAILURE: OTP expired / wrong code&#xa;HTTP 400 from /verify-otp&#xa;UI toast: &quot;Invalid OTP ❌&quot;&#xa;User can re-request" vertex="1">
+          <mxGeometry height="90" width="260" x="-60" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="e_fail_otp" edge="1" parent="1" source="otp_verify" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=0.5;entryX=1;entryY=0.5;dashed=1;strokeColor=#b85450;" target="fail_otp" />
+        <mxCell id="title1b" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#1F3A93;" value="1B. FORGOT PASSWORD (from sign-in card)" vertex="1">
+          <mxGeometry height="26" width="420" x="1420" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="signin_ui" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=center;verticalAlign=middle;" value="/ — SignInCard&#xa;Click &quot;Forgot password?&quot; link&#xa;setForgotStep(1)" vertex="1">
+          <mxGeometry height="70" width="260" x="1420" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="fp_step1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" value="Step 1: email entry&#xa;POST /auth/request-otp&#xa;Body: {email, purpose:&#39;reset_password&#39;}&#xa;user_otps row inserted" vertex="1">
+          <mxGeometry height="80" width="260" x="1720" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="e_fp_signin_s1" edge="1" parent="1" source="signin_ui" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="fp_step1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fp_step2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" value="Step 2: OTP entry (6 digits)&#xa;POST /auth/verify-otp&#xa;purpose=&#39;reset_password&#39;&#xa;Gate-check only — DOES NOT consume&#xa;(carve-out in auth.py verify_otp)" vertex="1">
+          <mxGeometry height="110" width="260" x="1720" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="e_fp_s1_s2" edge="1" parent="1" source="fp_step1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="fp_step2" />
+        <mxCell id="fp_step3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" value="Step 3: new password + confirm&#xa;POST /auth/reset-password (NEW)&#xa;Body: {email, otp_code, new_password}&#xa;Validates len&gt;=6, verifies unused OTP&#xa;Rotates hashed_password,&#xa;marks OTP is_used=True atomically,&#xa;issues fresh JWT for auto-login" vertex="1">
+          <mxGeometry height="150" width="260" x="1720" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="e_fp_s2_s3" edge="1" parent="1" source="fp_step2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="fp_step3" />
+        <mxCell id="fp_db" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;align=center;verticalAlign=middle;" value="DB writes&#xa;users.hashed_password (bcrypt)&#xa;user_otps.is_used=true" vertex="1">
+          <mxGeometry height="70" width="260" x="2020" y="590" as="geometry" />
+        </mxCell>
+        <mxCell id="e_fp_s3_db" edge="1" parent="1" source="fp_step3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.3;entryX=0;entryY=0.5;" target="fp_db" />
+        <mxCell id="fp_autologin" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=center;verticalAlign=middle;" value="Auto-login&#xa;localStorage.token = JWT&#xa;fetchProfile()&#xa;navigate(&#39;/&#39;)" vertex="1">
+          <mxGeometry height="90" width="260" x="2020" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="e_fp_s3_login" edge="1" parent="1" source="fp_step3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.7;entryX=0;entryY=0.5;" target="fp_autologin" />
+        <mxCell id="fp_fail" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;align=center;verticalAlign=middle;" value="FAILURE cases&#xa;• OTP wrong/expired → 400&#xa;• OTP already consumed (replay) → 400&#xa;• new_password &lt; 6 chars → 400&#xa;• User not found → 400 (generic, no enumeration)&#xa;UI stays on current step, shows toast" vertex="1">
+          <mxGeometry height="150" width="260" x="1420" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="e_fp_fail" edge="1" parent="1" source="fp_step3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=0.5;entryX=1;entryY=0.5;dashed=1;strokeColor=#b85450;" target="fp_fail" />
+        <mxCell id="title1c" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#1F3A93;" value="1C. SIGN-IN (returning users)" vertex="1">
+          <mxGeometry height="26" width="420" x="1420" y="760" as="geometry" />
+        </mxCell>
+        <mxCell id="signin_landing" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=center;verticalAlign=middle;" value="Landing page &quot;Log in&quot;&#xa;or direct visit /" vertex="1">
+          <mxGeometry height="60" width="240" x="1420" y="800" as="geometry" />
+        </mxCell>
+        <mxCell id="signin_form" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=center;verticalAlign=middle;" value="SignInCard /&#xa;email + password form&#xa;(+ Forgot? link → 1B above)" vertex="1">
+          <mxGeometry height="80" width="240" x="1700" y="790" as="geometry" />
+        </mxCell>
+        <mxCell id="e_signin_landing_form" edge="1" parent="1" source="signin_landing" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="signin_form" />
+        <mxCell id="signin_login" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" value="POST /auth/login&#xa;OAuth2PasswordRequestForm&#xa;(username=email, password)&#xa;bcrypt verify_password&#xa;Returns {access_token, token_type}" vertex="1">
+          <mxGeometry height="110" width="260" x="1980" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="e_signin_form_login" edge="1" parent="1" source="signin_form" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="signin_login">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="signin_route" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=center;verticalAlign=middle;" value="Frontend routing guard&#xa;localStorage.token = JWT&#xa;fetchProfile() → user state&#xa;if user.onboarded → / (Dashboard)&#xa;else → /onboarding (step 1)" vertex="1">
+          <mxGeometry height="110" width="260" x="2280" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="e_signin_login_route" edge="1" parent="1" source="signin_login" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="signin_route" />
+        <mxCell id="signin_fail" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;align=center;verticalAlign=middle;" value="FAILURE&#xa;• Wrong password → 400 (generic)&#xa;• Unknown email → 400 (SAME generic error)&#xa;  — prevents user enumeration&#xa;• Empty fields → client-side toast&#xa;UI stays on sign-in form" vertex="1">
+          <mxGeometry height="120" width="260" x="1980" y="910" as="geometry" />
+        </mxCell>
+        <mxCell id="e_signin_fail" edge="1" parent="1" source="signin_login" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;dashed=1;strokeColor=#b85450;" target="signin_fail" />
+        <mxCell id="tB676kLeMwOJdIVJv7b2-8" edge="1" parent="1" source="resend_signup" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;dashPattern=8 8;" target="tB676kLeMwOJdIVJv7b2-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tB676kLeMwOJdIVJv7b2-25" edge="1" parent="1" source="resend_signup" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;dashed=1;dashPattern=8 8;" target="azure_email">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="resend_signup" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;align=center;verticalAlign=middle;dashed=1;" value="Resend OTP (signup)&#xa;Button on signUpStep=1 after OTP sent&#xa;30s cooldown (useEffect countdown)&#xa;Click → same onRequestOTP(&#39;register&#39;)&#xa;→ new user_otps row + new email&#xa;Old OTP still valid (&lt;10min)" vertex="1">
+          <mxGeometry height="110" width="260" x="630" y="-50" as="geometry" />
+        </mxCell>
+        <mxCell id="resend_forgot" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;align=center;verticalAlign=middle;dashed=1;" value="Resend OTP (forgot-password)&#xa;Button on forgotStep=2 after code sent&#xa;30s cooldown + disabled state&#xa;Click → same onRequestForgotOtp&#xa;→ new reset_password OTP row&#xa;Old OTP still valid (&lt;10min)" vertex="1">
+          <mxGeometry height="110" width="280" x="2020" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="e_resend_forgot" edge="1" parent="1" source="resend_forgot" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=0.5;entryX=1;entryY=0.5;dashed=1;strokeColor=#9673a6;" target="fp_step2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="title2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#1F3A93;" value="2. ONBOARDING (4 steps)" vertex="1">
+          <mxGeometry height="30" width="400" x="80" y="720" as="geometry" />
+        </mxCell>
+        <mxCell id="onb_step1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;align=center;verticalAlign=middle;" value="Onboarding step 1: Personal Identity&#xa;pages/Onboarding.jsx&#xa;Fields: full_name, timezone (auto-detected)" vertex="1">
+          <mxGeometry height="90" width="260" x="80" y="770" as="geometry" />
+        </mxCell>
+        <mxCell id="e_login_onb1" edge="1" parent="1" source="login_auto" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="onb_step1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tB676kLeMwOJdIVJv7b2-32" edge="1" parent="1" source="onb_step2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;dashed=1;dashPattern=8 8;" target="extract_dna">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="onb_step2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;align=center;verticalAlign=middle;" value="Onboarding step 2: Business DNA&#xa;Fields: business_url&#xa;Click &quot;Fetch DNA&quot;" vertex="1">
+          <mxGeometry height="90" width="260" x="400" y="770" as="geometry" />
+        </mxCell>
+        <mxCell id="e_onb1_onb2" edge="1" parent="1" source="onb_step1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="onb_step2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tB676kLeMwOJdIVJv7b2-33" edge="1" parent="1" source="extract_dna" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;dashed=1;dashPattern=8 8;" target="onb_step2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="extract_dna" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;align=center;verticalAlign=middle;" value="POST /profile/extract-dna&#xa;routers/profile.py&#xa;Body: {url, is_product=false}" vertex="1">
+          <mxGeometry height="90" width="260" x="720" y="770" as="geometry" />
+        </mxCell>
+        <mxCell id="e_onb2_extract" edge="1" parent="1" source="onb_step2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="extract_dna" />
+        <mxCell id="jina_microlink" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;align=center;verticalAlign=middle;" value="External calls (concurrent)&#xa;• Jina r.jina.ai/* — markdown crawl&#xa;• Microlink api.microlink.io — screenshot/logo&#xa;• Gemini 2.5 Flash — knowledge base extraction" vertex="1">
+          <mxGeometry height="90" width="320" x="1050" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="e_extract_ext" edge="1" parent="1" source="extract_dna" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="jina_microlink" />
+        <mxCell id="tB676kLeMwOJdIVJv7b2-28" edge="1" parent="1" source="logo_resolve" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;dashed=1;dashPattern=8 8;" target="jina_microlink">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tB676kLeMwOJdIVJv7b2-30" edge="1" parent="1" source="logo_resolve" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;dashed=1;dashPattern=8 8;" target="extract_dna">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="logo_resolve" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" value="_resolve_logo_url (this PR)&#xa;HEAD-verifies a chain of candidates:&#xa;1. AI-returned URL + www/hyphen variants&#xa;2. Microlink logo + variants&#xa;3. Clearbit per variant (optional)&#xa;4. Google S2 favicons (always works)" vertex="1">
+          <mxGeometry height="120" width="320" x="1050" y="740" as="geometry" />
+        </mxCell>
+        <mxCell id="e_extract_resolve" edge="1" parent="1" source="jina_microlink" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="logo_resolve" />
+        <mxCell id="tB676kLeMwOJdIVJv7b2-31" edge="1" parent="1" source="onb_step3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;dashed=1;dashPattern=8 8;" target="oauth_popup">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="onb_step3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;align=center;verticalAlign=middle;" value="Onboarding step 3: Social Connections&#xa;LinkedIn / Twitter / Facebook / Instagram&#xa;OAuth popups (social.py)" vertex="1">
+          <mxGeometry height="90" width="260" x="400" y="900" as="geometry" />
+        </mxCell>
+        <mxCell id="e_onb2_onb3" edge="1" parent="1" source="onb_step2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="onb_step3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="oauth_popup" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" value="Popup: window.open(&quot;/auth/&lt;platform&gt;&quot;)&#xa;Backend 307 → provider OAuth&#xa;Callback HTML posts AUTH_SUCCESS&#xa;to window.opener, then window.close()" vertex="1">
+          <mxGeometry height="120" width="260" x="720" y="900" as="geometry" />
+        </mxCell>
+        <mxCell id="e_onb3_oauth" edge="1" parent="1" source="onb_step3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="oauth_popup" />
+        <mxCell id="fail_oauth" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;align=center;verticalAlign=middle;" value="FAILURE: popup blocked, user cancels,&#xa;OAuth provider error (bad redirect_uri)&#xa;handleConnect polls popup.closed and&#xa;toasts cancellation if AUTH_SUCCESS never fired" vertex="1">
+          <mxGeometry height="100" width="260" x="400" y="1060" as="geometry" />
+        </mxCell>
+        <mxCell id="e_fail_oauth" edge="1" parent="1" source="oauth_popup" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=0.5;entryX=1;entryY=0.5;dashed=1;strokeColor=#b85450;" target="fail_oauth" />
+        <mxCell id="onb_step4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;align=center;verticalAlign=middle;" value="Onboarding step 4: Plan Picker&#xa;6 plans × 3 tiers (Basic/Pro/Enterprise)&#xa;× monthly/yearly toggle" vertex="1">
+          <mxGeometry height="90" width="260" x="80" y="1060" as="geometry" />
+        </mxCell>
+        <mxCell id="e_onb3_onb4" edge="1" parent="1" source="onb_step3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" target="onb_step4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="title3" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#1F3A93;" value="3. PAYMENT (Stripe Checkout + confirm-session)" vertex="1">
+          <mxGeometry height="30" width="520" x="80" y="1220" as="geometry" />
+        </mxCell>
+        <mxCell id="save_profile" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;align=center;verticalAlign=middle;" value="PUT /profile (saves all formData)&#xa;POST /payment/create-checkout-session&#xa;Body: {plan: &quot;pro_monthly&quot;}" vertex="1">
+          <mxGeometry height="90" width="280" x="80" y="1270" as="geometry" />
+        </mxCell>
+        <mxCell id="e_onb4_save" edge="1" parent="1" source="onb_step4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="save_profile">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="db_profile" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;align=center;verticalAlign=middle;" value="DB write&#xa;users table: full_name, timezone,&#xa;business_url, business_dna (JSONB),&#xa;pricing_plan (pending, not onboarded yet)" vertex="1">
+          <mxGeometry height="90" width="280" x="400" y="1270" as="geometry" />
+        </mxCell>
+        <mxCell id="e_save_db" edge="1" parent="1" source="save_profile" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="db_profile" />
+        <mxCell id="stripe_create" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;align=center;verticalAlign=middle;" value="stripe.checkout.Session.create()&#xa;success_url=FRONTEND/dashboard?status=success&#xa;  &amp;session_id={CHECKOUT_SESSION_ID}&#xa;cancel_url=FRONTEND/onboarding?status=cancel&#xa;metadata={user_id, plan}" vertex="1">
+          <mxGeometry height="120" width="320" x="720" y="1270" as="geometry" />
+        </mxCell>
+        <mxCell id="e_save_stripe" edge="1" parent="1" source="save_profile" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0;entryY=0.5;" target="stripe_create" />
+        <mxCell id="stripe_checkout" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;align=center;verticalAlign=middle;" value="Stripe Checkout page&#xa;checkout.stripe.com/c/pay/cs_xxx&#xa;Card entry (LIVE or TEST mode)&#xa;Local dev: live-key guard blocks sk_live_" vertex="1">
+          <mxGeometry height="100" width="300" x="1080" y="1420" as="geometry" />
+        </mxCell>
+        <mxCell id="e_stripe_checkout" edge="1" parent="1" source="stripe_create" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="stripe_checkout">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="success_redirect" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;align=center;verticalAlign=middle;" value="Redirect to FRONTEND_URL/dashboard&#xa;?status=success&amp;session_id=cs_test_XXX" vertex="1">
+          <mxGeometry height="70" width="300" x="1080" y="1560" as="geometry" />
+        </mxCell>
+        <mxCell id="e_checkout_success" edge="1" parent="1" source="stripe_checkout" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" target="success_redirect">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="activating_ui" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=center;verticalAlign=middle;" value="&quot;Activating subscription&quot; loading screen&#xa;App.jsx /* catchall (isPaymentConfirming=true)&#xa;Route guard paused while confirming" vertex="1">
+          <mxGeometry height="90" width="300" x="720" y="1560" as="geometry" />
+        </mxCell>
+        <mxCell id="e_success_activating" edge="1" parent="1" source="success_redirect" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" target="activating_ui" />
+        <mxCell id="confirm_session" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" value="POST /payment/confirm-session&#xa;routers/payment.py (new)&#xa;Body: {session_id}&#xa;stripe.checkout.Session.retrieve()&#xa;Verifies metadata.user_id == caller&#xa;Calls _apply_paid_session_to_user" vertex="1">
+          <mxGeometry height="140" width="300" x="360" y="1560" as="geometry" />
+        </mxCell>
+        <mxCell id="e_activating_confirm" edge="1" parent="1" source="activating_ui" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" target="confirm_session" />
+        <mxCell id="apply_paid" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" value="_apply_paid_session_to_user (shared)&#xa;Normalizes StripeObject → dict (.to_dict())&#xa;If payment_status == &#39;paid&#39;:&#xa;  user.pricing_plan = plan.split(&#39;_&#39;)[0]&#xa;  user.onboarded = True&#xa;  user.subscription_end_date = sub.current_period_end&#xa;DB commit (idempotent)" vertex="1">
+          <mxGeometry height="140" width="280" x="20" y="1560" as="geometry" />
+        </mxCell>
+        <mxCell id="e_confirm_apply" edge="1" parent="1" source="confirm_session" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" target="apply_paid" />
+        <mxCell id="db_paid" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;align=center;verticalAlign=middle;" value="DB write&#xa;users table: onboarded=true,&#xa;pricing_plan=&#39;pro&#39;, subscription_end_date" vertex="1">
+          <mxGeometry height="80" width="280" x="20" y="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="e_apply_db" edge="1" parent="1" source="apply_paid" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="db_paid" />
+        <mxCell id="dashboard" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;align=center;verticalAlign=middle;" value="Dashboard renders&#xa;navigate(&#39;/&#39;, {replace:true}) strips query&#xa;Route guard: onboarded=true → / matches&#xa;Toast: &quot;Subscription activated ✅&quot;" vertex="1">
+          <mxGeometry height="100" width="300" x="360" y="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="e_confirm_dashboard" edge="1" parent="1" source="confirm_session" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="dashboard" />
+        <mxCell id="webhook" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;dashed=1;" value="POST /payment/webhook (async, prod)&#xa;Stripe → EventBridge-like delivery&#xa;Verifies signature via STRIPE_WEBHOOK_SECRET&#xa;Also calls _apply_paid_session_to_user (idempotent)&#xa;Fires for checkout.session.completed AND renewal events" vertex="1">
+          <mxGeometry height="120" width="340" x="720" y="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="e_stripe_webhook" edge="1" parent="1" source="stripe_checkout" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;dashed=1;" target="webhook">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fail_checkout_create" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;align=center;verticalAlign=middle;" value="FAILURE: invalid plan key / Stripe 400&#xa;HTTP 500 from /create-checkout-session&#xa;UI: &quot;Failed to start checkout&quot;" vertex="1">
+          <mxGeometry height="80" width="340" x="720" y="1410" as="geometry" />
+        </mxCell>
+        <mxCell id="e_fail_create" edge="1" parent="1" source="stripe_create" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=0.5;entryX=1;entryY=0;dashed=1;strokeColor=#b85450;" target="fail_checkout_create" />
+        <mxCell id="fail_live_key" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;align=center;verticalAlign=middle;" value="FAILURE (local only):&#xa;sk_live_ key + no AWS_LAMBDA_FUNCTION_NAME&#xa;Backend REFUSES TO START&#xa;core/config.py guard raises RuntimeError" vertex="1">
+          <mxGeometry height="110" width="300" x="1080" y="1270" as="geometry" />
+        </mxCell>
+        <mxCell id="fail_confirm" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;align=center;verticalAlign=middle;" value="FAILURE: confirm-session 400/403/500&#xa;UI toast: &quot;Payment confirmation failed —&#xa;please contact support if charged&quot;&#xa;User stays on activating screen until retry&#xa;Webhook still runs async as backup in prod" vertex="1">
+          <mxGeometry height="120" width="300" x="360" y="1860" as="geometry" />
+        </mxCell>
+        <mxCell id="e_fail_confirm" edge="1" parent="1" source="confirm_session" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;dashed=1;strokeColor=#b85450;" target="fail_confirm" />
+        <mxCell id="fail_cancel" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;align=center;verticalAlign=middle;" value="FAILURE: user clicks Back on Stripe&#xa;Redirect to /onboarding?status=cancel&#xa;Route stays on step 4, user.onboarded unchanged" vertex="1">
+          <mxGeometry height="100" width="300" x="1080" y="1660" as="geometry" />
+        </mxCell>
+        <mxCell id="e_fail_cancel" edge="1" parent="1" source="stripe_checkout" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;dashed=1;strokeColor=#b85450;" target="fail_cancel" />
+        <mxCell id="title_settings" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#1F3A93;" value="4. SETTINGS / BUSINESS DNA MANAGEMENT (Profile.jsx)" vertex="1">
+          <mxGeometry height="30" width="720" x="80" y="2000" as="geometry" />
+        </mxCell>
+        <mxCell id="settings_ui" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=center;verticalAlign=middle;" value="Settings → Account Details&#xa;• Avatar upload (inline header)&#xa;• Full name, username, timezone&#xa;• Company name, Business URL&#xa;• Product URLs list (+ / − rows)" vertex="1">
+          <mxGeometry height="120" width="280" x="80" y="2050" as="geometry" />
+        </mxCell>
+        <mxCell id="settings_save" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" value="Click SAVE ACCOUNT CHANGES&#xa;handleUpdateProfile (Profile.jsx)&#xa;1. PUT /profile (basic fields)&#xa;2. Compute target URL diff:&#xa;   added = target − existing&#xa;   removed = existing − target&#xa;3. Remove: delete products[id] entries&#xa;4. Add: POST /profile/extract-dna per new URL&#xa;5. PUT /profile (final merged DNA)" vertex="1">
+          <mxGeometry height="160" width="320" x="420" y="2040" as="geometry" />
+        </mxCell>
+        <mxCell id="e_settings_save" edge="1" parent="1" source="settings_ui" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="settings_save" />
+        <mxCell id="dna_db" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;align=center;verticalAlign=middle;" value="DB write&#xa;users.business_dna (JSONB)&#xa;{ company fields..,&#xa;  products: {&#xa;    Spenzo AI: { logo_url, colors, tagline,&#xa;                 brand_values, documents, ... },&#xa;    Zyntegrate: { ... }&#xa;  }&#xa;}" vertex="1">
+          <mxGeometry height="160" width="300" x="800" y="2040" as="geometry" />
+        </mxCell>
+        <mxCell id="TMJw7humnbMYPO7JZQDp-1" edge="1" parent="1" source="settings_save" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="dna_db" />
+        <mxCell id="dna_upload_doc" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" value="Settings → Business DNA tab&#xa;Per-entity doc upload/remove&#xa;POST   /profile/dna-document (FormData)&#xa;DELETE /profile/dna-document/{entity_id}/{doc_id}&#xa;(entity_id = &#39;company&#39; | product_name)" vertex="1">
+          <mxGeometry height="110" width="320" x="80" y="2220" as="geometry" />
+        </mxCell>
+        <mxCell id="e_settings_doc" edge="1" parent="1" source="settings_ui" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;dashed=1;" target="dna_upload_doc" />
+        <mxCell id="s3_docs" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;align=center;verticalAlign=middle;" value="S3 upload (pipelyt-uploaded-images)&#xa;dna_docs/{user_id}/{entity_id}/&lt;uuid&gt;.pdf&#xa;Text extracted (PyPDF2/python-docx)&#xa;Stored in DNA as:&#xa;{ id, name, url, text, size }" vertex="1">
+          <mxGeometry height="110" width="300" x="440" y="2220" as="geometry" />
+        </mxCell>
+        <mxCell id="e_doc_s3" edge="1" parent="1" source="dna_upload_doc" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="s3_docs" />
+        <mxCell id="title_gen" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#1F3A93;" value="5. AGENT POST — product-scoped content generation" vertex="1">
+          <mxGeometry height="30" width="720" x="80" y="2390" as="geometry" />
+        </mxCell>
+        <mxCell id="agent_post_ui" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=center;verticalAlign=middle;" value="Dashboard / Agent Post (Dashboard.jsx)&#xa;Brand selector: Company | Spenzo | Zyntegrate&#xa;selectedProduct state" vertex="1">
+          <mxGeometry height="100" width="300" x="80" y="2440" as="geometry" />
+        </mxCell>
+        <mxCell id="gen_endpoint" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" value="POST /generate-content?product_name=Spenzo&#xa;(also /generate-visuals, /generate-custom-image)&#xa;product_name is a Query param" vertex="1">
+          <mxGeometry height="100" width="320" x="420" y="2440" as="geometry" />
+        </mxCell>
+        <mxCell id="e_gen_call" edge="1" parent="1" source="agent_post_ui" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="gen_endpoint">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="active_dna" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" value="_active_dna(user, product_name)&#xa;routers/content.py helper&#xa;If products[product_name] exists:&#xa;  merged = {**company_dna, **product_dna}&#xa;  merged.pop(&#39;products&#39;)&#xa;  return merged&#xa;Else: return company DNA" vertex="1">
+          <mxGeometry height="130" width="320" x="780" y="2430" as="geometry" />
+        </mxCell>
+        <mxCell id="e_endpoint_active" edge="1" parent="1" source="gen_endpoint" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="active_dna" />
+        <mxCell id="gen_text" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" value="Text pipeline&#xa;generate_strategic_content(&#xa;  ..., product_name=&quot;Spenzo&quot;)&#xa;→ _build_user_context picks&#xa;  dna.products[product_name]&#xa;  for tone/values/documents" vertex="1">
+          <mxGeometry height="120" width="320" x="780" y="2600" as="geometry" />
+        </mxCell>
+        <mxCell id="gen_visual" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" value="Visual pipeline&#xa;primary_color = active_dna.colors.primary&#xa;logo_bytes ← active_dna.logo_url&#xa;→ Gemini image gen + PIL compositing&#xa;uses Spenzo&#39;s logo/color, not company&#39;s" vertex="1">
+          <mxGeometry height="120" width="320" x="1140" y="2600" as="geometry" />
+        </mxCell>
+        <mxCell id="e_active_text" edge="1" parent="1" source="active_dna" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.3;exitY=1;entryX=0.5;entryY=0;" target="gen_text" />
+        <mxCell id="e_active_visual" edge="1" parent="1" source="active_dna" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.7;exitY=1;entryX=0.5;entryY=0;" target="gen_visual" />
+
+        <!-- ========================== 6. AGENT POST PIPELINE (DETAILED) ========================== -->
+        <!-- Every node connected so the reader can trace inputs and outputs. -->
+        <mxCell id="title_ap_pipeline" value="6. AGENT POST PIPELINE — Detailed (every edge labeled with data flowing)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#1F3A93;" vertex="1" parent="1">
+          <mxGeometry x="40" y="2800" width="900" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Row A: UI → Endpoint → DNA scope helpers -->
+        <mxCell id="ap_ui_brief" value="Campaign Brief UI&#10;Dashboard.jsx (step=brief)&#10;• textarea&#10;• chips: DNA / Logo / Ratio / Channels / Strategy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="2850" width="260" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ap_endpoint" value="POST /generate-content&#10;routers/content.py&#10;Accepts: campaign_brief, platforms,&#10;logo_image, context_files, product_name (Query)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="340" y="2850" width="280" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ap_active_dna" value="_active_dna(user, product_name)&#10;Shallow-merges product DNA over company DNA.&#10;Drives logo + primary_color + domain." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="660" y="2850" width="280" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ap_user_context" value="_build_user_context(user, extra, product_name)&#10;Builds labeled DNA blob:&#10;tagline · brand_values · brand_tone ·&#10;brand_aesthetic · colors · overview · doc text" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="980" y="2850" width="300" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- Edges Row A -->
+        <mxCell id="e_ap_ui_endpoint" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="ap_ui_brief" target="ap_endpoint">
+          <mxGeometry relative="1" as="geometry" />
+          <mxCell id="lbl_ap_ui_endpoint" value="campaign_brief, platforms,&#10;logo, product_name,&#10;aspect_ratio, docs" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="e_ap_ui_endpoint">
+            <mxGeometry x="-0.1" relative="1" as="geometry" />
+          </mxCell>
+        </mxCell>
+        <mxCell id="e_ap_endpoint_active" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="ap_endpoint" target="ap_active_dna">
+          <mxGeometry relative="1" as="geometry" />
+          <mxCell id="lbl_ap_endpoint_active" value="user, product_name" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="e_ap_endpoint_active">
+            <mxGeometry x="-0.1" relative="1" as="geometry" />
+          </mxCell>
+        </mxCell>
+        <mxCell id="e_ap_active_context" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="ap_active_dna" target="ap_user_context">
+          <mxGeometry relative="1" as="geometry" />
+          <mxCell id="lbl_ap_active_context" value="active DNA dict" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="e_ap_active_context">
+            <mxGeometry x="-0.1" relative="1" as="geometry" />
+          </mxCell>
+        </mxCell>
+
+        <!-- Row B: 4 text agents, left to right -->
+        <mxCell id="ap_refiner" value="Agent 1 — Refine Brief&#10;_refine_brief_agent&#10;gemini-2.5-flash&#10;🟠 Upgraded April 2026" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#FF6B35;strokeWidth=2;fontSize=11;align=center;verticalAlign=middle;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="3030" width="260" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ap_research" value="Agent 2 — Research 🟠&#10;_research_agent&#10;gemini-2.5-flash&#10;(guardrails + angles)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#FF6B35;strokeWidth=2;fontSize=11;align=center;verticalAlign=middle;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="3030" width="280" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ap_content" value="Agent 3 — Content 🟠&#10;_content_agent&#10;gemini-2.5-flash&#10;3 metric-targeted variants × N platforms&#10;(reach / comments / follows)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#FF6B35;strokeWidth=2;fontSize=11;align=center;verticalAlign=middle;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="660" y="3030" width="280" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ap_visualist" value="Agent 4 — Visualist&#10;_linkedin_visualist_agent&#10;gemini-2.5-flash&#10;3 image concepts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="980" y="3030" width="300" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Edges from context → refiner -->
+        <mxCell id="e_ap_context_refiner" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="ap_user_context" target="ap_refiner">
+          <mxGeometry relative="1" as="geometry" />
+          <mxCell id="lbl_ap_context_refiner" value="campaign_brief +&#10;user_context (DNA blob)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="e_ap_context_refiner">
+            <mxGeometry x="-0.2" relative="1" as="geometry" />
+          </mxCell>
+        </mxCell>
+
+        <!-- refiner → research -->
+        <mxCell id="e_ap_refiner_research" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="ap_refiner" target="ap_research">
+          <mxGeometry relative="1" as="geometry" />
+          <mxCell id="lbl_ap_refiner_research" value="refined_brief&#10;(structured string:&#10;TOPIC · AUDIENCE · ANGLE ·&#10;SUPPORTING POINTS · ...)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="e_ap_refiner_research">
+            <mxGeometry x="-0.1" relative="1" as="geometry" />
+          </mxCell>
+        </mxCell>
+
+        <!-- research → content -->
+        <mxCell id="e_ap_research_content" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="ap_research" target="ap_content">
+          <mxGeometry relative="1" as="geometry" />
+          <mxCell id="lbl_ap_research_content" value="research JSON&#10;(audience, trend, problem, product,&#10;angles_to_test[3], do_not_claim[≤5],&#10;grounding_confidence)&#10;source-tagged" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="e_ap_research_content">
+            <mxGeometry x="-0.1" relative="1" as="geometry" />
+          </mxCell>
+        </mxCell>
+
+        <!-- refiner → content (skips research for brief reuse) -->
+        <mxCell id="e_ap_refiner_content" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.2;entryY=1;dashed=1;" edge="1" parent="1" source="ap_refiner" target="ap_content">
+          <mxGeometry relative="1" as="geometry" />
+          <mxCell id="lbl_ap_refiner_content" value="refined_brief (also)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="e_ap_refiner_content">
+            <mxGeometry x="-0.1" relative="1" as="geometry" />
+          </mxCell>
+        </mxCell>
+
+        <!-- content → visualist -->
+        <mxCell id="e_ap_content_visualist" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="ap_content" target="ap_visualist">
+          <mxGeometry relative="1" as="geometry" />
+          <mxCell id="lbl_ap_content_visualist" value="best LinkedIn variant&#10;+ primary_color&#10;+ domain_name" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="e_ap_content_visualist">
+            <mxGeometry x="-0.1" relative="1" as="geometry" />
+          </mxCell>
+        </mxCell>
+
+        <!-- Row C: Image pipeline (stacked vertically below visualist) -->
+        <mxCell id="ap_image_gen" value="Agent 5a — Image Generator&#10;_gen_single_variant&#10;gemini-2.5-flash-image&#10;3 variants SERIAL (each up to 3 retries)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="980" y="3220" width="300" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ap_visual_critic" value="Agent 5b — Visual Critic&#10;_visual_critic_agent&#10;gemini-2.5-flash (multimodal, image in)&#10;Scores 0-10 · retry if &lt; 7" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="980" y="3410" width="300" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ap_compositor" value="Agent 5c — PIL Compositor&#10;visual_compositor.py&#10;NO LLM — pure Python/Pillow&#10;Places heading, sub-heading, logo, CTA pill" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="980" y="3600" width="300" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ap_s3" value="AWS S3 upload&#10;ai_gen/visual_&lt;uuid&gt;.jpg&#10;returns public URL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="980" y="3790" width="300" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Image pipeline edges -->
+        <mxCell id="e_ap_visualist_image" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="ap_visualist" target="ap_image_gen">
+          <mxGeometry relative="1" as="geometry" />
+          <mxCell id="lbl_ap_visualist_image" value="3 concepts × generation_prompt&#10;(pure-background directive)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="e_ap_visualist_image">
+            <mxGeometry x="-0.1" relative="1" as="geometry" />
+          </mxCell>
+        </mxCell>
+
+        <mxCell id="e_ap_image_critic" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="ap_image_gen" target="ap_visual_critic">
+          <mxGeometry relative="1" as="geometry" />
+          <mxCell id="lbl_ap_image_critic" value="raw image bytes +&#10;original_prompt" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="e_ap_image_critic">
+            <mxGeometry x="-0.1" relative="1" as="geometry" />
+          </mxCell>
+        </mxCell>
+
+        <!-- Critic → Image gen retry loop (dashed purple) -->
+        <mxCell id="e_ap_critic_retry" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=0.5;entryX=0;entryY=0.5;dashed=1;strokeColor=#9673a6;" edge="1" parent="1" source="ap_visual_critic" target="ap_image_gen">
+          <mxGeometry relative="1" as="geometry" />
+          <mxCell id="lbl_ap_critic_retry" value="if rating &lt; 7:&#10;retry with&#10;improvement_advice&#10;(max 3 attempts)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#9673a6;" vertex="1" connectable="0" parent="e_ap_critic_retry">
+            <mxGeometry x="-0.3" relative="1" as="geometry" />
+          </mxCell>
+        </mxCell>
+
+        <mxCell id="e_ap_critic_compositor" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="ap_visual_critic" target="ap_compositor">
+          <mxGeometry relative="1" as="geometry" />
+          <mxCell id="lbl_ap_critic_compositor" value="rating ≥ 7:&#10;passed image bytes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="e_ap_critic_compositor">
+            <mxGeometry x="-0.1" relative="1" as="geometry" />
+          </mxCell>
+        </mxCell>
+
+        <mxCell id="e_ap_compositor_s3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="ap_compositor" target="ap_s3">
+          <mxGeometry relative="1" as="geometry" />
+          <mxCell id="lbl_ap_compositor_s3" value="composited JPEG bytes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="e_ap_compositor_s3">
+            <mxGeometry x="-0.1" relative="1" as="geometry" />
+          </mxCell>
+        </mxCell>
+
+        <!-- Row D: Strategic Critic + Review UI -->
+        <mxCell id="ap_strategic_critic" value="Agent 6 — Strategic Critic&#10;_critic_agent&#10;gemini-2.5-flash&#10;Audits full payload" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="340" y="3600" width="280" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ap_review_ui" value="Review Pane&#10;Dashboard.jsx (step='review')&#10;3 variants × N platforms + 3 images&#10;User picks → Publish / Draft / Schedule" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="340" y="3790" width="280" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- Content → Strategic Critic -->
+        <mxCell id="e_ap_content_critic" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.7;entryY=0;" edge="1" parent="1" source="ap_content" target="ap_strategic_critic">
+          <mxGeometry relative="1" as="geometry" />
+          <mxCell id="lbl_ap_content_critic" value="content (3 variants × N platforms)&#10;+ recommendation&#10;(post-processed: unicode-strip,&#10;hashtag cap, HARD char cap)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="e_ap_content_critic">
+            <mxGeometry x="-0.1" relative="1" as="geometry" />
+          </mxCell>
+        </mxCell>
+
+        <!-- S3 → Strategic Critic (final payload assembly) -->
+        <mxCell id="e_ap_s3_critic" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" edge="1" parent="1" source="ap_s3" target="ap_strategic_critic">
+          <mxGeometry relative="1" as="geometry" />
+          <mxCell id="lbl_ap_s3_critic" value="3 image URLs +&#10;ratings + metadata" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="e_ap_s3_critic">
+            <mxGeometry x="-0.2" relative="1" as="geometry" />
+          </mxCell>
+        </mxCell>
+
+        <!-- Refiner → Strategic Critic -->
+        <mxCell id="e_ap_refiner_critic" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.3;entryY=0;dashed=1;" edge="1" parent="1" source="ap_refiner" target="ap_strategic_critic">
+          <mxGeometry relative="1" as="geometry" />
+          <mxCell id="lbl_ap_refiner_critic" value="refined_brief" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="e_ap_refiner_critic">
+            <mxGeometry x="-0.1" relative="1" as="geometry" />
+          </mxCell>
+        </mxCell>
+
+        <!-- Strategic Critic → Review UI -->
+        <mxCell id="e_ap_critic_review" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="ap_strategic_critic" target="ap_review_ui">
+          <mxGeometry relative="1" as="geometry" />
+          <mxCell id="lbl_ap_critic_review" value="final payload:&#10;{refined_brief, research, content,&#10; visuals[], verification}" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="e_ap_critic_review">
+            <mxGeometry x="-0.1" relative="1" as="geometry" />
+          </mxCell>
+        </mxCell>
+
+        <!-- Regenerate loop (dashed, from review UI back to endpoint) -->
+        <mxCell id="e_ap_review_regenerate" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=0;entryX=0.5;entryY=1;dashed=1;strokeColor=#9673a6;" edge="1" parent="1" source="ap_review_ui" target="ap_endpoint">
+          <mxGeometry relative="1" as="geometry" />
+          <mxCell id="lbl_ap_review_regenerate" value="User clicks Regenerate&#10;→ re-trigger /generate-content&#10;or /generate-visuals" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#9673a6;" vertex="1" connectable="0" parent="e_ap_review_regenerate">
+            <mxGeometry x="-0.2" relative="1" as="geometry" />
+          </mxCell>
+        </mxCell>
+
+        <mxCell id="legend" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;align=left;verticalAlign=top;spacingLeft=10;spacingTop=5;" value="LEGEND&#xa;&#xa;■ Blue    — User-facing UI screens (React)&#xa;■ Green   — FastAPI backend endpoints&#xa;■ Orange  — External providers (Stripe, Azure, Gemini, Microlink, Jina, S3)&#xa;■ Yellow  — PostgreSQL writes&#xa;■ Purple  — Resend-OTP affordance (user-initiated)&#xa;■ Red     — Failure paths&#xa;&#xa;→ Solid arrow = happy path&#xa;⇢ Dashed arrow = failure / async / resend path" vertex="1">
+          <mxGeometry height="200" width="400" x="1070" y="-290" as="geometry" />
+        </mxCell>
+        <mxCell id="tB676kLeMwOJdIVJv7b2-10" edge="1" parent="1" source="tB676kLeMwOJdIVJv7b2-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;dashed=1;dashPattern=8 8;" target="otp_verify">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tB676kLeMwOJdIVJv7b2-7" parent="1" style="shape=datastore;whiteSpace=wrap;html=1;fillColor=light-dark(#FFFFFF,#281D00);" value="&lt;span style=&quot;font-size: 11px;&quot;&gt;DB write&lt;/span&gt;&lt;br style=&quot;font-size: 11px;&quot;&gt;&lt;span style=&quot;font-size: 11px;&quot;&gt;user_otps table&lt;/span&gt;&lt;br style=&quot;font-size: 11px;&quot;&gt;&lt;span style=&quot;font-size: 11px;&quot;&gt;(email, otp_code, purpose, expires_at, is_used=false)&lt;/span&gt;" vertex="1">
+          <mxGeometry height="130" width="240" x="640" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="tB676kLeMwOJdIVJv7b2-14" edge="1" parent="1" source="tB676kLeMwOJdIVJv7b2-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="register">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tB676kLeMwOJdIVJv7b2-15" edge="1" parent="1" source="tB676kLeMwOJdIVJv7b2-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="fail_otp">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tB676kLeMwOJdIVJv7b2-12" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fa6800;fontColor=#000000;strokeColor=#C73500;" value="Check" vertex="1">
+          <mxGeometry height="80" width="80" x="280" y="325" as="geometry" />
+        </mxCell>
+        <mxCell id="tB676kLeMwOJdIVJv7b2-16" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;b&gt;YES&lt;/b&gt;" vertex="1">
+          <mxGeometry height="30" width="60" x="360" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="tB676kLeMwOJdIVJv7b2-17" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;b&gt;NO&lt;/b&gt;" vertex="1">
+          <mxGeometry height="30" width="60" x="220" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="tB676kLeMwOJdIVJv7b2-18" parent="1" style="shape=datastore;whiteSpace=wrap;html=1;fillColor=light-dark(#FFFFFF,#281D00);" value="&lt;span style=&quot;font-size: 11px;&quot;&gt;DB write&lt;/span&gt;&lt;br style=&quot;font-size: 11px;&quot;&gt;&lt;span style=&quot;font-size: 11px;&quot;&gt;users table (email, hashed_password,&lt;/span&gt;&lt;br style=&quot;font-size: 11px;&quot;&gt;&lt;span style=&quot;font-size: 11px;&quot;&gt;onboarded=false, pricing_plan=null)&lt;/span&gt;" vertex="1">
+          <mxGeometry height="115" width="190" x="790" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="tB676kLeMwOJdIVJv7b2-19" edge="1" parent="1" source="register" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.012;entryY=0.384;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;dashPattern=8 8;" target="tB676kLeMwOJdIVJv7b2-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tB676kLeMwOJdIVJv7b2-26" edge="1" parent="1" source="jina_microlink" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.215;entryY=-0.003;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;dashPattern=8 8;" target="logo_resolve">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tB676kLeMwOJdIVJv7b2-29" edge="1" parent="1" source="extract_dna" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0.008;entryY=0.344;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;dashPattern=8 8;" target="logo_resolve">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tB676kLeMwOJdIVJv7b2-34" edge="1" parent="1" source="oauth_popup" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1.008;entryY=0.648;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;dashPattern=8 8;" target="onb_step3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tB676kLeMwOJdIVJv7b2-41" edge="1" parent="1" source="tB676kLeMwOJdIVJv7b2-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.7;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;dashed=1;dashPattern=8 8;" target="oauth_popup">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tB676kLeMwOJdIVJv7b2-36" parent="1" style="shape=datastore;whiteSpace=wrap;html=1;fillColor=light-dark(#FFFFFF,#281D00);" value="&lt;span style=&quot;font-size: 11px;&quot;&gt;DB write (POST /connect-accounts)&lt;/span&gt;&lt;br style=&quot;font-size: 11px;&quot;&gt;&lt;span style=&quot;font-size: 11px;&quot;&gt;social_accounts table&lt;/span&gt;&lt;br style=&quot;font-size: 11px;&quot;&gt;&lt;span style=&quot;font-size: 11px;&quot;&gt;(user_id, platform, account_id,&lt;/span&gt;&lt;br style=&quot;font-size: 11px;&quot;&gt;&lt;span style=&quot;font-size: 11px;&quot;&gt;token, token_secret, refresh_token)&lt;/span&gt;" vertex="1">
+          <mxGeometry height="115" width="270" x="1050" y="905" as="geometry" />
+        </mxCell>
+        <mxCell id="tB676kLeMwOJdIVJv7b2-38" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;align=center;verticalAlign=middle;" value="DB write (POST /connect-accounts)&#xa;social_accounts table&#xa;(user_id, platform, account_id,&#xa;token, token_secret, refresh_token)" vertex="1">
+          <mxGeometry height="80" width="260" x="1400" as="geometry" />
+        </mxCell>
+        <mxCell id="tB676kLeMwOJdIVJv7b2-39" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="tB676kLeMwOJdIVJv7b2-38">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1580" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tB676kLeMwOJdIVJv7b2-40" edge="1" parent="1" source="oauth_popup" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0.041;entryY=0.287;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;dashPattern=8 8;" target="tB676kLeMwOJdIVJv7b2-36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

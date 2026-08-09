@@ -1,0 +1,54 @@
+```mermaid
+%%{init: {'flowchart': {'nodeSpacing': 30, 'rankSpacing': 42, 'padding': 8, 'curve': 'linear', 'wrappingWidth': 160, 'useMaxWidth': true, 'htmlLabels': true}, 'themeVariables': {'fontFamily': 'Inter, Helvetica, Arial, sans-serif', 'fontSize': '14px'}}}%%
+%% LinkedIn Engine — Worker Execution (Playwright)
+flowchart TB
+  subgraph g_claim["Claim & Validate"]
+    direction TB
+    sqs[/"SQS FIFO<br/><small>triggers worker</small>"/]
+    worker["Worker Lambda<br/><small>idempotency · per-account lock · claim job</small>"]
+    jobs[("jobs<br/><small>claim → running → completed/failed</small>")]
+    validate["Validate Session<br/><small>decrypt cookies · invalid → reauth_required</small>"]
+  end
+  subgraph g_act["Browser Actions (Playwright)"]
+    direction TB
+    playwright["Playwright / Chromium<br/><small>cookies + fingerprint · human jitter</small>"]
+    actions["Send Actions<br/><small>connection · connect+InMail · message · InMail</small>"]
+    checks["Check Actions<br/><small>acceptance · reply (DOM detectors)</small>"]
+  end
+  subgraph g_seq["Branching & Persistence"]
+    direction TB
+    engine["Sequence Engine<br/><small>branch · advance · stop</small>"]
+    leadstate[("lead_state<br/><small>next step + randomized next_action_at</small>")]
+    events[("events<br/><small>immutable audit → all metrics</small>")]
+  end
+  sqs -->|"trigger"| worker
+  worker -->|"claim"| jobs
+  worker --> validate
+  worker -->|"run action"| playwright
+  playwright --> actions
+  playwright --> checks
+  actions -->|"after send"| engine
+  checks -->|"accept / reply"| engine
+  engine -->|"schedule next"| leadstate
+  engine -->|"append"| events
+  linkStyle 0 stroke:#7C3AED,stroke-width:1.6px;
+  linkStyle 1 stroke:#059669,stroke-width:1.6px;
+  linkStyle 2 stroke:#2563EB,stroke-width:1.6px;
+  linkStyle 3 stroke:#2563EB,stroke-width:1.6px;
+  linkStyle 4 stroke:#2563EB,stroke-width:1.6px;
+  linkStyle 5 stroke:#2563EB,stroke-width:1.6px;
+  linkStyle 6 stroke:#DC2626,stroke-width:1.6px;
+  linkStyle 7 stroke:#DC2626,stroke-width:1.6px;
+  linkStyle 8 stroke:#059669,stroke-width:1.6px;
+  linkStyle 9 stroke:#059669,stroke-width:1.6px;
+  classDef queue fill:#FFFFFF,stroke:#EF4444,stroke-width:2px,color:#7F1D1D;
+  class sqs queue;
+  classDef compute fill:#FFFFFF,stroke:#14B8A6,stroke-width:2px,color:#115E59;
+  class worker,validate,playwright compute;
+  classDef database fill:#FFFFFF,stroke:#F97316,stroke-width:2px,color:#7C2D12;
+  class jobs,leadstate,events database;
+  classDef ai fill:#FFFFFF,stroke:#8B5CF6,stroke-width:2px,color:#4C1D95;
+  class actions,checks ai;
+  classDef backend fill:#FFFFFF,stroke:#10B981,stroke-width:2px,color:#065F46;
+  class engine backend;
+```

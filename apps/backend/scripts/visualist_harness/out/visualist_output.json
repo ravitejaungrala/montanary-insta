@@ -1,0 +1,32 @@
+{
+  "brand": {
+    "primary_color": "#FF6B35",
+    "neutral_color": "#F5F1EB"
+  },
+  "campaign_analysis": {
+    "product_name": "Spenzo",
+    "product_category": "AI-powered marketing intelligence and optimization platform",
+    "audience": "Marketing leaders, performance marketers, and data teams managing large-scale paid ad budgets at mid-market to enterprise companies",
+    "industry_context": "A high-stakes performance marketing operations room or an in-house growth marketing department's analytics hub at a mid-market to enterprise company.",
+    "campaign_moment": "A marketing leader quickly getting a budget allocation answer via conversational AI, instead of waiting for a quarterly MMM report."
+  },
+  "overlay_copy": {
+    "headline": "Stop Guessing. Unlock Ad Spend Clarity.",
+    "subheading": "Unify every channel. Forecast outcomes with 92% accuracy, instantly.",
+    "cta": "Book a demo"
+  },
+  "image_prompts": [
+    {
+      "scene_type": "team_moment",
+      "prompt": "High-quality editorial documentary photography, shot on a 28mm lens at chest height with f/11 for edge-to-edge sharpness, featuring a modern loft-style analytics war room with exposed-brick walls and large industrial-style windows. Two distinct members of the marketing audience are mid-conversation around a rectangular warm wooden table: one woman in a sharp dark blue blazer over a light blouse with shoulder-length dark brown hair, intently looking at her open laptop; and one man in a crisp white button-down shirt with rolled-up sleeves and a short beard, gesturing towards her screen while discussing. Each laptop screen displays an analytics dashboard with the single word \"Spenzo\" in a bold sans-serif font rendered in #FF6B35 brand color as the dashboard header, and below it rectangular color cards and simple bar/line shapes with no readable labels. A large wall-mounted monitor in the background also displays the \"Spenzo\" dashboard in the same style. The table is dressed with a plate of croissants, one glass of fresh orange juice, one green matcha juice, two clear water glasses, three white porcelain espresso cups, a small green potted plant as a centerpiece, a notebook with a black pen, and loose papers. A subtle #FF6B35 orange accent appears on a laptop sticker. Abundant bright sunlight streams from the left through the industrial windows, casting warm golden highlights and distinct, gentle shadows. The color grade is vibrant and natural with rich wood tones. The top-left corner features a calm section of the exposed brick wall. No text, no logos, no UI mockups (except the \"Spenzo\" dashboard header), no bokeh, no shallow depth of field, no background blur."
+    },
+    {
+      "scene_type": "single_user_focus",
+      "prompt": "High-quality editorial documentary photography, shot on a 35mm lens at chest height with f/11 for edge-to-edge sharpness, showcasing a bright open-plan office with white walls, a pale wooden floor, and a glass partition. A single performance marketing leader, a man in a light gray tailored suit jacket over a black t-shirt with short neat hair and glasses, is deeply focused on his open laptop screen at an oval light-wood table, his right hand poised over the trackpad. His face is clearly visible, focused, and unposed. His laptop screen displays an analytics dashboard with the single word \"Spenzo\" in a bold sans-serif font rendered in #FF6B35 brand color as the dashboard header, and below it rectangular color cards and simple bar/line shapes with no readable labels. A large wall-mounted monitor is visible in the background, also displaying the \"Spenzo\" dashboard in the same style. The table is dressed with bowls of fresh fruit, a glass carafe of water, one clear water glass, two white porcelain coffee cups, a small green potted plant, and a small stack of business magazines. A distinct #FF6B35 orange accent is visible on a chair cushion. Bright sunlight from the right creates soft highlights and ensures a sunlit, alive atmosphere. The color grade is vibrant and natural with clear greens from plants and warm golden ambient light. The top-left corner remains visually calm with a plain white wall section. No text, no logos, no UI mockups (except the \"Spenzo\" dashboard header), no bokeh, no shallow depth of field, no background blur."
+    },
+    {
+      "scene_type": "presenter_moment",
+      "prompt": "High-quality editorial documentary photography, shot on a 28mm lens at chest height with f/11 for edge-to-edge sharpness, set in a minimal boutique conference room with a matte concrete wall and floor-to-ceiling windows. A team of six marketing operators are engaged in a dynamic moment: a confident woman with long, straight blonde hair, wearing a vibrant emerald green blazer, stands and gestures towards a large wall-mounted monitor, presenting to the team. Around the standing-height dark wooden conference table, five other team members are attentive: one man in a bright striped sweater (red/white/blue) with short blond hair; one man in a gray blazer over a white shirt with a short beard; one woman in a black blazer with long straight brown hair, taking notes on her laptop; one woman in a subtly patterned checked shirt with shoulder-length curly hair; and one man with thick curly dark hair and glasses in a dark blue button-down shirt. All faces are clearly visible, sharp, and convey natural focus and discussion. The large wall-mounted monitor in the background, and all open laptops, display analytics dashboards with the single word \"Spenzo\" in a bold sans-serif font rendered in #FF6B35 brand color as the dashboard header, and below it rectangular color cards and simple bar/line shapes with no readable labels. The table is dressed with a few white porcelain espresso cups, a small green potted plant, a notebook with a few loose papers, and pens. A #FF6B35 orange accent appears on a notebook cover. Abundant overhead skylight ambient light combines with bright sunlight from the floor-to-ceiling windows, creating vibrant exposure and distinct but gentle shadows. The color grade is highly saturated and realistic with rich wood tones. The top-left corner features a calm section of the matte concrete wall. No text, no logos, no UI mockups (except the \"Spenzo\" dashboard header), no bokeh, no shallow depth of field, no background blur."
+    }
+  ]
+}

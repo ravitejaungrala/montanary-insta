@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pipelyt — End-to-End Flow Diagram</title>
+  <style>
+    :root {
+      --brand: #ff6b35;
+      --brand-dark: #e55a2b;
+      --ink: #121220;
+      --muted: #4a4a5a;
+      --bg: #fafafa;
+      --panel: #ffffff;
+      --border: #e5e5ea;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+    header {
+      background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+      color: white;
+      padding: 32px 48px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    }
+    header h1 { margin: 0; font-size: 28px; font-weight: 900; letter-spacing: -0.02em; }
+    header p { margin: 6px 0 0; opacity: 0.92; font-size: 13px; }
+    .toolbar {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 48px;
+      display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+      position: sticky; top: 0; z-index: 10;
+    }
+    .toolbar button {
+      font: inherit; font-size: 12px; font-weight: 800;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      padding: 8px 16px; border-radius: 999px;
+      border: 1.5px solid var(--border); background: white;
+      color: var(--ink); cursor: pointer; transition: all 0.15s ease;
+    }
+    .toolbar button:hover { border-color: var(--brand); color: var(--brand); }
+    .toolbar button.primary {
+      background: var(--brand); color: white; border-color: var(--brand);
+    }
+    .toolbar button.primary:hover {
+      background: var(--brand-dark); border-color: var(--brand-dark); color: white;
+    }
+    .toolbar .spacer { flex: 1; }
+    .toolbar .hint { font-size: 11px; color: var(--muted); font-weight: 500; }
+    main { padding: 32px 48px 64px; }
+    .legend {
+      display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px;
+    }
+    .legend .chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 14px; border-radius: 999px;
+      font-size: 11px; font-weight: 700; background: white;
+      border: 1px solid var(--border);
+    }
+    .legend .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .diagram-wrap {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 16px; padding: 32px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      overflow: auto; min-height: 400px;
+    }
+    .diagram-wrap .mermaid { text-align: center; }
+    .diagram-wrap svg { max-width: 100%; height: auto; }
+    #error {
+      display: none;
+      background: #fff3cd; border: 1px solid #ffe58f;
+      color: #7a4a00; padding: 14px 18px; border-radius: 10px;
+      font-size: 13px; margin-bottom: 16px; white-space: pre-wrap;
+      font-family: ui-monospace, Menlo, Consolas, monospace;
+    }
+    #loading {
+      text-align: center; color: var(--muted);
+      font-size: 13px; padding: 80px 0;
+    }
+    footer {
+      padding: 24px 48px 48px; color: var(--muted);
+      font-size: 12px; border-top: 1px solid var(--border); margin-top: 32px;
+    }
+    footer code { background: #f0f0f3; padding: 2px 6px; border-radius: 4px; font-size: 11px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Pipelyt — End-to-End Flow Diagram</h1>
+    <p>User lands on pipelyt.ai → authenticates → onboards (DNA + OAuth + Stripe) → creates posts (manual or agent) → publishes or schedules → analytics sync. Rendered with Mermaid.</p>
+  </header>
+
+  <div class="toolbar">
+    <button onclick="zoom(1.2)">+ Zoom In</button>
+    <button onclick="zoom(0.85)">− Zoom Out</button>
+    <button onclick="resetZoom()">Reset</button>
+    <button class="primary" onclick="downloadSvg()">Download SVG</button>
+    <button class="primary" onclick="downloadPng()">Download PNG</button>
+    <div class="spacer"></div>
+    <span class="hint">Tip: File → Print → Save as PDF for a print-ready version.</span>
+  </div>
+
+  <main>
+    <div class="legend">
+      <span class="chip"><span class="dot" style="background:#ff6b35"></span>User</span>
+      <span class="chip"><span class="dot" style="background:#3b82f6"></span>Frontend (React)</span>
+      <span class="chip"><span class="dot" style="background:#f97316"></span>Backend (FastAPI / Lambda)</span>
+      <span class="chip"><span class="dot" style="background:#8b5cf6"></span>AI Agents (Gemini)</span>
+      <span class="chip"><span class="dot" style="background:#10b981"></span>PostgreSQL</span>
+      <span class="chip"><span class="dot" style="background:#16a34a"></span>S3 Storage</span>
+      <span class="chip"><span class="dot" style="background:#64748b"></span>External Services</span>
+      <span class="chip"><span class="dot" style="background:#ef4444"></span>Error / Reject</span>
+      <span class="chip"><span class="dot" style="background:#fbbf24"></span>Fanout</span>
+    </div>
+
+    <pre id="error"></pre>
+    <div class="diagram-wrap">
+      <div id="loading">Loading Mermaid and rendering diagram…</div>
+      <div id="diagram" class="mermaid" style="display:none"></div>
+    </div>
+  </main>
+
+  <footer>
+    <strong>Pipelyt</strong> · End-to-end architecture flow ·
+    Source: <code>docs/PIPELYT_TECHNICAL.md</code> §4.0 ·
+    Open this file directly in any modern browser (no server required).
+    <br /><br />
+    <strong>Export tips:</strong>
+    SVG preserves vectors for Figma/Illustrator. PNG rasterises at 2× for decks.
+    Print-to-PDF gives a page-friendly copy.
+  </footer>
+
+  <script>
+    // Mermaid flow definition — kept in a JS string so we can safely inject
+    // it into the DOM WITHOUT relying on startOnLoad (which can race with
+    // DOMContentLoaded depending on how the file is opened). Curly braces
+    // inside node labels have been replaced with angle brackets to avoid
+    // Mermaid's rhombus syntax swallowing them.
+    const DIAGRAM = `
+flowchart TD
+    User([User]):::userStyle
+    Landing[pipelyt.ai Landing Page]:::frontStyle
+    Login[Login / SignUp Page]:::frontStyle
+    OTP[OTP via MS Graph Email]:::backStyle
+    AuthAPI[POST /auth/login<br/>JWT issued]:::backStyle
+
+    User --> Landing
+    Landing -->|Sign in| Login
+    Login --> AuthAPI
+    AuthAPI --> OTP
+    OTP -->|verified| Onboarded{Is user<br/>onboarded?}
+
+    Onboarded -->|No| Onb1[Step 1: Profile]:::frontStyle
+    Onb1 --> Onb2[Step 2: Business DNA<br/>Enter website URL]:::frontStyle
+    Onb2 --> DNA[POST /profile/extract-dna<br/>Jina + Microlink + Gemini]:::backStyle
+    DNA --> S3DNA[(S3 - user logo)]:::s3Style
+    DNA --> PG1[(PostgreSQL<br/>user.business_dna JSONB)]:::dbStyle
+    PG1 --> Onb3[Step 3: Connect Accounts]:::frontStyle
+    Onb3 --> OAuth[OAuth: LinkedIn / Meta / X]:::backStyle
+    OAuth --> PG2[(social_accounts)]:::dbStyle
+    PG2 --> Onb4[Step 4: Pick Plan + Promo]:::frontStyle
+    Onb4 --> Stripe[POST /payment/create-checkout-session]:::backStyle
+    Stripe --> StripeCo[Stripe Checkout]:::extStyle
+    StripeCo -->|success redirect| Confirm[POST /payment/confirm-session<br/>flip pricing_plan]:::backStyle
+
+    Onboarded -->|Yes| Dashboard[Dashboard Home]:::frontStyle
+    Confirm --> Dashboard
+
+    Dashboard --> Choice{Create<br/>Post?}
+
+    Choice -->|Manual Post| Manual[Posts Page<br/>Text / Image / Video / Document]:::frontStyle
+    Manual --> MediaUp{Media<br/>type?}
+    MediaUp -->|Image/Video/PDF| Presign[POST /upload-media/presign]:::backStyle
+    Presign --> S3Direct[(Browser PUT -> S3<br/>direct, up to 1 GB)]:::s3Style
+    MediaUp -->|Text only| TargetSel
+    S3Direct --> TargetSel[Select Accounts + Publish]:::frontStyle
+
+    Choice -->|Agent Post| Agent[Agent Post<br/>brief + post type]:::frontStyle
+    Agent --> Guard[brief_guard.py<br/>rule-based check]:::backStyle
+    Guard -->|reject| Reject422[[HTTP 422<br/>friendly msg]]:::errStyle
+    Guard -->|pass| GenContent[POST /generate-content]:::backStyle
+    GenContent --> Refiner[Refiner agent<br/>semantic guard STEP 0]:::aiStyle
+    Refiner -->|off_brand / harmful / generic| Reject422
+    Refiner --> Research[Research agent]:::aiStyle
+    Research --> ContentA[Content agent<br/>3 variants per platform]:::aiStyle
+    ContentA --> PostType{post_type?}
+    PostType -->|image| Visualist[Visualist agent<br/>3 bg prompts]:::aiStyle
+    Visualist --> BgParallel[Gemini 2.5 Flash Image<br/>3 bgs in parallel]:::aiStyle
+    BgParallel --> S3BG[(S3 - ai_gen/campaign_id/)]:::s3Style
+    S3BG --> PIL[PIL compositor<br/>T1/T2/T4/T11/T12 = 15 tiles]:::backStyle
+    PIL --> Critic[Critic agent<br/>brand audit]:::aiStyle
+    Critic --> Review[Review step<br/>pick variant + visual]:::frontStyle
+    PostType -->|text/video/doc| Review
+
+    Review --> Action{Action?}
+    Action -->|Publish Now| Publish[POST /post]:::backStyle
+    Action -->|Schedule| Sched[POST /schedule<br/>insert scheduled_post]:::backStyle
+    Action -->|Save Draft| Draft[POST /drafts]:::backStyle
+
+    TargetSel --> Publish
+    Publish --> Fanout{For each<br/>platform}:::fanStyle
+
+    Fanout --> LI[LinkedIn<br/>/v2/ugcPosts or /rest/posts]:::extStyle
+    Fanout --> FB[Facebook Graph<br/>/videos or /photos]:::extStyle
+    Fanout --> IG[Instagram Graph<br/>Reels container + publish]:::extStyle
+    Fanout --> TW[Twitter v2<br/>/tweets + chunked media]:::extStyle
+
+    LI --> PGPosts[(published_posts +<br/>published_post_platforms)]:::dbStyle
+    FB --> PGPosts
+    IG --> PGPosts
+    TW --> PGPosts
+
+    Sched --> SchedPG[(scheduled_posts<br/>status=pending)]:::dbStyle
+
+    EB[EventBridge<br/>every 1 min]:::extStyle
+    EB --> Pinger[lambda_pinger<br/>POST /scheduler/process]:::backStyle
+    Pinger --> SchedPG
+    Pinger --> Publish
+
+    PGPosts --> Analytics[Analytics Dashboard]:::frontStyle
+    Analytics --> SyncAPI[GET /analytics/summary<br/>and /analytics/posts]:::backStyle
+    SyncAPI --> SocialAPIs[Platform APIs<br/>fetch likes/reach/followers]:::extStyle
+    SocialAPIs --> PGSnaps[(user_analytics_snapshots)]:::dbStyle
+    PGSnaps --> Analytics
+
+    classDef userStyle fill:#FF6B35,color:#fff,stroke:#e55a2b,stroke-width:2px
+    classDef frontStyle fill:#3b82f6,color:#fff,stroke:#2563eb
+    classDef backStyle fill:#f97316,color:#fff,stroke:#ea580c
+    classDef aiStyle fill:#8b5cf6,color:#fff,stroke:#7c3aed
+    classDef dbStyle fill:#10b981,color:#fff,stroke:#059669
+    classDef s3Style fill:#16a34a,color:#fff,stroke:#15803d
+    classDef extStyle fill:#64748b,color:#fff,stroke:#475569
+    classDef errStyle fill:#ef4444,color:#fff,stroke:#dc2626
+    classDef fanStyle fill:#fbbf24,color:#000,stroke:#f59e0b
+`;
+
+    // --- Mermaid loader with dual CDN fallback ---
+    // Tries jsDelivr first; if that fails (offline/firewall), falls back to
+    // unpkg. Shows a clear error to the user if both fail.
+    function loadMermaid(onReady) {
+      const SCRIPTS = [
+        "https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js",
+        "https://unpkg.com/mermaid@10.9.1/dist/mermaid.min.js"
+      ];
+      let i = 0;
+      function tryNext() {
+        if (i >= SCRIPTS.length) {
+          showError(
+            "Could not load Mermaid from any CDN.\n" +
+            "If you are offline, download mermaid.min.js locally and adjust the <script> src.\n" +
+            "Otherwise your browser or network is blocking the CDN."
+          );
+          return;
+        }
+        const s = document.createElement("script");
+        s.src = SCRIPTS[i++];
+        s.onload = () => (typeof mermaid !== "undefined" ? onReady() : tryNext());
+        s.onerror = tryNext;
+        document.head.appendChild(s);
+      }
+      tryNext();
+    }
+
+    function showError(msg) {
+      const el = document.getElementById("error");
+      el.textContent = msg;
+      el.style.display = "block";
+      document.getElementById("loading").textContent =
+        "Failed to render diagram — see message above.";
+    }
+
+    function renderDiagram() {
+      try {
+        mermaid.initialize({
+          startOnLoad: false,
+          theme: "default",
+          flowchart: {
+            curve: "basis",
+            nodeSpacing: 45,
+            rankSpacing: 55,
+            htmlLabels: true,
+            useMaxWidth: true
+          },
+          securityLevel: "loose"
+        });
+
+        const target = document.getElementById("diagram");
+        const loading = document.getElementById("loading");
+        // Mermaid v10 uses the async render API — give the element a unique id.
+        mermaid
+          .render("pipelyt-flow-" + Date.now(), DIAGRAM.trim())
+          .then(({ svg, bindFunctions }) => {
+            target.innerHTML = svg;
+            target.style.display = "block";
+            if (loading) loading.style.display = "none";
+            if (bindFunctions) bindFunctions(target);
+          })
+          .catch((err) => {
+            showError(
+              "Mermaid parse/render error:\n" +
+                (err && err.message ? err.message : String(err))
+            );
+          });
+      } catch (err) {
+        showError(
+          "Unexpected error during Mermaid init:\n" +
+            (err && err.message ? err.message : String(err))
+        );
+      }
+    }
+
+    // Kick off rendering once the DOM is parsed.
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", () => loadMermaid(renderDiagram));
+    } else {
+      loadMermaid(renderDiagram);
+    }
+
+    // --- Zoom controls ---
+    let currentScale = 1;
+    function applyScale() {
+      const svg = document.querySelector("#diagram svg");
+      if (!svg) return;
+      svg.style.transform = "scale(" + currentScale + ")";
+      svg.style.transformOrigin = "top left";
+    }
+    function zoom(factor) {
+      currentScale = Math.max(0.3, Math.min(3, currentScale * factor));
+      applyScale();
+    }
+    function resetZoom() {
+      currentScale = 1;
+      applyScale();
+    }
+
+    // --- SVG download ---
+    function downloadSvg() {
+      const svg = document.querySelector("#diagram svg");
+      if (!svg) return alert("Diagram is not rendered yet.");
+      const clone = svg.cloneNode(true);
+      clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+      const blob = new Blob(
+        ['<?xml version="1.0" encoding="UTF-8"?>\n' + clone.outerHTML],
+        { type: "image/svg+xml;charset=utf-8" }
+      );
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "pipelyt-flow.svg";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    // --- PNG download (2x raster for print) ---
+    function downloadPng() {
+      const svg = document.querySelector("#diagram svg");
+      if (!svg) return alert("Diagram is not rendered yet.");
+      const svgStr = new XMLSerializer().serializeToString(svg);
+      const svgBlob = new Blob([svgStr], { type: "image/svg+xml;charset=utf-8" });
+      const url = URL.createObjectURL(svgBlob);
+      const img = new Image();
+      img.onload = () => {
+        const scale = 2;
+        const w = svg.viewBox.baseVal.width || svg.clientWidth || 1400;
+        const h = svg.viewBox.baseVal.height || svg.clientHeight || 2200;
+        const canvas = document.createElement("canvas");
+        canvas.width = w * scale;
+        canvas.height = h * scale;
+        const ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.scale(scale, scale);
+        ctx.drawImage(img, 0, 0, w, h);
+        URL.revokeObjectURL(url);
+        canvas.toBlob((blob) => {
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = "pipelyt-flow.png";
+          a.click();
+          URL.revokeObjectURL(a.href);
+        }, "image/png");
+      };
+      img.onerror = () => alert("Could not rasterise — try Download SVG.");
+      img.src = url;
+    }
+  </script>
+</body>
+</html>

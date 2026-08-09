@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "Pipelyt GTM — LinkedIn Connector",
+  "version": "1.0.0",
+  "description": "Securely connect your LinkedIn account to Pipelyt GTM for outreach automation. Captures your existing logged-in session — your password is never shared.",
+  "permissions": [
+    "cookies",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://*.linkedin.com/",
+    "https://vvghzrx6ss7b3w5jjaa5nmpguy0kvwrq.lambda-url.us-east-1.on.aws/*",
+    "https://*.pipelyt.ai/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "externally_connectable": {
+    "matches": [
+      "https://pipelyt.ai/*",
+      "https://*.pipelyt.ai/*"
+    ]
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Connect LinkedIn to Pipelyt GTM",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsqa+zE6mTLfGPxHqXDUTRQop9ylEIavb22Z9bY9gNWGWBnbeY864xXIDyZ9dAgL2aE5v8u7qBWUPae94xK1i9ZLbFyQSxUfuWRwSx6lyMET+PVkqkGRJBH8TgFa5MOtPeKgWjgzfh1j53H7guueg4EPMcRlPwZ7m7XzMol7/KvBTBCUBlFRH4OMIDEyMnMu6etV401hsgQqx8M9pfcjovuCyj792ePABRnBr+lCk2tPLFLAR3P6loMpF0qRvbJc0/5M/AgQLmJhcbxj98rtUBp7F81OllVTk32vG3BYeSpt535rjIpXwjG/W959W9K1xrZo0bpIE59EZ3h5tWMbP0QIDAQAB"
+}

@@ -1,0 +1,442 @@
+<mxfile host="app.diagrams.net" agent="Claude">
+  <diagram id="pipelyt-e2e-flow" name="Pipelyt End-to-End User Flow">
+    <mxGraphModel dx="1422" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3400" pageHeight="2400" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- =========================  TOP: USER → LANDING → AUTH → DASHBOARD  ========================= -->
+
+        <mxCell id="user" value="User" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5a623;strokeColor=#b8860b;fontSize=14;fontStyle=1;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="1500" y="20" width="120" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="landing" value="Landing Page&#10;pipelyt.ai&#10;apps/landing-page&#10;(React 19 + Vite, Amplify)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1450" y="120" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="e_user_landing" edge="1" parent="1" source="user" target="landing" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="signin_card" value="SignIn / SignUp Card&#10;app.pipelyt.ai&#10;apps/product-page" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1450" y="220" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="e_landing_signin" edge="1" parent="1" source="landing" target="signin_card" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="otp_request" value="POST /auth/request-otp&#10;routers/auth.py&#10;{email, purpose: register|login|reset_password}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1430" y="320" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="e_signin_otp" edge="1" parent="1" source="signin_card" target="otp_request" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="msgraph" value="Microsoft Graph (Azure AD)&#10;services/email_service.py&#10;Sends 6-digit OTP from AZURE_SENDER_EMAIL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="320" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="e_otp_msgraph" edge="1" parent="1" source="otp_request" target="msgraph" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" />
+
+        <mxCell id="db_userotps" value="DB write&#10;user_otps&#10;(email, code, purpose,&#10;expires_at +10m, is_used=false)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1750" y="320" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_otp_db" edge="1" parent="1" source="otp_request" target="db_userotps" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" />
+
+        <mxCell id="otp_verify" value="POST /auth/verify-otp&#10;routers/auth.py&#10;{email, code, purpose}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1430" y="430" width="260" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="e_otp_verify" edge="1" parent="1" source="otp_request" target="otp_verify" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="dec_purpose" value="purpose?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fad7ac;strokeColor=#b46504;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1490" y="520" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_verify_dec" edge="1" parent="1" source="otp_verify" target="dec_purpose" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="register_chain" value="POST /auth/register (auto)&#10;Creates User row, PBKDF2 hash&#10;onboarded=false, pricing_plan=free" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="630" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dec_register" edge="1" parent="1" source="dec_purpose" target="register_chain" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=1;entryX=0.5;entryY=0;" edgeLabel="register" />
+        <mxCell id="lbl_register" value="register" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1340" y="600" width="60" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="reset_chain" value="POST /auth/reset-password&#10;OTP gate-checked twice;&#10;updates hashed_password" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1750" y="630" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dec_reset" edge="1" parent="1" source="dec_purpose" target="reset_chain" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=1;entryX=0.5;entryY=0;" />
+        <mxCell id="lbl_reset" value="reset_password" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1640" y="600" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="login_chain" value="POST /auth/login (auto)&#10;JWT HS256 token returned" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1430" y="630" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dec_login" edge="1" parent="1" source="dec_purpose" target="login_chain" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+        <mxCell id="lbl_login" value="login" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1530" y="600" width="60" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="db_users" value="DB write&#10;users&#10;(email, hashed_password,&#10;onboarded, pricing_plan)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=center;" vertex="1" parent="1">
+          <mxGeometry x="780" y="630" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_register_db" edge="1" parent="1" source="register_chain" target="db_users" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" />
+
+        <mxCell id="dec_onboarded" value="onboarded?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fad7ac;strokeColor=#b46504;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1490" y="740" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_login_dec_onb" edge="1" parent="1" source="login_chain" target="dec_onboarded" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="onboarding_page" value="/onboarding (UI)&#10;src/pages/Onboarding.jsx&#10;Collect: name, company, product/business URL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="860" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_onb_no" edge="1" parent="1" source="dec_onboarded" target="onboarding_page" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=1;entryX=0.5;entryY=0;" />
+        <mxCell id="lbl_onb_no" value="NO" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontStyle=1;fontColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="1340" y="820" width="40" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dna_extract" value="POST /profile/extract-dna&#10;services/business_dna_service.py&#10;Microlink + Gemini 2.5 Flash" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="780" y="860" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_onb_dna" edge="1" parent="1" source="onboarding_page" target="dna_extract" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" />
+
+        <mxCell id="onb_complete" value="POST /onboarding/complete&#10;sets users.onboarded=true" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="970" width="260" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="e_onb_complete" edge="1" parent="1" source="onboarding_page" target="onb_complete" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="dashboard" value="DASHBOARD&#10;app.pipelyt.ai/dashboard&#10;src/pages/Dashboard.jsx" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5a623;strokeColor=#b8860b;fontSize=14;fontStyle=1;fontColor=#FFFFFF;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1430" y="1080" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_onb_dash" edge="1" parent="1" source="onb_complete" target="dashboard" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+        <mxCell id="e_yes_dash" edge="1" parent="1" source="dec_onboarded" target="dashboard" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+        <mxCell id="lbl_onb_yes" value="YES" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontStyle=1;fontColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="1480" y="900" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="e_reset_dash" edge="1" parent="1" source="reset_chain" target="dashboard" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=1;entryY=0.5;" />
+
+        <!-- ===================  HUB → 6 LANES  =================== -->
+
+        <mxCell id="title_studio" value="A. AI CONTENT STUDIO" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;fontColor=#1F3A93;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1220" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="title_conn" value="B. CONNECTIONS (OAuth)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;fontColor=#1F3A93;" vertex="1" parent="1">
+          <mxGeometry x="380" y="1220" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="title_pub" value="C. DRAFTS / SCHEDULE / PUBLISH" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;fontColor=#1F3A93;" vertex="1" parent="1">
+          <mxGeometry x="720" y="1220" width="320" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="title_dna" value="D. PROFILE / BUSINESS DNA" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;fontColor=#1F3A93;" vertex="1" parent="1">
+          <mxGeometry x="1750" y="1220" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="title_analytics" value="E. ANALYTICS" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;fontColor=#1F3A93;" vertex="1" parent="1">
+          <mxGeometry x="2090" y="1220" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="title_billing" value="F. BILLING (Stripe)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;fontColor=#1F3A93;" vertex="1" parent="1">
+          <mxGeometry x="2430" y="1220" width="280" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- ============== LANE A: AI CONTENT STUDIO ============== -->
+
+        <mxCell id="ai_brief" value="Enter Campaign Brief&#10;+ platforms, aspect ratio,&#10;product, logo, context files" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1270" width="280" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dash_ai" edge="1" parent="1" source="dashboard" target="ai_brief" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="ai_plan" value="POST /generate-plan&#10;routers/content.py&#10;Multi-day calendar slots" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1370" width="280" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="e_brief_plan" edge="1" parent="1" source="ai_brief" target="ai_plan" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="ai_content" value="POST /generate-content&#10;routers/content.py + services/ai_service.py&#10;Per-platform variants + char/hashtag caps" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1460" width="280" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_plan_content" edge="1" parent="1" source="ai_plan" target="ai_content" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="ai_gemini" value="Gemini 2.5 Flash&#10;Brief Refiner → Researcher →&#10;Content Agent → Visualist v2&#10;(3 backgrounds × 11 templates)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1570" width="280" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="e_content_gemini" edge="1" parent="1" source="ai_content" target="ai_gemini" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="ai_s3_campaign" value="S3 + DB&#10;generated_campaigns row&#10;visuals JSON gallery" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=center;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1690" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_gemini_s3c" edge="1" parent="1" source="ai_gemini" target="ai_s3_campaign" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="ai_review" value="User picks variant + visual&#10;src/pages/Dashboard.jsx" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1800" width="280" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="e_s3c_review" edge="1" parent="1" source="ai_s3_campaign" target="ai_review" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="dec_action" value="Action?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fad7ac;strokeColor=#b46504;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="110" y="1890" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_review_dec" edge="1" parent="1" source="ai_review" target="dec_action" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <!-- ============== LANE B: CONNECTIONS (OAuth) ============== -->
+
+        <mxCell id="conn_page" value="/connections (UI)&#10;src/pages/Connections.jsx" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="380" y="1270" width="280" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dash_conn" edge="1" parent="1" source="dashboard" target="conn_page" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.25;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="dec_platform" value="Pick platform" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fad7ac;strokeColor=#b46504;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="450" y="1370" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_conn_dec" edge="1" parent="1" source="conn_page" target="dec_platform" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="conn_li" value="GET /auth/linkedin&#10;OAuth 2.0&#10;openid profile w_member_social&#10;rw_organization_admin" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="380" y="1480" width="280" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dec_li" edge="1" parent="1" source="dec_platform" target="conn_li" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="conn_tw" value="GET /auth/twitter&#10;Hybrid OAuth 1.0a → 2.0 PKCE&#10;1.0a tokens for v1.1 media upload&#10;2.0 token for v2 tweet endpoint" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="380" y="1580" width="280" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_li_tw" edge="1" parent="1" source="conn_li" target="conn_tw" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;dashed=1;" />
+
+        <mxCell id="conn_fb" value="GET /auth/facebook&#10;Auto-detect Business vs Consumer app&#10;FACEBOOK_CONFIG_ID gate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="380" y="1680" width="280" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="e_tw_fb" edge="1" parent="1" source="conn_tw" target="conn_fb" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;dashed=1;" />
+
+        <mxCell id="conn_canva" value="GET /auth/canva/&#10;OAuth 2.0 PKCE&#10;state stored in pending_oauth_syncs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="380" y="1770" width="280" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="e_fb_canva" edge="1" parent="1" source="conn_fb" target="conn_canva" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;dashed=1;" />
+
+        <mxCell id="conn_callback" value="POST /social/connect&#10;routers/social.py&#10;postMessage AUTH_SUCCESS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="380" y="1870" width="280" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="e_canva_cb" edge="1" parent="1" source="conn_canva" target="conn_callback" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="conn_db" value="DB&#10;social_accounts&#10;(token, secret, refresh_token,&#10;account_id, type)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=center;" vertex="1" parent="1">
+          <mxGeometry x="420" y="1970" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cb_db" edge="1" parent="1" source="conn_callback" target="conn_db" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <!-- ============== LANE C: DRAFTS / SCHEDULE / PUBLISH ============== -->
+
+        <mxCell id="dec_action_pub" value="Publish flow" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fad7ac;strokeColor=#b46504;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="790" y="1270" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dash_pub" edge="1" parent="1" source="dashboard" target="dec_action_pub" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+        <mxCell id="e_dec_action_pub" edge="1" parent="1" source="dec_action" target="dec_action_pub" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;dashed=1;strokeColor=#b46504;" />
+
+        <mxCell id="pub_now" value="POST /publish&#10;routers/publishing.py&#10;process_publishing_internal()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="720" y="1380" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dec_now" edge="1" parent="1" source="dec_action_pub" target="pub_now" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+        <mxCell id="lbl_pub_now" value="Publish Now" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="800" y="1355" width="120" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="draft" value="POST /drafts&#10;routers/drafts.py&#10;Save for later" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="1380" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dec_draft" edge="1" parent="1" source="dec_action_pub" target="draft" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0.5;entryY=0;" />
+        <mxCell id="lbl_draft" value="Save Draft" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="940" y="1355" width="80" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="schedule" value="POST /publish/schedule&#10;routers/publishing.py&#10;scheduled_for + timezone" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="720" y="1490" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="e_now_sched" edge="1" parent="1" source="pub_now" target="schedule" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;dashed=1;" />
+
+        <mxCell id="db_drafts" value="DB&#10;drafts" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="1490" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="e_draft_db" edge="1" parent="1" source="draft" target="db_drafts" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="db_scheduled" value="DB&#10;scheduled_posts&#10;(status=pending)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=center;" vertex="1" parent="1">
+          <mxGeometry x="780" y="1600" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_sched_db" edge="1" parent="1" source="schedule" target="db_scheduled" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="eventbridge" value="AWS EventBridge&#10;rate(1 minute) rule" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fad7ac;strokeColor=#b46504;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="1600" width="200" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="lambda_pinger" value="Lambda Pinger&#10;lambda_pinger.py&#10;HTTP POST /scheduler/process&#10;X-Scheduler-Secret" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fad7ac;strokeColor=#b46504;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="1710" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_eb_pinger" edge="1" parent="1" source="eventbridge" target="lambda_pinger" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="scheduler_proc" value="POST /scheduler/process&#10;routers/publishing.py&#10;Drains pending posts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="720" y="1820" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="e_pinger_proc" edge="1" parent="1" source="lambda_pinger" target="scheduler_proc" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=1;entryX=1;entryY=0.5;" />
+
+        <mxCell id="publish_int" value="process_publishing_internal()&#10;LinkedIn assets register + PUT + ugcPost&#10;Twitter v1.1 media + v2 tweet&#10;Facebook /photos or /feed&#10;Instagram via Facebook Graph" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="720" y="1920" width="260" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="e_now_int" edge="1" parent="1" source="pub_now" target="publish_int" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=1;entryX=0;entryY=0;" />
+        <mxCell id="e_proc_int" edge="1" parent="1" source="scheduler_proc" target="publish_int" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="db_published" value="DB&#10;published_posts +&#10;published_post_platforms&#10;(native_post_id, metrics_json)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=center;" vertex="1" parent="1">
+          <mxGeometry x="760" y="2050" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_int_db" edge="1" parent="1" source="publish_int" target="db_published" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="s3_image" value="Amazon S3&#10;uploads/{user_id}/{uuid}.{ext}" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="1920" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_int_s3" edge="1" parent="1" source="publish_int" target="s3_image" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;dashed=1;" />
+
+        <!-- Calendar / Posts pages -->
+        <mxCell id="cal_pages" value="/calendar /scheduled /drafts /published&#10;Recharts + axios&#10;src/pages/{Calendar,Scheduled,Drafts,Published}.jsx" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="720" y="2160" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dbpub_cal" edge="1" parent="1" source="db_published" target="cal_pages" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;dashed=1;" />
+
+        <!-- ============== LANE D: PROFILE / DNA ============== -->
+
+        <mxCell id="profile_page" value="/profile (UI)&#10;src/pages/Profile.jsx&#10;Edit DNA, products, docs, image" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1750" y="1270" width="280" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dash_profile" edge="1" parent="1" source="dashboard" target="profile_page" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.75;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="dec_dna" value="DNA action" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fad7ac;strokeColor=#b46504;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1820" y="1380" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_profile_dec" edge="1" parent="1" source="profile_page" target="dec_dna" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="dna_extract2" value="POST /profile/extract-dna&#10;Microlink scrape +&#10;Gemini extraction agent&#10;Logo validate (image/* HEAD)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1750" y="1490" width="280" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dec_dna1" edge="1" parent="1" source="dec_dna" target="dna_extract2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=1;entryX=0.5;entryY=0;" />
+        <mxCell id="lbl_dna1" value="Extract URL" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1700" y="1450" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dna_doc" value="POST /profile/dna-document&#10;PyPDF2 / python-docx extract&#10;Upload to S3 + index text" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1750" y="1600" width="280" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dec_dna2" edge="1" parent="1" source="dec_dna" target="dna_doc" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+        <mxCell id="lbl_dna2" value="Upload Doc" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1820" y="1565" width="80" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dna_save" value="PUT /profile&#10;routers/profile.py&#10;Persist business_dna JSON" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1750" y="1710" width="280" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="e_extract_save" edge="1" parent="1" source="dna_extract2" target="dna_save" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+        <mxCell id="e_doc_save" edge="1" parent="1" source="dna_doc" target="dna_save" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;dashed=1;" />
+
+        <mxCell id="db_users_dna" value="DB&#10;users.business_dna (JSON)&#10;+ S3 docs" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1810" y="1810" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_save_db" edge="1" parent="1" source="dna_save" target="db_users_dna" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="dna_to_ai" value="DNA feeds AI Studio&#10;_active_dna() in routers/content.py" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1750" y="1920" width="280" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="e_db_dna_ai" edge="1" parent="1" source="db_users_dna" target="dna_to_ai" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+        <mxCell id="e_dna_ai_studio" edge="1" parent="1" source="dna_to_ai" target="ai_gemini" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=0.5;entryX=1;entryY=0.5;dashed=1;strokeColor=#b85450;" />
+
+        <!-- ============== LANE E: ANALYTICS ============== -->
+
+        <mxCell id="analytics_page" value="/analytics (UI)&#10;src/pages/Analytics.jsx&#10;Recharts line+bar+pie" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="2090" y="1270" width="280" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dash_anly" edge="1" parent="1" source="dashboard" target="analytics_page" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="anly_sync" value="POST /analytics/sync&#10;routers/analytics.py" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="2090" y="1380" width="280" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="e_anly_sync" edge="1" parent="1" source="analytics_page" target="anly_sync" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="anly_li" value="get_linkedin_stats()&#10;networkSizes (followers)&#10;organizationalEntityShareStatistics&#10;LinkedIn API v2026-03" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="2090" y="1480" width="280" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_sync_li" edge="1" parent="1" source="anly_sync" target="anly_li" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="anly_tw" value="get_twitter_stats()&#10;/2/users/me public_metrics&#10;/2/tweets public_metrics&#10;OAuth 1.0a session" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="2090" y="1580" width="280" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_li_tw_an" edge="1" parent="1" source="anly_li" target="anly_tw" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;dashed=1;" />
+
+        <mxCell id="anly_meta" value="get_meta_stats()&#10;Facebook page followers_count&#10;page_posts_impressions, page_views_total" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="2090" y="1680" width="280" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_tw_meta_an" edge="1" parent="1" source="anly_tw" target="anly_meta" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;dashed=1;" />
+
+        <mxCell id="anly_db" value="DB write&#10;published_post_platforms.metrics_json&#10;user_analytics_snapshots (daily)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=center;" vertex="1" parent="1">
+          <mxGeometry x="2110" y="1790" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_meta_db" edge="1" parent="1" source="anly_meta" target="anly_db" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="anly_get" value="GET /analytics&#10;Aggregated KPIs to UI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="2090" y="1900" width="280" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="e_db_get" edge="1" parent="1" source="anly_db" target="anly_get" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+        <mxCell id="e_get_page" edge="1" parent="1" source="anly_get" target="analytics_page" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=0;entryX=0;entryY=1;dashed=1;" />
+
+        <!-- ============== LANE F: BILLING / STRIPE ============== -->
+
+        <mxCell id="billing_page" value="Pricing / Profile → Billing&#10;src/pages/Profile.jsx (Billing tab)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="2430" y="1270" width="280" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="e_dash_bill" edge="1" parent="1" source="dashboard" target="billing_page" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0;" />
+
+        <mxCell id="bill_create" value="POST /payment/create-checkout-session&#10;routers/payment.py&#10;{plan: pro_monthly | basic_yearly | ...}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="2430" y="1370" width="280" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_bill_create" edge="1" parent="1" source="billing_page" target="bill_create" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="stripe_checkout" value="Stripe Checkout&#10;(hosted page, redirect)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="2430" y="1480" width="280" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="e_create_stripe" edge="1" parent="1" source="bill_create" target="stripe_checkout" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="stripe_webhook" value="POST /payment/webhook&#10;Stripe-Signature verified&#10;via STRIPE_WEBHOOK_SECRET" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="2430" y="1580" width="280" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_stripe_webhook" edge="1" parent="1" source="stripe_checkout" target="stripe_webhook" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=1;entryX=0;entryY=0;" />
+
+        <mxCell id="confirm_session" value="POST /payment/confirm-session&#10;Frontend fallback after redirect&#10;?session_id={CHECKOUT_SESSION_ID}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="2430" y="1690" width="280" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_stripe_confirm" edge="1" parent="1" source="stripe_checkout" target="confirm_session" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=1;entryX=1;entryY=0;dashed=1;" />
+
+        <mxCell id="apply_paid" value="_apply_paid_session_to_user()&#10;Idempotent: sets pricing_plan,&#10;subscription_end_date, onboarded=true" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="2430" y="1800" width="280" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_webhook_apply" edge="1" parent="1" source="stripe_webhook" target="apply_paid" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.25;entryY=0;" />
+        <mxCell id="e_confirm_apply" edge="1" parent="1" source="confirm_session" target="apply_paid" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.75;entryY=0;" />
+
+        <mxCell id="db_users_paid" value="DB&#10;users.pricing_plan&#10;users.subscription_end_date" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=center;" vertex="1" parent="1">
+          <mxGeometry x="2470" y="1910" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_apply_db" edge="1" parent="1" source="apply_paid" target="db_users_paid" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+
+        <mxCell id="plan_limits" value="Plan limits enforced in&#10;routers/content.py&#10;free=5  basic=30  pro=100  enterprise=∞" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fad7ac;strokeColor=#b46504;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="2430" y="2020" width="280" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="e_db_limits" edge="1" parent="1" source="db_users_paid" target="plan_limits" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" />
+        <mxCell id="e_limits_studio" edge="1" parent="1" source="plan_limits" target="ai_brief" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0;exitY=1;entryX=1;entryY=0.5;dashed=1;strokeColor=#b46504;" />
+
+        <!-- =============== LEGEND =============== -->
+        <mxCell id="legend_title" value="LEGEND" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=14;fontStyle=1;fontColor=#1F3A93;" vertex="1" parent="1">
+          <mxGeometry x="40" y="2160" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lg_user" value="User / Actor" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5a623;strokeColor=#b8860b;fontSize=10;fontColor=#FFFFFF;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="2200" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lg_ui" value="Frontend UI page" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="160" y="2200" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lg_api" value="Backend API endpoint" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="320" y="2200" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lg_ai" value="AI / External service" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="480" y="2200" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lg_aws" value="AWS infra / Stripe" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="640" y="2200" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lg_db" value="DB / S3 store" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=center;" vertex="1" parent="1">
+          <mxGeometry x="800" y="2200" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lg_dec" value="Decision" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fad7ac;strokeColor=#b46504;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="940" y="2200" width="100" height="40" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

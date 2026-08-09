@@ -1,0 +1,40 @@
+fastapi
+uvicorn
+requests
+python-dotenv
+sqlalchemy
+psycopg2-binary
+python-jose[cryptography]
+passlib[bcrypt]
+boto3
+requests-oauthlib
+google-genai
+openai>=1.50.0
+mangum
+python-multipart
+pytz
+tzdata
+pypdf
+python-docx
+python-pptx
+openpyxl
+chardet
+# Pin to the last major with manylinux2014 wheels (glibc 2.17) so the AWS
+# Lambda Python 3.11 base image (Amazon Linux 2, glibc 2.26) can pip-install
+# without falling back to a source build (which needs gcc). Pillow 12.x
+# publishes only manylinux_2_28 wheels → source build → fails on Lambda.
+Pillow>=10.4.0,<12
+beautifulsoup4
+stripe
+email-validator
+phonenumbers
+msal
+reportlab
+resend
+svix
+pinecone>=5.0.0
+cryptography
+# GTM LinkedIn Agent — headless browser automation (worker only; lazy-imported,
+# so the rest of the backend runs without it). After `pip install`, the Chromium
+# binary is a SEPARATE one-time step: `python -m playwright install chromium`.
+playwright

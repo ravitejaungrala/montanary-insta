@@ -1,0 +1,15 @@
+**/node_modules
+**/venv
+**/.env
+**/*.env
+**/__pycache__
+**/dist
+.git
+.gitignore
+Dockerfile
+docker-compose.yml
+apps/frontend/
+docs/
+*.md
+.github/
+apps/backend/static/uploads/
