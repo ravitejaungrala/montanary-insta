@@ -296,31 +296,6 @@ const SignInCard = ({
                   )}
                 </motion.button>
 
-                {/* OR Separator */}
-                <div className="flex items-center gap-3 my-4 py-2">
-                  <div className="h-[1px] bg-slate-800 flex-1" />
-                  <span className="text-slate-500 text-xs font-bold uppercase tracking-widest">OR</span>
-                  <div className="h-[1px] bg-slate-800 flex-1" />
-                </div>
-
-                {/* Enterprise SSO Button */}
-                <button
-                  type="button"
-                  className="w-full bg-transparent border border-slate-700/60 text-white hover:border-slate-600 text-sm py-4 rounded-xl flex items-center justify-center gap-2.5 transition-all font-medium"
-                >
-                  <ShieldCheck className="w-4 h-4 text-orange-500" />
-                  <span>Sign in with Enterprise SSO</span>
-                </button>
-
-                {/* Registration Redirect */}
-                <div className="text-center pt-4">
-                  <Link
-                    to="/signup"
-                    className="text-xs text-slate-400 hover:text-slate-300 transition-colors"
-                  >
-                    Don't have an account? <span className="text-orange-500 font-semibold">Sign Up</span>
-                  </Link>
-                </div>
               </form>
             )}
 
