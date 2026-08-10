@@ -1245,7 +1245,7 @@ async def facebook_auth(request: Request, source: str = "facebook", token: str |
     # Scope logic is used ONLY when config_id is not set (i.e. Consumer apps).
     MINIMAL_SCOPES = "public_profile"
     PAGES_SCOPES = "pages_show_list,pages_read_engagement"
-    FULL_EXTRA_SCOPES = "instagram_basic,instagram_content_publish,business_management"
+    FULL_EXTRA_SCOPES = "instagram_basic,instagram_content_publish,business_management,instagram_manage_insights"
     level = (os.environ.get("FACEBOOK_SCOPE_LEVEL", "") or "full").lower()
     if os.environ.get("FACEBOOK_FULL_SCOPES", "").lower() in ("1", "true", "yes", "on"):
         level = "full"
