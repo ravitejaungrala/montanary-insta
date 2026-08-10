@@ -129,57 +129,6 @@ def _active_dna(user, product_name: Optional[str]) -> dict:
 
 
 
-@router.get("/debug-s3")
-async def debug_s3():
-    import os
-    import boto3
-    from core.s3_utils import get_s3_client
-    
-    bucket = os.environ.get("S3_BUCKET_NAME", "")
-    region = os.environ.get("AWS_REGION", "")
-    key_id = os.environ.get("AWS_ACCESS_KEY_ID", "")
-    secret = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
-    
-    debug_info = {
-        "env_bucket": bucket,
-        "env_region": region,
-        "env_key_id_set": bool(key_id),
-        "env_key_id_len": len(key_id) if key_id else 0,
-        "env_key_id_prefix": key_id[:5] if key_id else "",
-        "env_secret_set": bool(secret),
-        "env_secret_len": len(secret) if secret else 0,
-        "aws_lambda_function_name": os.environ.get("AWS_LAMBDA_FUNCTION_NAME", ""),
-    }
-    
-    try:
-        s3 = get_s3_client()
-        if not s3:
-            debug_info["client_status"] = "failed_to_initialize"
-            return debug_info
-        
-        # Test putting a dummy file
-        import uuid
-        test_key = f"debug-test-{uuid.uuid4().hex}.txt"
-        s3.put_object(
-            Bucket=bucket,
-            Key=test_key,
-            Body=b"debug test",
-            ContentType="text/plain"
-        )
-        debug_info["client_status"] = "success"
-        debug_info["test_key"] = test_key
-        try:
-            s3.delete_object(Bucket=bucket, Key=test_key)
-            debug_info["cleanup_status"] = "success"
-        except Exception as delete_err:
-            debug_info["cleanup_status"] = f"failed: {delete_err}"
-            
-    except Exception as e:
-        debug_info["client_status"] = f"failed: {type(e).__name__} - {str(e)}"
-        
-    return debug_info
-
-
 @router.get("/config/image-styles")
 async def get_image_styles():
     """Return the visual style catalog for the CampaignBrief Style chip.
