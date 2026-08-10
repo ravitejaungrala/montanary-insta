@@ -84,9 +84,9 @@ PINTEREST_REDIRECT_URI = os.getenv("PINTEREST_REDIRECT_URI", f"{BASE_URL}/auth/p
 
 # S3 / AWS Config
 S3_BUCKET_NAME = os.getenv("S3_BUCKET_NAME")
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-AWS_REGION = os.getenv("AWS_REGION", "us-east-1")
+AWS_ACCESS_KEY_ID = os.getenv("S3_AWS_ACCESS_KEY_ID") or os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("S3_AWS_SECRET_ACCESS_KEY") or os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_REGION = os.getenv("S3_AWS_REGION") or os.getenv("AWS_REGION", "us-east-1")
 PUBLIC_URL = os.getenv("PUBLIC_URL", BASE_URL)
 # Stripe Config
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
