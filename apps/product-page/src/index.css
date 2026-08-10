@@ -381,7 +381,7 @@ body {
 html,
 body,
 #root {
-  background-color: #fff !important;
+  background-color: #060b13 !important;
 }
 
 body {
@@ -389,14 +389,14 @@ body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #fff;
-  color: #1a1a1a;
+  background-color: #060b13;
+  color: #ffffff;
 }
 
 #root {
   width: 100%;
   height: 100vh;
-  background-color: #fff;
+  background-color: #060b13;
 }
 
 /* ======================================================================
@@ -465,11 +465,11 @@ button {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #0b1320;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ccc;
+  background: #1e293b;
   border-radius: 10px;
 }
 
@@ -542,4 +542,128 @@ button {
 
 .slide-in-from-top-2 {
   animation: slideInFromTop 0.3s ease-out forwards;
+}
+
+/* ===========================================================================
+   Global Premium Dark Theme Migration Overrides
+   =========================================================================== */
+html, body, #root {
+  background-color: #060b13 !important;
+  color: #f8fafc !important;
+}
+
+/* Glassmorphic Container Cards & Layout Panels */
+div.bg-white,
+section.bg-white,
+main .bg-white,
+aside.bg-white,
+.glass-card,
+.ap-card {
+  background-color: rgba(11, 19, 32, 0.6) !important;
+  backdrop-filter: blur(16px) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Inner Background Shading (e.g., table cells, input wrappers, layout bars) */
+.bg-slate-50,
+.bg-slate-100,
+.bg-slate-200,
+.bg-zinc-50,
+.bg-\[\#FAF8F4\],
+.ap-surface-alt {
+  background-color: rgba(13, 23, 38, 0.8) !important;
+  color: #ffffff !important;
+}
+
+/* Slate Border & Divider Overrides */
+.border-slate-100,
+.border-slate-200,
+.border-slate-300,
+.border-slate-350,
+.border-slate-200\/60,
+.border-zinc-200,
+.border-slate-200\/80,
+.border-\[\#2B2926\]\/10,
+.border-\[\#2B2926\]\/15,
+.border-\[\#2B2926\]\/20,
+.ap-hairline {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* High Contrast Dark Typography Override */
+.text-\[\#2B2926\],
+.text-zinc-900,
+.text-slate-900,
+.text-slate-800 {
+  color: #f8fafc !important;
+}
+
+/* Secondary / Subtitle Typography Override */
+.text-\[\#67655E\],
+.text-slate-600,
+.text-slate-500,
+.text-slate-400 {
+  color: #94a3b8 !important;
+}
+
+/* Standard Hover Backgrounds */
+.hover\:bg-slate-50:hover,
+.hover\:bg-slate-100:hover,
+.hover\:bg-\[\#2B2926\]\/\[0\.04\]:hover,
+.hover\:bg-\[\#2B2926\]\/5:hover {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Form Inputs & Fields Styling */
+input:not([type="checkbox"]):not([type="radio"]),
+textarea,
+select {
+  background-color: rgba(13, 23, 38, 0.9) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+input:not([type="checkbox"]):not([type="radio"]):focus,
+textarea:focus,
+select:focus {
+  border-color: #F55600 !important;
+  outline: none !important;
+}
+input::placeholder,
+textarea::placeholder {
+  color: rgba(148, 163, 184, 0.5) !important;
+}
+
+/* Native Browser Date/Time Picker Theme Adjustments */
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"] {
+  color-scheme: dark !important;
+}
+
+/* Checkbox and Radio Button Styling */
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: #F55600 !important;
+  background-color: #0d1726 !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Recharts / SVG Chart Elements Colors */
+svg text,
+.recharts-cartesian-axis-tick-value,
+.recharts-legend-item-text {
+  fill: #94a3b8 !important;
+  color: #94a3b8 !important;
+}
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Dropdown Options */
+select option {
+  background-color: #0b1320 !important;
+  color: #ffffff !important;
 }

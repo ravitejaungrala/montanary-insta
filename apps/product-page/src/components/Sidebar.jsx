@@ -124,10 +124,10 @@ const Sidebar = ({ activeTab, setActiveTab, handleLogout, isOpen, onClose, user,
       <aside
         onMouseEnter={() => setIsHoverExpanded(true)}
         onMouseLeave={() => setIsHoverExpanded(false)}
-        className={`fixed lg:static inset-y-0 left-0 z-50 bg-white border-r border-[#2B2926]/10 flex flex-col h-full shrink-0 transition-all duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'} ${isExpanded ? 'w-[260px]' : 'w-[84px]'} shadow-2xl lg:shadow-none overflow-hidden`}
+        className={`fixed lg:static inset-y-0 left-0 z-50 bg-[#0b1320] border-r border-slate-800 flex flex-col h-full shrink-0 transition-all duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'} ${isExpanded ? 'w-[260px]' : 'w-[84px]'} shadow-2xl lg:shadow-none overflow-hidden`}
       >
         {/* Logo Section */}
-        <div className={`px-4 flex items-center ${isExpanded ? 'justify-between' : 'justify-center'} h-16 border-b border-[#2B2926]/10`}>
+        <div className={`px-4 flex items-center ${isExpanded ? 'justify-between' : 'justify-center'} h-16 border-b border-slate-800`}>
           <a href={LANDING_HOME_HREF} className="flex items-center gap-3 group">
             <img
               src="/montanary-elevators.png"
@@ -136,10 +136,10 @@ const Sidebar = ({ activeTab, setActiveTab, handleLogout, isOpen, onClose, user,
             />
             {isExpanded && (
               <div className="flex flex-col animate-in fade-in slide-in-from-left-2 duration-300">
-                <h1 className="text-[15px] font-bold text-[#2B2926] tracking-tight leading-none">Montanary Elevators</h1>
+                <h1 className="text-[15px] font-bold text-white tracking-tight leading-none">Montanary Elevators</h1>
                 <p className="text-[9px] font-semibold tracking-[0.12em] mt-1 uppercase leading-tight">
                   <span className="text-[#F55600]">All Channels</span>
-                  <span className="text-[#2B2926]/30"> · </span>
+                  <span className="text-slate-600"> · </span>
                   <span className="text-[#10B981]">One Intelligence</span>
                 </p>
               </div>
@@ -147,7 +147,7 @@ const Sidebar = ({ activeTab, setActiveTab, handleLogout, isOpen, onClose, user,
           </a>
 
           {isExpanded && (
-            <button onClick={onClose} className="lg:hidden p-2 text-[#2B2926]/40 hover:text-[#F55600] transition-colors rounded-lg hover:bg-[#F55600]/5">
+            <button onClick={onClose} className="lg:hidden p-2 text-slate-500 hover:text-white transition-colors rounded-lg hover:bg-slate-800">
               <X className="w-5 h-5" />
             </button>
           )}
@@ -158,7 +158,7 @@ const Sidebar = ({ activeTab, setActiveTab, handleLogout, isOpen, onClose, user,
           {menuGroups.map((group, gIdx) => (
             <div key={group.title} className="space-y-0.5">
               {isExpanded && gIdx > 0 && group.title && (
-                <h3 className="px-3 mt-2 mb-0.5 text-[10px] font-semibold text-[#67655E] tracking-[0.14em] uppercase animate-in fade-in duration-500 border-l-2 border-[#F55600] pl-2.5">
+                <h3 className="px-3 mt-2 mb-0.5 text-[10px] font-semibold text-slate-400 tracking-[0.14em] uppercase animate-in fade-in duration-500 border-l-2 border-[#F55600] pl-2.5">
                   {group.title}
                 </h3>
               )}
@@ -175,7 +175,7 @@ const Sidebar = ({ activeTab, setActiveTab, handleLogout, isOpen, onClose, user,
                       }
                     }}
                     disabled={isLocked}
-                    className={`w-full relative flex items-center transition-all duration-200 rounded-xl group/btn overflow-hidden ${isExpanded ? 'px-2.5 py-0.5' : 'justify-center py-0.5 px-0'} ${isActive ? 'bg-[#F55600]/10' : 'hover:bg-[#2B2926]/[0.04]'} ${isLocked ? 'opacity-40 cursor-not-allowed filter grayscale' : ''}`}
+                    className={`w-full relative flex items-center transition-all duration-200 rounded-xl group/btn overflow-hidden ${isExpanded ? 'px-2.5 py-0.5' : 'justify-center py-0.5 px-0'} ${isActive ? 'bg-[#F55600]/15' : 'hover:bg-slate-800/60'} ${isLocked ? 'opacity-40 cursor-not-allowed filter grayscale' : ''}`}
                   >
                     {/* Active state: light-orange tint row + solid orange icon
                         tile + a sharp orange edge bar — clean and professional
@@ -184,13 +184,13 @@ const Sidebar = ({ activeTab, setActiveTab, handleLogout, isOpen, onClose, user,
                       <div className="absolute left-0 top-1.5 bottom-1.5 w-1 bg-[#F55600] rounded-r-full" />
                     )}
                     <div className={`flex items-center gap-3 ${!isExpanded && 'justify-center w-full'}`}>
-                      <div className={`transition-all duration-200 flex items-center justify-center rounded-lg w-7 h-7 ${isActive ? 'bg-[#F55600] text-white shadow-sm shadow-[#F55600]/30' : 'text-[#67655E] group-hover/btn:text-[#2B2926] group-hover/btn:bg-[#2B2926]/[0.05]'}`}>
+                      <div className={`transition-all duration-200 flex items-center justify-center rounded-lg w-7 h-7 ${isActive ? 'bg-[#F55600] text-white shadow-sm shadow-[#F55600]/30' : 'text-slate-400 group-hover/btn:text-white group-hover/btn:bg-slate-800'}`}>
                         {isLocked && isExpanded ? <Lock className="w-3.5 h-3.5" /> : <item.icon className={`w-[18px] h-[18px] ${isLocked ? 'opacity-50' : ''}`} />}
                       </div>
 
                       {isExpanded && (
                         <div className="flex-1 text-left min-w-0 animate-in fade-in slide-in-from-left-2 duration-300">
-                          <p className={`text-[13.5px] leading-tight font-semibold ${isActive ? 'text-[#2B2926]' : 'text-[#2B2926] group-hover/btn:text-[#2B2926]'}`}>
+                          <p className={`text-[13.5px] leading-tight font-semibold ${isActive ? 'text-white' : 'text-slate-300 group-hover/btn:text-white'}`}>
                             {item.label}
                           </p>
                         </div>
@@ -198,7 +198,7 @@ const Sidebar = ({ activeTab, setActiveTab, handleLogout, isOpen, onClose, user,
 
                       {!isExpanded && isLocked && (
                          <div className="absolute top-1 right-1">
-                            <Lock className="w-2.5 h-2.5 text-[#2B2926]/30" />
+                            <Lock className="w-2.5 h-2.5 text-slate-500" />
                          </div>
                       )}
                     </div>
@@ -210,13 +210,13 @@ const Sidebar = ({ activeTab, setActiveTab, handleLogout, isOpen, onClose, user,
         </nav>
 
         {/* Footer / User Profile */}
-        <div className="p-2 border-t border-[#2B2926]/10">
+        <div className="p-2 border-t border-slate-800">
           <div
             onClick={() => {
               setActiveTab('settings');
               if (onClose) onClose(); // Auto-close on mobile
             }}
-            className={`transition-all duration-200 rounded-xl border flex items-center group/profile cursor-pointer overflow-hidden ${isExpanded ? 'p-1.5 bg-white border-[#2B2926]/10 hover:border-[#F55600]/50 hover:shadow-md' : 'p-0 border-transparent justify-center'}`}
+            className={`transition-all duration-200 rounded-xl border flex items-center group/profile cursor-pointer overflow-hidden ${isExpanded ? 'p-1.5 bg-slate-900 border-slate-800 hover:border-[#F55600] hover:shadow-md' : 'p-0 border-transparent justify-center'}`}
           >
             <div className={`flex items-center ${isExpanded ? 'gap-2.5' : 'gap-0'} min-w-0`}>
               <div className="w-8 h-8 rounded-lg bg-[#F55600] flex items-center justify-center text-white font-semibold text-[14px] shrink-0 overflow-hidden shadow-sm">
@@ -229,7 +229,7 @@ const Sidebar = ({ activeTab, setActiveTab, handleLogout, isOpen, onClose, user,
 
               {isExpanded && (
                 <div className="flex-1 min-w-0 animate-in fade-in slide-in-from-left-2 duration-300">
-                  <p className="text-[13.5px] font-semibold text-[#2B2926] truncate leading-tight">{user?.full_name || user?.username || 'User'}</p>
+                  <p className="text-[13.5px] font-semibold text-white truncate leading-tight">{user?.full_name || user?.username || 'User'}</p>
                   <p className="text-[10px] text-[#F55600] font-semibold truncate uppercase tracking-[0.14em] mt-0.5">{user?.company_name || 'My Business'}</p>
                 </div>
               )}
@@ -238,7 +238,7 @@ const Sidebar = ({ activeTab, setActiveTab, handleLogout, isOpen, onClose, user,
             {isExpanded ? (
                <button
                 onClick={(e) => { e.stopPropagation(); handleLogout(); }}
-                className="ml-auto p-2 text-[#2B2926]/40 hover:text-[#F55600] rounded-xl transition-all duration-200 hover:bg-[#F55600]/5"
+                className="ml-auto p-2 text-slate-500 hover:text-[#F55600] rounded-xl transition-all duration-200 hover:bg-[#F55600]/10"
                 title="Sign Out"
               >
                 <LogOut className="w-4 h-4" />
@@ -249,14 +249,14 @@ const Sidebar = ({ activeTab, setActiveTab, handleLogout, isOpen, onClose, user,
           {!isExpanded && (
             <button
               onClick={handleLogout}
-              className="mt-2 w-10 h-10 rounded-xl bg-[#2B2926]/[0.03] flex items-center justify-center text-[#2B2926]/40 hover:text-[#F55600] hover:bg-[#F55600]/5 border border-transparent hover:border-[#F55600]/30 transition-all mx-auto"
+              className="mt-2 w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center text-slate-500 hover:text-[#F55600] hover:bg-[#F55600]/10 border border-slate-800 hover:border-[#F55600]/30 transition-all mx-auto"
             >
               <LogOut className="w-4 h-4" />
             </button>
           )}
 
           {isExpanded && (
-            <p className="mt-1.5 text-center text-[9px] font-bold tracking-[0.1em] text-[#2B2926]/40 whitespace-nowrap animate-in fade-in duration-300">
+            <p className="mt-1.5 text-center text-[9px] font-bold tracking-[0.1em] text-slate-500 whitespace-nowrap animate-in fade-in duration-300">
               Powered by <span className="text-[#F55600] font-black">NeuzenAI</span>
             </p>
           )}

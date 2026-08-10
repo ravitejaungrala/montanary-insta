@@ -1649,22 +1649,22 @@ const App = () => {
           token ? (
             user && !user.onboarded ? <Navigate to="/onboarding" /> : (
               user && user.onboarded ? (
-                <div className="flex flex-col lg:flex-row h-screen bg-white text-[#2B2926] overflow-hidden">
-                  <header className="lg:hidden h-16 bg-white border-b border-slate-100 px-5 flex items-center justify-between shrink-0 z-40">
+                <div className="flex flex-col lg:flex-row h-screen bg-[#060b13] text-white overflow-hidden">
+                  <header className="lg:hidden h-16 bg-[#0b1320] border-b border-slate-800 px-5 flex items-center justify-between shrink-0 z-40">
                     <div className="flex items-center gap-3">
                       <img src="/montanary-elevators.png" alt="Montanary Elevators" className="w-8 h-8 object-contain rounded-lg" />
                       <div className="flex flex-col leading-none">
-                        <span className="text-base font-bold text-[#2B2926] tracking-tight">Montanary Elevators</span>
+                        <span className="text-base font-bold text-white tracking-tight">Montanary Elevators</span>
                         <span className="text-[8px] font-black tracking-[0.14em] mt-0.5 uppercase">
                           <span className="text-[#F55600]">All Channels</span>
-                          <span className="text-[#2B2926]/30"> · </span>
+                          <span className="text-slate-500"> · </span>
                           <span className="text-[#10B981]">One Intelligence</span>
                         </span>
                       </div>
                     </div>
                     <button 
                       onClick={() => setIsSidebarOpen(true)}
-                      className="p-2.5 text-slate-600 hover:bg-slate-50 transition-all active:scale-95 bg-slate-50/50 rounded-xl relative z-[60] border border-slate-100"
+                      className="p-2.5 text-slate-400 hover:text-white hover:bg-slate-800 transition-all active:scale-95 bg-[#0d1726]/80 rounded-xl relative z-[60] border border-slate-800"
                       aria-label="Open Sidebar"
                     >
                       <Menu className="w-6 h-6" />
@@ -1676,7 +1676,7 @@ const App = () => {
                     handleLogout={handleLogout} isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} user={user}
                   />
                   
-                  <main className={`flex-1 overflow-auto relative bg-white ${activeTab === 'nexus' ? 'p-0' : ['create', 'agent-post', 'connections', 'analytics', 'reputation', 'settings', 'calendar', 'scheduled', 'published', 'drafts', 'team', 'dashboard'].includes(activeTab) ? 'p-1 md:p-2 lg:p-4' : 'p-4 md:p-6 lg:p-8'}`}>
+                  <main className={`flex-1 overflow-auto relative bg-[#060b13] ${activeTab === 'nexus' ? 'p-0' : ['create', 'agent-post', 'connections', 'analytics', 'reputation', 'settings', 'calendar', 'scheduled', 'published', 'drafts', 'team', 'dashboard'].includes(activeTab) ? 'p-1 md:p-2 lg:p-4' : 'p-4 md:p-6 lg:p-8'}`}>
 
                     {!['create', 'guide', 'agent-post', 'posts', 'dashboard', 'analytics', 'campaign-performance', 'reputation', 'drafts', 'settings', 'published', 'scheduled', 'calendar', 'connections', 'team', 'nexus'].includes(activeTab) && (
                       <header className={`${['create', 'agent-post', 'connections', 'analytics', 'reputation', 'nexus'].includes(activeTab) ? 'mb-1' : 'mb-8'} hidden lg:flex items-center justify-between`}>
@@ -1907,15 +1907,15 @@ const App = () => {
             </div>
           ) :
           (token && user && user.onboarded) ? (
-            <div className="flex flex-col lg:flex-row h-screen bg-white text-[#2B2926] overflow-hidden">
-              <header className="lg:hidden h-16 bg-white border-b border-slate-100 px-5 flex items-center justify-between shrink-0 z-40">
+            <div className="flex flex-col lg:flex-row h-screen bg-[#060b13] text-white overflow-hidden">
+              <header className="lg:hidden h-16 bg-[#0b1320] border-b border-slate-800 px-5 flex items-center justify-between shrink-0 z-40">
                 <div className="flex items-center gap-3">
                   <img src="/montanary-elevators.png" alt="Montanary Elevators" className="w-8 h-8 object-contain rounded-lg" />
-                  <span className="text-base font-bold text-[#2B2926] tracking-tight">Montanary Elevators</span>
+                  <span className="text-base font-bold text-white tracking-tight">Montanary Elevators</span>
                 </div>
                 <button 
                   onClick={() => setIsSidebarOpen(true)}
-                  className="p-2.5 text-slate-600 hover:bg-slate-50 transition-all active:scale-95 bg-slate-50/50 rounded-xl relative z-[60] border border-slate-100"
+                  className="p-2.5 text-slate-400 hover:text-white hover:bg-slate-800 transition-all active:scale-95 bg-[#0d1726]/80 rounded-xl relative z-[60] border border-slate-800"
                   aria-label="Open Sidebar"
                 >
                   <Menu className="w-6 h-6" />
@@ -1928,7 +1928,7 @@ const App = () => {
                 isExpired={isSubscriptionExpired}
               />
               
-              <main className={`flex-1 overflow-auto relative bg-white ${activeTab === 'nexus' ? 'p-0' : ['create', 'agent-post', 'connections', 'analytics', 'reputation', 'settings', 'calendar', 'scheduled', 'published', 'drafts', 'dashboard'].includes(activeTab) ? 'p-1 md:p-2 lg:p-4' : 'p-4 md:p-6 lg:p-8'}`}>
+              <main className={`flex-1 overflow-auto relative bg-[#060b13] ${activeTab === 'nexus' ? 'p-0' : ['create', 'agent-post', 'connections', 'analytics', 'reputation', 'settings', 'calendar', 'scheduled', 'published', 'drafts', 'dashboard'].includes(activeTab) ? 'p-1 md:p-2 lg:p-4' : 'p-4 md:p-6 lg:p-8'}`}>
 
                 {!['create', 'guide', 'agent-post', 'posts', 'dashboard', 'analytics', 'reputation', 'drafts', 'settings', 'published', 'scheduled', 'calendar', 'connections', 'nexus'].includes(activeTab) && (
                   <header className={`${['agent-post', 'connections', 'analytics', 'reputation', 'nexus'].includes(activeTab) ? 'mb-1' : 'mb-8'} hidden lg:flex items-center justify-between`}>
