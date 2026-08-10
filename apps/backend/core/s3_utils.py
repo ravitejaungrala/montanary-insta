@@ -14,13 +14,10 @@ def get_s3_client():
         
     client_kwargs = {'region_name': AWS_REGION or 'us-east-1'}
     
-    # Check if we are in Lambda vs Local
-    is_lambda = os.environ.get("AWS_LAMBDA_FUNCTION_NAME") is not None
-    
-    if not is_lambda and AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY:
+    # If explicit credentials are provided (local or hydrated in Lambda), use them
+    if AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY:
         client_kwargs['aws_access_key_id'] = AWS_ACCESS_KEY_ID
         client_kwargs['aws_secret_access_key'] = AWS_SECRET_ACCESS_KEY
-    # In Lambda, boto3 will automatically pick up credentials from the environment (IAM Role)
 
     try:
         return boto3.client('s3', **client_kwargs)
