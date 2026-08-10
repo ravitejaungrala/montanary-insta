@@ -328,7 +328,7 @@ const DashboardStats = ({
               friendly greeting, not a heavy display title. */}
           <h1
             className="tracking-tight leading-[1.1]"
-            style={{ fontSize: '38px', fontWeight: 600, color: '#2B2926' }}
+            style={{ fontSize: '38px', fontWeight: 600, color: '#ffffff' }}
           >
             Welcome Back,&nbsp;
             <span
@@ -464,7 +464,7 @@ const DashboardStats = ({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div
               className="rounded-2xl p-5"
-              style={{ background: 'linear-gradient(135deg, #fffaf6, #fff3ea)' }}
+              style={{ background: 'linear-gradient(135deg, #111a2e, #0a1120)' }}
             >
               {/* Followers sub-label — 12px semibold sand-70 instead of
                   the chunky 11px font-black /55 it was. */}
@@ -484,7 +484,7 @@ const DashboardStats = ({
             </div>
             <div
               className="rounded-2xl p-5"
-              style={{ background: 'linear-gradient(135deg, #f4fffb, #eafbf5)' }}
+              style={{ background: 'linear-gradient(135deg, #09201a, #051410)' }}
             >
               {/* Engagement sub-label — same Apollo treatment as
                   Followers above. */}
@@ -509,9 +509,9 @@ const DashboardStats = ({
               clean hover state. */}
           <button
             onClick={() => setActiveTab('analytics')}
-            className="mt-5 w-full py-3 rounded-2xl transition-all hover:bg-[#F55600]/10"
+            className="mt-5 w-full py-3 rounded-2xl transition-all hover:bg-[#F55600]/15"
             style={{
-              background: '#fff3ea',
+              background: 'rgba(245, 86, 0, 0.12)',
               color: '#F55600',
               fontSize: '13px',
               fontWeight: 600,

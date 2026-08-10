@@ -667,3 +667,24 @@ select option {
   background-color: #0b1320 !important;
   color: #ffffff !important;
 }
+
+/* Opacity variations of primary color #2B2926 mapped to readable dark theme values */
+.text-\[\#2B2926\]\/90 { color: rgba(248, 250, 252, 0.9) !important; }
+.text-\[\#2B2926\]\/80 { color: rgba(248, 250, 252, 0.8) !important; }
+.text-\[\#2B2926\]\/70 { color: rgba(248, 250, 252, 0.7) !important; }
+.text-\[\#2B2926\]\/60 { color: rgba(248, 250, 252, 0.6) !important; }
+.text-\[\#2B2926\]\/50 { color: rgba(248, 250, 252, 0.5) !important; }
+.text-\[\#2B2926\]\/40 { color: rgba(148, 163, 184, 0.5) !important; }
+.text-\[\#2B2926\]\/30 { color: rgba(148, 163, 184, 0.4) !important; }
+.text-\[\#2B2926\]\/20 { color: rgba(148, 163, 184, 0.3) !important; }
+
+/* Heatmap inner cells dark theme overrides */
+[id="export-performance-heatmap"] div[style*="rgba(245,86,0"],
+[id="export-performance-heatmap"] div[style*="rgba(245, 86, 0"] {
+  background: linear-gradient(135deg, rgba(245, 86, 0, 0.25), rgba(245, 86, 0, 0.08)) !important;
+}
+[id="export-performance-heatmap"] div[style*="rgba(22,163,74"],
+[id="export-performance-heatmap"] div[style*="rgba(22, 163, 74"] {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.06)) !important;
+}
+

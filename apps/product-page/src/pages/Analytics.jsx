@@ -3013,9 +3013,10 @@ const Analytics = ({ authAxios, initialData, user, mode }) => {
             // engagement for that (company, platform) pair.
             const matrix = {}; // { company: { linkedin: {followers, engagement}, ... } }
             Object.values(platforms).forEach((p) => {
+              const pKey = getPlatformKey(p?.name);
+              if (pKey === 'default') return; // Skip non-publishing accounts like Canva
               const m = (p?.name || '').match(/\(([^)]+)\)/);
               const company = m && m[1] ? m[1].trim() : '—';
-              const pKey = getPlatformKey(p?.name);
               if (!matrix[company]) matrix[company] = {};
               if (!matrix[company][pKey]) matrix[company][pKey] = { followers: 0, engagement: 0 };
               matrix[company][pKey].followers  += Number(p.followers || 0);
