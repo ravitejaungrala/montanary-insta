@@ -129,6 +129,19 @@ def _active_dna(user, product_name: Optional[str]) -> dict:
 
 
 
+@router.get("/debug-env")
+async def debug_env():
+    import os
+    from core.config import BASE_URL, FACEBOOK_REDIRECT_URI, PUBLIC_URL
+    return {
+        "BASE_URL": BASE_URL,
+        "FACEBOOK_REDIRECT_URI": FACEBOOK_REDIRECT_URI,
+        "PUBLIC_URL": PUBLIC_URL,
+        "os_environ_FACEBOOK_REDIRECT_URI": os.environ.get("FACEBOOK_REDIRECT_URI"),
+        "os_environ_BASE_URL": os.environ.get("BASE_URL"),
+    }
+
+
 @router.get("/config/image-styles")
 async def get_image_styles():
     """Return the visual style catalog for the CampaignBrief Style chip.
