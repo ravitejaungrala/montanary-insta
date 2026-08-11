@@ -145,6 +145,49 @@ const EditScheduledModal = ({ post, user, onSave, onCancel }) => {
                     </div>
                   </div>
                 </div>
+
+                {/* Media Preview */}
+                {post.image_url && (() => {
+                  const isVideo = post.media_type === 'video' || /\.(mp4|mov|webm|m4v|avi)(\?|$)/i.test(post.image_url || '');
+                  const isDoc = isDocumentMedia(post);
+                  return (
+                    <div className="p-6 bg-white rounded-2xl border-2 border-slate-350">
+                      <label className="text-[10px] font-semibold uppercase tracking-widest text-slate-400 mb-3 block">Media Preview</label>
+                      <div className="h-44 rounded-xl overflow-hidden bg-slate-50 border border-slate-200 relative flex items-center justify-center">
+                        {isDoc ? (
+                          post.thumbnail_url ? (
+                            <img
+                              src={post.thumbnail_url}
+                              alt="Carousel cover"
+                              className="w-full h-full object-contain"
+                            />
+                          ) : (
+                            <PdfThumbnail
+                              src={post.image_url}
+                              page={1}
+                              className="w-full h-full bg-white"
+                              alt="Carousel cover"
+                            />
+                          )
+                        ) : isVideo ? (
+                          <video
+                            src={post.image_url}
+                            controls
+                            preload="metadata"
+                            playsInline
+                            className="w-full h-full object-contain bg-slate-900"
+                          />
+                        ) : (
+                          <img
+                            src={post.image_url}
+                            alt="Post preview"
+                            className="w-full h-full object-contain"
+                          />
+                        )}
+                      </div>
+                    </div>
+                  );
+                })()}
               </div>
             </div>
           </div>
