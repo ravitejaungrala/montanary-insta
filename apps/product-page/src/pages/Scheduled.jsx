@@ -305,6 +305,7 @@ const Scheduled = ({ authAxios, connections, user, posts: scheduledPosts, setPos
         content: post.content,
         image_url: post.image_url,
         targets: post.targets,
+        media_type: post.media_type,
       });
       posted = true;
       await authAxios.delete(`/scheduled/${post.id}`);
