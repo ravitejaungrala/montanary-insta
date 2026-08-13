@@ -1070,13 +1070,14 @@ const App = () => {
       video:    { prefix: 'video/',           label: 'a video (MP4, MOV, WebM)' },
       document: { exact:  'application/pdf',  label: 'a PDF document' },
     };
-    const expect = mimeExpectations[postType];
+    const currentPostType = activeTab === 'agent-post' ? dashboardPostType : (postType || 'image');
+    const expect = mimeExpectations[currentPostType];
     if (expect) {
       const ok = expect.exact
         ? file.type === expect.exact
         : file.type.startsWith(expect.prefix);
       if (!ok) {
-        const modeLabel = String(postType).charAt(0).toUpperCase() + String(postType).slice(1);
+        const modeLabel = String(currentPostType).charAt(0).toUpperCase() + String(currentPostType).slice(1);
         setMessage(`${modeLabel} Mode expects ${expect.label}. You picked a ${file.type || 'file with unknown type'} — pick a different file.`);
         try { e.target.value = ''; } catch (_e) {}
         return;
