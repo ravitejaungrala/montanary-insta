@@ -1607,8 +1607,8 @@ def instagram_post_reel(ig_user_id, token, video_url, caption=""):
         return None, "IG container create returned no id"
 
     status_url = f"https://graph.facebook.com/v19.0/{container_id}"
-    for _ in range(30):
-        time.sleep(2)
+    for _ in range(45):
+        time.sleep(4)
         sr = requests.get(status_url, params={"fields": "status_code", "access_token": token}, timeout=30)
         if sr.status_code != 200:
             continue
